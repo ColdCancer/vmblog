@@ -1,9 +1,3 @@
-import com.demo.pojo.Blogger;
-import com.demo.service.BloggerService;
-import com.demo.service.BloggerServiceImpl;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 public class MyTest {
     public static void main(String[] args) {
 //        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");

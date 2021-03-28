@@ -1,7 +1,8 @@
-package com.demo.service;
+package com.demo.service.impl;
 
 import com.demo.dao.BloggerMapper;
 import com.demo.pojo.Blogger;
+import com.demo.service.BloggerService;
 
 public class BloggerServiceImpl implements BloggerService {
     private BloggerMapper bloggerMapper;

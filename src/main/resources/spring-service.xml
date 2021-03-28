@@ -11,7 +11,11 @@
     <context:component-scan base-package="com.demo.service"/>
 
 <!--    将所有业务类注入到Spring-->
-    <bean id="bloggerServiceImpl" class="com.demo.service.BloggerServiceImpl">
+    <bean id="bloggerServiceImpl" class="com.demo.service.impl.BloggerServiceImpl">
+        <property name="bloggerMapper" ref="bloggerMapper"/>
+    </bean>
+
+    <bean id="visitorServiceImpl" class="com.demo.service.impl.VisitorServiceImpl">
         <property name="bloggerMapper" ref="bloggerMapper"/>
     </bean>
 
