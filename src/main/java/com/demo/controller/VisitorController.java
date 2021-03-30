@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/{blogger}")
+//@RequestMapping("/{name}")
 public class VisitorController {
     @Autowired()
     @Qualifier("visitorServiceImpl")
@@ -18,23 +18,24 @@ public class VisitorController {
     private String name;
     private boolean visitorFlag;
 
-    @ModelAttribute()
-    public void getBloggerNameByVisitor(@PathVariable("blogger") String blogger) {
-        this.visitorFlag = visitorService.existBlogger(blogger);
-        if (this.visitorFlag) {
-            this.name = blogger;
-        }
+    @RequestMapping("/{name}/home")
+    public String redirectBloogerHome(@PathVariable("name") String name) {
+        return "blogger-home";
     }
 
-//    @RequestMapping("/article")
-//    public String getAticleDefaultList() {
-//        return "./article.html";
-//    }
+    @RequestMapping("/{name}/article")
+    public String redirectBloogerArticle(@PathVariable("name") String name) {
+        return "blogger-article";
+    }
 
-//    @RequestMapping("/")
-//    public String aaa() {
-//        if (!visitorFlag) return "../404.html";
-//        else return "../index.html";
-//    }
+    @RequestMapping("/{name}/link")
+    public String redirectBloogerLink(@PathVariable("name") String name) {
+        return "blogger-link";
+    }
+
+    @RequestMapping("/{name}/about")
+    public String redirectBloogerAbout(@PathVariable("name") String name) {
+        return "blogger-about";
+    }
 
 }
