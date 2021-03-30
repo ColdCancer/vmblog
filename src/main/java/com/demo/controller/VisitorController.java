@@ -4,13 +4,10 @@ import com.demo.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//@RequestMapping("/{name}")
 public class VisitorController {
     @Autowired()
     @Qualifier("visitorServiceImpl")
@@ -18,24 +15,25 @@ public class VisitorController {
     private String name;
     private boolean visitorFlag;
 
-    @RequestMapping("/{name}/home")
-    public String redirectBloogerHome(@PathVariable("name") String name) {
-        return "blogger-home";
+    @RequestMapping("/{account}/home")
+    public String redirectBloogerHome(@PathVariable("account") String account) {
+        return visitorService.existBlogger(account) ? "blogger-home" : "404";
     }
 
-    @RequestMapping("/{name}/article")
-    public String redirectBloogerArticle(@PathVariable("name") String name) {
-        return "blogger-article";
+    @RequestMapping("/{account}/article")
+    public String redirectBloogerArticle(@PathVariable("account") String account) {
+        return visitorService.existBlogger(account) ? "blogger-article" : "404";
     }
 
-    @RequestMapping("/{name}/link")
-    public String redirectBloogerLink(@PathVariable("name") String name) {
-        return "blogger-link";
+    @RequestMapping("/{account}/link")
+    public String redirectBloogerLink(@PathVariable("account") String account) {
+        return visitorService.existBlogger(account) ? "blogger-link" : "404";
     }
 
-    @RequestMapping("/{name}/about")
-    public String redirectBloogerAbout(@PathVariable("name") String name) {
-        return "blogger-about";
+    @RequestMapping("/{account}/about")
+    public String redirectBloogerAbout(@PathVariable("account") String account) {
+        return visitorService.existBlogger(account) ? "blogger-about" : "404";
     }
+
 
 }
