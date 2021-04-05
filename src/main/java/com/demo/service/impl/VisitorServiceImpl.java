@@ -14,4 +14,9 @@ public class VisitorServiceImpl implements VisitorService {
         Blogger blogger = bloggerMapper.selectByAccount(account);
         return blogger != null;
     }
+
+    @Override
+    public Blogger getBloggerByAccount(String account) {
+        return bloggerMapper.selectByAccount(account);
+    }
 }

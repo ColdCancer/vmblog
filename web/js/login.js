@@ -20,6 +20,6 @@ $(function () {
                     // $('#login-info').html('账号、密码错误！').css('color', 'red');
                 }
             }
-        })
-    })
-})
+        });
+    });
+});
