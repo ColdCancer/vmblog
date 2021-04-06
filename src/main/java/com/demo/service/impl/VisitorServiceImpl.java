@@ -29,9 +29,6 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override
     public List<Article> getAllArticleByAccount(String account) {
-        List<Article> articles = articleMapper.selectByAccount(account);
-        if (articles == null) articles = new ArrayList<Article>();
-        System.out.println(articles.size());
-        return articles;
+        return articleMapper.selectByAccount(account);
     }
 }

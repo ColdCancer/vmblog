@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,7 @@ public class VisitorController {
     @Autowired()
     @Qualifier("visitorServiceImpl")
     private VisitorService visitorService;
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     /*===============About Visitor to access a blog home===============*/
     @RequestMapping("/{account}/home")
@@ -52,14 +53,6 @@ public class VisitorController {
         /*About Web message*/
 
         return mapper.writeValueAsString(message);
-//        try {
-//            String result = mapper.writeValueAsString(message);
-//            System.out.println(result);
-//            return mapper.writeValueAsString(message);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
     }
 
     /*==============About Visitor to access a blog article=============*/
@@ -72,13 +65,17 @@ public class VisitorController {
     @GetMapping(value="/{account}/article/getMessageInArticle", produces="application/json; charset=utf-8")
     @ResponseBody
     public String getMessageInArticle(@PathVariable("account") String account) {
-        System.out.println("debug: " + account);
         List<HashMap<String, String>> articlesJson = new ArrayList<HashMap<String, String>>();
         List<Article> articles = visitorService.getAllArticleByAccount(account);
-        if (articles != null) {
-            for(Article article : articles) {
-                System.out.println(article.getName());
-            }
+        for(Article article : articles) {
+//            System.out.println(article.getName());
+            HashMap<String, String> articleJson = new HashMap<String, String>();
+            articleJson.put("article-id", article.getId());
+            articleJson.put("article-grade", Integer.toString(article.getGrade()));
+            articleJson.put("article-title", article.getTitle());
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            articleJson.put("article-release", format.format(article.getPost_time()));
+            articlesJson.add(articleJson);
         }
         return mapper.writeValueAsString(articlesJson);
     }

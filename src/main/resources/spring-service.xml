@@ -17,6 +17,7 @@
 
     <bean id="visitorServiceImpl" class="com.demo.service.impl.VisitorServiceImpl">
         <property name="bloggerMapper" ref="bloggerMapper"/>
+        <property name="articleMapper" ref="articleMapper"/>
     </bean>
 
 <!--    事务配置-->

@@ -10,7 +10,7 @@ $(function () {
         type: 'get',
         dataType: 'json',
         success: function (data) {
-            alert("debug");
+            // alert("debug");
         }
     });
 });
