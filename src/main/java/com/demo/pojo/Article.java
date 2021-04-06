@@ -12,6 +12,8 @@ import java.util.Date;
 public class Article {
     private String id;
     private String account;
+    private int grade;
+    private String title;
     private String name;
     private Date post_time;
 }

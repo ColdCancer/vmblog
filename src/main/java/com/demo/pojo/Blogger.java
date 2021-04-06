@@ -13,6 +13,10 @@ public class Blogger {
     private String password;
     private String name;
     private String sex;
+    private String birthplace;
+    private String education;
+    private String position;
+    private String talk;
     private int age;
     private String email;
     private Date register;

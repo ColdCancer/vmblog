@@ -23,6 +23,7 @@
 
     <mappers>
         <mapper class="com.demo.dao.BloggerMapper"/>
+        <mapper class="com.demo.dao.ArticleMapper"/>
     </mappers>
 
 </configuration>

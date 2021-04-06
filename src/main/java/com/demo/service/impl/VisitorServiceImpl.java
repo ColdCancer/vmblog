@@ -1,13 +1,20 @@
 package com.demo.service.impl;
 
+import com.demo.dao.ArticleMapper;
 import com.demo.dao.BloggerMapper;
+import com.demo.pojo.Article;
 import com.demo.pojo.Blogger;
 import com.demo.service.VisitorService;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 @Data
 public class VisitorServiceImpl implements VisitorService {
     private BloggerMapper bloggerMapper;
+    private ArticleMapper articleMapper;
 
     @Override
     public boolean existBlogger(String account) {
@@ -18,5 +25,13 @@ public class VisitorServiceImpl implements VisitorService {
     @Override
     public Blogger getBloggerByAccount(String account) {
         return bloggerMapper.selectByAccount(account);
+    }
+
+    @Override
+    public List<Article> getAllArticleByAccount(String account) {
+        List<Article> articles = articleMapper.selectByAccount(account);
+        if (articles == null) articles = new ArrayList<Article>();
+        System.out.println(articles.size());
+        return articles;
     }
 }
