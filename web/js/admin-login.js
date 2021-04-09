@@ -14,7 +14,7 @@ $(function () {
             dataType: 'text',
             success:function (data) {
                 if (data === 'true') {
-                    location.href = 'admin-manage.html'
+                    location.href = 'dashboard';
                 } else {
                     alert('账号、密码错误！');
                     // $('#login-info').html('账号、密码错误！').css('color', 'red');

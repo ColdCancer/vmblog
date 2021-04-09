@@ -35,9 +35,11 @@ public class VisitorController {
 
     private static final byte[] bytes = new byte[512];
 
-    /*About Visitor to access blog web index*/
-//    @GetMapping("/")
-//    public String jump
+    /*=============About Visitor to access blog web index==============*/
+    @GetMapping("/")
+    public String jumpWebIndex() {
+        return "index";
+    }
 
     /*===============About Visitor to access a blog home===============*/
     @GetMapping("/{account}/home")
