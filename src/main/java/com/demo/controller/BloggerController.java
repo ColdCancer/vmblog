@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @Controller
-//@RequestMapping("/admin")
 public class BloggerController {
     @Autowired()
     @Qualifier("bloggerServiceImpl")
@@ -18,7 +17,11 @@ public class BloggerController {
     /*===============About admin to login this web site==============*/
     @GetMapping("/admin/login.html")
     public String redirectWebAdminLogin() {
-        return "redirect:/admin/admin-login";
+        return "redirect:/admin/login";
+    }
+    @GetMapping("/admin/login")
+    public String forewordWebAdminLogin() {
+        return "admin-login";
     }
 
     /*about a account check of the login*/
@@ -38,12 +41,6 @@ public class BloggerController {
     @GetMapping("/admin/dashboard")
     public String forewordAdminDashboard() {
         return "admin-dashboard";
-    }
-
-    /*==================About foreword article web====================*/
-    @GetMapping("/admin/article")
-    public String forewordAdminArticle() {
-        return "admin-article";
     }
 
     /*==================About foreword classify web====================*/

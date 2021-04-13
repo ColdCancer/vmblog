@@ -23,10 +23,38 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <p>Debug</p>
+      <div class="jumbotron">
+        <span>Your article are a total of posting about</span>
+        <span class="font-weight-bold text-primary" id="article-count">999</span>
+        <span>, and the time is</span>
+        <span class="font-weight-bold text-primary" id="article-last">20-2-2</span>
+        <span>last posting.</span>
+        <hr class="my-3">
+        <span class="lead">Then, You will can operate each article or ...</span>
+        <a class="btn btn-primary float-right" href="#">New Article</a>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Operate</th>
+            <th scope="col">Operate</th>
+          </tr>
+        </thead>
+        <tbody id="article-list">
+          <tr>
+            <th scope="row">1</th>
+            <td>Hello World</td>
+            <td><a class="btn btn-warning" href="#">更改</a></td>
+            <td><a class="btn btn-danger" href="#">删除</a></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
-
+<script type="text/javascript" src="../../vendor/jquery/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../js/admin-article.js"></script>
 </body>
 </html>
