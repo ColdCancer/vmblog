@@ -7,6 +7,7 @@ import com.demo.pojo.Blogger;
 import com.demo.service.BloggerService;
 import com.demo.util.PLog;
 
+import java.util.Date;
 import java.util.List;
 
 public class BloggerServiceImpl implements BloggerService {
@@ -28,8 +29,14 @@ public class BloggerServiceImpl implements BloggerService {
     }
 
     @Override
+    public Article getReccentPostArticle(String account) {
+        List<Article> articleSet = articleMapper.selectFirstPostArticle(account);
+        return articleSet.get(0);
+    }
+
+    @Override
     public List<Article> getArticleByAccount(String account) {
-        PLog.d(account);
+//        PLog.d(account);
         return articleMapper.selectByAccount(account);
     }
 

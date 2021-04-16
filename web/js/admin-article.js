@@ -15,13 +15,16 @@ $(function () {
         type: 'get',
         dataType: 'json',
         success: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                var title = data[i].title;
-                var src = data[i].src;
-                var html = "<tr>\n<th scope=\"row\">{0}</th>\n<td>{1}</td>\n" +
-                    "<td><a class=\"btn btn-warning\" href=\"{2}/updata\">更改</a></td>\n" +
-                    "<td><a class=\"btn btn-danger\" href=\"{2}/delete\">删除</a></td>\n</tr>";
-                html = String.format(html, i + 1, title, src);
+            $('#article-count').html(data.total);
+            $('#article-last').html(data.reccent);
+            for (var i = 0; i < data.article.length; i++) {
+                var title = data.article[i].title;
+                var time = data.article[i].time;
+                var src = data.article[i].src;
+                var html = "<tr>\n<th scope=\"row\">{0}</th>\n<td>{1}</td>\n<td>{2}</td>\n" +
+                    "<td><a class=\"btn btn-warning\" href=\"{3}/updata\">更改</a></td>\n" +
+                    "<td><a class=\"btn btn-danger\" href=\"{3}/delete\">删除</a></td>\n</tr>";
+                html = String.format(html, i + 1, title, time, src);
                 $('#article-list').append(html);
             }
         }
