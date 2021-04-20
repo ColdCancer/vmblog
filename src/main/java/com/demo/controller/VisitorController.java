@@ -41,6 +41,11 @@ public class VisitorController {
         return "index";
     }
 
+    @GetMapping("/coding")
+    public String jumpWebCoding() {
+        return "coding";
+    }
+
     /*===============About Visitor to access a blog home===============*/
     @GetMapping("/{account}/home")
     public String CheckBloogerHome(@PathVariable("account") String account) {

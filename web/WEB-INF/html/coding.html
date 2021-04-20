@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link type="text/css" rel="stylesheet" href="/codemirror/lib/codemirror.css">
+  <title>Title</title>
+</head>
+<body>
+<textarea class="form-control" id="code" name="code"></textarea>
+<script type="text/javascript" src="/codemirror/lib/codemirror.js"></script>
+<script type="text/javascript">
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        mode: "text/x-c++src",    //实现groovy代码高亮
+        // mode: "text/x-java", //实现Java代码高亮
+        // theme: "dracula",	//设置主题
+        lineNumbers: true,	//显示行号
+        // indentUnit: 4, //缩进单位
+        // lineWrapping: true,	//代码折叠
+        // foldGutter: true,
+        // gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+        // matchBrackets: true,	//括号匹配
+//readOnly: true,        //只读
+    });
+</script>
+</body>
+</html>
