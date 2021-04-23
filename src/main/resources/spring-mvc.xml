@@ -17,7 +17,17 @@
     <mvc:resources mapping="/editor/**" location="/WEB-INF/static/editor/"/>
     <mvc:resources mapping="/editor/css/**" location="/WEB-INF/static/editor/css/"/>
     <mvc:resources mapping="/editor/lib/**" location="/WEB-INF/static/editor/lib/"/>
+
     <mvc:resources mapping="/codemirror/lib/**" location="/WEB-INF/static/editor/lib/codemirror/lib/"/>
+    <mvc:resources mapping="/codemirror/mode/clike/**" location="/WEB-INF/static/editor/lib/codemirror/mode/clike/"/>
+    <mvc:resources mapping="/codemirror/theme/**" location="/WEB-INF/static/editor/lib/codemirror/theme/"/>
+    <mvc:resources mapping="/codemirror/addon/selection/**" location="/WEB-INF/static/editor/lib/codemirror/addon/selection/"/>
+
+    <mvc:resources mapping="/bootstrap/css/**" location="/vendor/bootstrap/css/"/>
+    <mvc:resources mapping="/jquery/js/**" location="/vendor/jquery/js/"/>
+
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
     <!--    扫描包：controller-->
     <context:component-scan base-package="com.demo.controller"/>
 <!--    <context:component-scan base-package="com.demo.service"/>-->

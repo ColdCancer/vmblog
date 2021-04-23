@@ -41,9 +41,24 @@ public class VisitorController {
         return "index";
     }
 
+    @GetMapping("/home")
+    public String jumpWebHome() {
+        return "index";
+    }
+
     @GetMapping("/coding")
     public String jumpWebCoding() {
         return "coding";
+    }
+
+    @GetMapping("/chet")
+    public String jumpWebChet() {
+        return "chet";
+    }
+
+    @GetMapping("/about")
+    public String jumpWebAbout() {
+        return "about";
     }
 
     /*===============About Visitor to access a blog home===============*/
@@ -55,7 +70,6 @@ public class VisitorController {
     public String redirectBloogerHome(@PathVariable("account") String account) {
         return "redirect:/" + account + "/home";
     }
-
 
     /*About ajax of home.html get a total of message*/
     @SneakyThrows
