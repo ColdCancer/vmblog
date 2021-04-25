@@ -23,6 +23,8 @@
     <mvc:resources mapping="/codemirror/theme/**" location="/WEB-INF/static/editor/lib/codemirror/theme/"/>
     <mvc:resources mapping="/codemirror/addon/selection/**" location="/WEB-INF/static/editor/lib/codemirror/addon/selection/"/>
 
+    <mvc:resources mapping="/code/pattern/**" location="/WEB-INF/code/pattern/"/>
+
     <mvc:resources mapping="/bootstrap/css/**" location="/vendor/bootstrap/css/"/>
     <mvc:resources mapping="/jquery/js/**" location="/vendor/jquery/js/"/>
 

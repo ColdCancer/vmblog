@@ -35,25 +35,26 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-12">
-      <textarea id="code" name="code">
-#include <iostream>
-using namespace std;
-int main() {
-    int a, b;
-    cin >> a >> b;
-    for (int i = 0; i < a; i++) {
-        cout << b * b << endl;
-    }
-    return 0;
-}
-      </textarea>
+      <textarea id="code" name="code"></textarea>
     </div>
   </div>
 </div>
+<script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/codemirror/lib/codemirror.js"></script>
 <script type="text/javascript" src="/codemirror/mode/clike/clike.js"></script>
 <script type="text/javascript" src="/codemirror/addon/selection/active-line.js"></script>
 <script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: '/coding/loadingPattern',
+            data: {'codeType': 'cpp'},
+            type: 'get',
+            dataType: 'text',
+            success:function (data) {
+                $('#code').html(data);
+            }
+        })
+    })
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         // mode: "text/x-c++src",    //实现groovy代码高亮
         mode: "text/x-c++src", //实现Java代码高亮

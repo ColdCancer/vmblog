@@ -50,6 +50,11 @@ public class VisitorController {
     public String jumpWebCoding() {
         return "coding";
     }
+    @GetMapping("/coding/loadingPattern")
+    @ResponseBody
+    public String loadingPattern() {
+        return "Debug";
+    }
 
     @GetMapping("/chet")
     public String jumpWebChet() {
