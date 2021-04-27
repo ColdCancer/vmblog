@@ -2,20 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
   <link type="text/css" rel="stylesheet" href="/editor/css/editormd.min.css">
   <title>Title</title>
 </head>
 <body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="input-group my-3">
+          <div class="input-group-append">
+            <span class="input-group-text">标题：</span>
+          </div>
+          <input type="text" class="form-control" id="article-title">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group my-3">
+          <div class="input-group-append">
+            <span class="input-group-text">发布时间：</span>
+          </div>
+          <input type="datetime-local" class="form-control" id="article-time">
+        </div>
+      </div>
+    <div class="col-md-1">
+        <div class="input-group my-3">
+          <button type="submit" class="btn btn-primary" id="btn-submit">发布</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="editor">
     <textarea style="display: none;">### Hello Wrold.md !</textarea>
   </div>
-  <script type="text/javascript" src="../../vendor/jquery/js/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="/editor/editormd.min.js"></script>
+  <script type="text/javascript" src="/js/admin-article-new.js"></script>
   <script type="text/javascript">
       $(function() {
           var editor = editormd("editor", {
               // width: "100%",
-              // height: "100%",
+              height: "620px",
               // markdown: "xxxx",     // dynamic set Markdown text
               path : "/editor/lib/"  // Autoload modules mode, codemirror, marked... dependents libs path
           });

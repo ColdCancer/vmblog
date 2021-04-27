@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,4 +71,10 @@ public class ArticleController {
         return "admin-article-new";
     }
 
+    @PutMapping("/admin/article/new/postArticle")
+    @ResponseBody
+    public boolean postArticle(HttpSession session, String title, String time, String content) {
+
+        return true;
+    }
 }
