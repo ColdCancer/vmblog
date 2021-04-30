@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -65,16 +66,22 @@ public class ArticleController {
         return mapper.writeValueAsString(message);
     }
 
-    /*==================About article page message====================*/
+    /*==================About add new article page====================*/
     @GetMapping("/admin/article/new")
     public String ForewordNewPage() {
         return "admin-article-new";
     }
 
-    @PutMapping("/admin/article/new/postArticle")
+    @SneakyThrows
+    @PostMapping("/admin/article/new/postArticle")
     @ResponseBody
-    public boolean postArticle(HttpSession session, String title, String time, String content) {
-
-        return true;
+    public String postArticle(HttpSession session, String title, String time, String content) {
+        HashMap<String, Boolean> jsonData = new HashMap<String, Boolean>();
+//        System.out.println(title + "\n" + time + "\n" + content);
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
+        boolean flag = bloggerService.postArticle(blogger.getAccount(), title, time, content);
+        jsonData.put("result", flag);
+        final ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(jsonData);
     }
 }

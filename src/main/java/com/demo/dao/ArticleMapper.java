@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface ArticleMapper {
-    public List<Article> selectByAccount(String account);
-    public List<Article> selectFirstPostArticle(String account);
+    List<Article> selectByAccount(String account);
+    List<Article> selectFirstPostArticle(String account);
+    boolean insertArticle(Article article);
 }

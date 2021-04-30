@@ -7,8 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 public interface BloggerService {
-    public boolean checkBlogger(String account, String password);
-    public Blogger getBloggerByAccount(String account);
-    public List<Article> getArticleByAccount(String account);
-    public Article getReccentPostArticle(String account);
+    boolean checkBlogger(String account, String password);
+    Blogger getBloggerByAccount(String account);
+    List<Article> getArticleByAccount(String account);
+    Article getReccentPostArticle(String account);
+    boolean postArticle(String account, String title, String time, String content);
 }

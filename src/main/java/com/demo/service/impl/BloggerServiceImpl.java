@@ -6,6 +6,7 @@ import com.demo.pojo.Article;
 import com.demo.pojo.Blogger;
 import com.demo.service.BloggerService;
 import com.demo.util.PLog;
+import com.demo.util.Tools;
 
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,15 @@ public class BloggerServiceImpl implements BloggerService {
     public boolean checkBlogger(String account, String password) {
         Blogger blogger = bloggerMapper.selectByAccount(account);
         return blogger != null && blogger.getPassword().equals(password);
+    }
+
+    @Override
+    public boolean postArticle(String account, String title, String time, String content) {
+        time = time.replace('T', ' ');
+        String id = Tools.consequncedIndex(articleMapper.countByAccount());
+        String name = Tools.randomString(20);
+        Article article = new Article(id, account, 5, title, name, new Date(time));
+        return Tools.buildFile() && articleMapper.insertArticle(article);
     }
 
     @Override
