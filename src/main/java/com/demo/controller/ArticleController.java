@@ -57,7 +57,7 @@ public class ArticleController {
             HashMap<String, String> articleJson = new HashMap<String, String>();
             articleJson.put("title", article.getTitle());
             articleJson.put("time", article.getPost_time().toString());
-            articleJson.put("src", article.getName());
+            articleJson.put("src", article.getId());
             articleList.add(articleJson);
         }
         message.put("article", articleList);
@@ -77,9 +77,9 @@ public class ArticleController {
     @ResponseBody
     public String postArticle(HttpSession session, String title, String time, String content) {
         HashMap<String, Boolean> jsonData = new HashMap<String, Boolean>();
-//        System.out.println(title + "\n" + time + "\n" + content);
         Blogger blogger = (Blogger) session.getAttribute("blogger");
         boolean flag = bloggerService.postArticle(blogger.getAccount(), title, time, content);
+//        System.out.println(title + "\n" + time + "\n" + content);
         jsonData.put("result", flag);
         final ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(jsonData);

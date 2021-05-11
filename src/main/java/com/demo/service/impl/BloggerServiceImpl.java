@@ -7,7 +7,9 @@ import com.demo.pojo.Blogger;
 import com.demo.service.BloggerService;
 import com.demo.util.PLog;
 import com.demo.util.Tools;
+import lombok.SneakyThrows;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -29,13 +31,16 @@ public class BloggerServiceImpl implements BloggerService {
         return blogger != null && blogger.getPassword().equals(password);
     }
 
+    @SneakyThrows
     @Override
     public boolean postArticle(String account, String title, String time, String content) {
         time = time.replace('T', ' ');
-        String id = Tools.consequncedIndex(articleMapper.countByAccount());
-        String name = Tools.randomString(20);
-        Article article = new Article(id, account, 5, title, name, new Date(time));
-        return Tools.buildFile() && articleMapper.insertArticle(article);
+//        String id = Tools.consequncedIndex(articleMapper.countByAccount(account));
+        String id = Tools.randomString(20);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Article article = new Article(id, account, 5, title, simpleDateFormat.parse(time));
+        int count = articleMapper.countByIdAndAccount(article);
+        return count == 0 && articleMapper.insertArticle(article);
     }
 
     @Override

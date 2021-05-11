@@ -132,7 +132,7 @@ public class VisitorController {
             articleJson.put("article-release", format.format(article.getPost_time()));
 
             /*about article a lot of content*/
-            String filePaht = String.format("\\%s\\%s.md", account, article.getName());
+            String filePaht = String.format("\\%s\\%s.md", account, article.getId());
             File articleFile = new File(basePath + filePaht);
             new FileInputStream(articleFile).read(bytes);
             articleJson.put("article-content", new String(bytes));

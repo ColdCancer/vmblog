@@ -18,7 +18,9 @@ $(function () {
             type: 'post',
             dataType: 'text',
             success:function (data) {
-                if (data === 'true') {
+                alert(data['result']);
+
+                if (data['result']) {
                     alert('debug');
                 } else {
                     alert('账号、密码错误！');
