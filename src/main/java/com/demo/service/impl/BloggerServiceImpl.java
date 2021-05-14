@@ -9,6 +9,7 @@ import com.demo.util.PLog;
 import com.demo.util.Tools;
 import lombok.SneakyThrows;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -36,11 +37,15 @@ public class BloggerServiceImpl implements BloggerService {
     public boolean postArticle(String account, String title, String time, String content) {
         time = time.replace('T', ' ');
 //        String id = Tools.consequncedIndex(articleMapper.countByAccount(account));
-        String id = Tools.randomString(20);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Article article = new Article(id, account, 5, title, simpleDateFormat.parse(time));
-        int count = articleMapper.countByIdAndAccount(article);
-        return count == 0 && articleMapper.insertArticle(article);
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        System.out.println(id);
+        String id = Tools.randomString(10);
+        Article article = new Article(id, account, 5, title, Timestamp.valueOf(time));
+        while (articleMapper.countByIdAndAccount(article) != 0) {
+            article.setId(Tools.randomString(10));
+        }
+//        int count = articleMapper.countByIdAndAccount(article);
+        return Tools.buildFile(account, id, content) && articleMapper.insertArticle(article);
     }
 
     @Override

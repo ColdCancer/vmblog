@@ -28,6 +28,7 @@ public class BloggerController {
     @PostMapping("/admin/checkBloggerByForm")
     @ResponseBody
     public String checkBloggerByForm(HttpSession session, String account, String password) {
+//        System.out.println(account + "\n" +  password);
         boolean flag = bloggerService.checkBlogger(account, password);
         if (flag) {
             session.setAttribute("blogger", bloggerService.getBloggerByAccount(account));

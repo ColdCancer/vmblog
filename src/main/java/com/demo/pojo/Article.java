@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -17,5 +17,5 @@ public class Article {
     private int grade;
     private String title;
 //    private String name;
-    private Date post_time;
+    private Timestamp post_time;
 }

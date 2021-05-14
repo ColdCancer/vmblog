@@ -12,14 +12,15 @@
     </select>
 
     <insert id="insertArticle" parameterType="com.demo.pojo.Article">
-        insert into article values (#{id}, #{account}, #{grade}, #{title}, #{post_time});
+        insert into article(id, account, title, post_time)
+         values (#{id}, #{account}, #{title}, #{post_time});
     </insert>
 
     <select id="countByAccount" resultType="java.lang.Integer">
         select count(*) from article where account=#{account};
     </select>
 
-    <select id="countByIdAndAccount" resultMap="java.lang.Integer">
+    <select id="countByIdAndAccount" resultType="java.lang.Integer">
         select count(*) from article where id=#{id} and account=#{account};
     </select>
 </mapper>
