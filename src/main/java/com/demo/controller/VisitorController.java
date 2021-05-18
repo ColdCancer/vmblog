@@ -4,6 +4,7 @@ import com.demo.pojo.Article;
 import com.demo.pojo.Blogger;
 import com.demo.service.VisitorService;
 import com.demo.util.ControllerTools;
+import com.demo.util.Tools;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -120,6 +121,7 @@ public class VisitorController {
         List<HashMap<String, String>> articlesJson = new ArrayList<HashMap<String, String>>();
         List<Article> articles = visitorService.getAllArticleByAccount(account);
 
+        Tools.log("" + articles.size());
         /*deal with all article and add JsonList*/
         for(Article article : articles) {
             HashMap<String, String> articleJson = new HashMap<String, String>();
@@ -133,9 +135,14 @@ public class VisitorController {
 
             /*about article a lot of content*/
             String filePaht = String.format("\\%s\\%s.md", account, article.getId());
-            File articleFile = new File(basePath + filePaht);
-            new FileInputStream(articleFile).read(bytes);
-            articleJson.put("article-content", new String(bytes));
+
+            try {
+                File articleFile = new File(basePath + filePaht);
+                new FileInputStream(articleFile).read(bytes);
+                articleJson.put("article-content", new String(bytes));
+            } catch (Exception e) {
+                Tools.log(article.getId() + " post failure");
+            }
 
             /*add a article all meesage*/
             articlesJson.add(articleJson);

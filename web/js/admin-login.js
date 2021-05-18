@@ -12,7 +12,7 @@ $(function () {
             data: {'account': $account, 'password': $password},
             type: 'post',
             dataType: 'text',
-            success:function (data) {
+            success: function (data) {
                 if (data === 'true') {
                     location.href = 'dashboard';
                 } else {

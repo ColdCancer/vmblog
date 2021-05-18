@@ -16,14 +16,13 @@ $(function () {
             url: '/admin/article/new/postArticle',
             data: {'title': $title, 'time': $time, 'content': $content},
             type: 'post',
-            dataType: 'text',
-            success:function (data) {
-                alert(data['result']);
-
-                if (data['result']) {
-                    alert('debug');
+            dataType: 'json',
+            success: function (data) {
+                // alert(data['result']);
+                if (data['result'] === true) {
+                    alert('发布成功！');
                 } else {
-                    alert('账号、密码错误！');
+                    alert('发布失败！');
                 }
             }
         })

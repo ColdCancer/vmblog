@@ -56,7 +56,6 @@ public class BloggerServiceImpl implements BloggerService {
 
     @Override
     public List<Article> getArticleByAccount(String account) {
-//        PLog.d(account);
         return articleMapper.selectByAccount(account);
     }
 

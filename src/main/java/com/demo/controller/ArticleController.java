@@ -4,6 +4,7 @@ import com.demo.pojo.Article;
 import com.demo.pojo.Blogger;
 import com.demo.service.BloggerService;
 import com.demo.util.PLog;
+import com.demo.util.Tools;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,12 +76,14 @@ public class ArticleController {
     @SneakyThrows
     @PostMapping("/admin/article/new/postArticle")
     @ResponseBody
-    public String postArticle(HttpSession session, String title, String time, String content) {
+    public String postArticle(HttpServletRequest request, HttpSession session, String title, String time, String content) {
         HashMap<String, Boolean> jsonData = new HashMap<String, Boolean>();
         Blogger blogger = (Blogger) session.getAttribute("blogger");
         boolean flag = bloggerService.postArticle(blogger.getAccount(), title, time, content);
 //        System.out.println(title + "\n" + time + "\n" + content);
         jsonData.put("result", flag);
+//        String path = getClass().getResource("/").getPath();
+//        Tools.log(path);
         final ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(jsonData);
     }
