@@ -6,10 +6,6 @@ import java.util.Random;
 
 public class Tools {
 
-    static public void log(String message) {
-        System.out.println("[*] ==> " + message);
-    }
-
     static public String randomString(int length) {
         Random random = new Random();
         StringBuilder result = new StringBuilder();
@@ -27,14 +23,12 @@ public class Tools {
         path = path.substring(1, path.length() - 8);
         path = path + "article/" + account + "/" + id + ".md";
 
-        Tools.log(path);
         try {
             FileWriter fileWriter = new FileWriter(path);
             fileWriter.write(content);
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
-            Tools.log("文件写入失败！");
             return false;
         }
 

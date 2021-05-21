@@ -18,7 +18,7 @@ $(function () {
                 html += "<a href=\"#\" class=\"btn btn-primary float-right\">Read More &rarr;</a>";
                 html += "</div><div class=\"card-footer text-muted\">";
                 html += "Post On " + data[index]['article-release'] + " by ";
-                html += "<a href=\"#\">Start Bootstrap</a></div></div>";
+                html += "<a href=\"#\">" + blogger + "</a></div></div>";
                 $('#post-article').append(html);
             }
         }

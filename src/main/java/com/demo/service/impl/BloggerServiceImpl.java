@@ -36,15 +36,11 @@ public class BloggerServiceImpl implements BloggerService {
     @Override
     public boolean postArticle(String account, String title, String time, String content) {
         time = time.replace('T', ' ');
-//        String id = Tools.consequncedIndex(articleMapper.countByAccount(account));
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        System.out.println(id);
         String id = Tools.randomString(10);
         Article article = new Article(id, account, 5, title, Timestamp.valueOf(time));
         while (articleMapper.countByIdAndAccount(article) != 0) {
             article.setId(Tools.randomString(10));
         }
-//        int count = articleMapper.countByIdAndAccount(article);
         return Tools.buildFile(account, id, content) && articleMapper.insertArticle(article);
     }
 

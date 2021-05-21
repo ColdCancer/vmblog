@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class BloggerController {
+public class AdminController {
     @Autowired()
     @Qualifier("bloggerServiceImpl")
     private BloggerService bloggerService;
@@ -21,10 +21,10 @@ public class BloggerController {
     }
     @GetMapping("/admin/login")
     public String forewordWebAdminLogin() {
-        return "admin-login";
+        return "admin/admin-login";
     }
 
-    /*about a account check of the login*/
+    /*==============About a account check of the login===============*/
     @PostMapping("/admin/checkBloggerByForm")
     @ResponseBody
     public String checkBloggerByForm(HttpSession session, String account, String password) {
@@ -41,25 +41,25 @@ public class BloggerController {
     /*==================About foreword dashboard web====================*/
     @GetMapping("/admin/dashboard")
     public String forewordAdminDashboard() {
-        return "admin-dashboard";
+        return "admin/admin-dashboard";
     }
 
-    /*==================About foreword classify web====================*/
+    /*===================About foreword classify web====================*/
     @GetMapping("/admin/classify")
     public String forewordAdminClassify() {
-        return "admin-classify";
+        return "admin/admin-classify";
     }
 
-    /*==================About foreword comment web====================*/
+    /*===================About foreword comment web=====================*/
     @GetMapping("/admin/comment")
     public String forewordAdminComment() {
-        return "admin-comment";
+        return "admin/admin-comment";
     }
 
-    /*==================About foreword message web====================*/
+    /*===================About foreword message web=====================*/
     @GetMapping("/admin/message")
     public String forewordAdminMessage() {
-        return "admin-message";
+        return "admin/admin-message";
     }
 
 

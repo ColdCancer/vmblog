@@ -3,8 +3,6 @@ package com.demo.controller;
 import com.demo.pojo.Article;
 import com.demo.pojo.Blogger;
 import com.demo.service.BloggerService;
-import com.demo.util.PLog;
-import com.demo.util.Tools;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +10,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,7 +27,7 @@ public class ArticleController {
     /*==================About foreword article web====================*/
     @GetMapping("/admin/article")
     public String forewordAdminArticle() {
-        return "admin-article";
+        return "admin/admin-article";
     }
 
     /*==================About article page message====================*/
@@ -70,9 +66,10 @@ public class ArticleController {
     /*==================About add new article page====================*/
     @GetMapping("/admin/article/new")
     public String ForewordNewPage() {
-        return "admin-article-new";
+        return "admin/admin-article-new";
     }
 
+    /*=====================About add new article======================*/
     @SneakyThrows
     @PostMapping("/admin/article/new/postArticle")
     @ResponseBody
