@@ -14,6 +14,7 @@ $(function () {
             dataType: 'text',
             success: function (data) {
                 if (data === 'true') {
+                    // location.href = 'home';
                     location.href = 'dashboard';
                 } else {
                     alert('账号、密码错误！');

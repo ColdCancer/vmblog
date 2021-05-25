@@ -2,8 +2,10 @@ package com.demo.service.impl;
 
 import com.demo.dao.ArticleMapper;
 import com.demo.dao.BloggerMapper;
+import com.demo.dao.TagMapper;
 import com.demo.pojo.Article;
 import com.demo.pojo.Blogger;
+import com.demo.pojo.Tag;
 import com.demo.service.BloggerService;
 import com.demo.util.PLog;
 import com.demo.util.Tools;
@@ -17,6 +19,7 @@ import java.util.List;
 public class BloggerServiceImpl implements BloggerService {
     private BloggerMapper bloggerMapper;
     private ArticleMapper articleMapper;
+    private TagMapper tagMapper;
 
     public void setBloggerMapper(BloggerMapper bloggerMapper) {
         this.bloggerMapper = bloggerMapper;
@@ -24,6 +27,10 @@ public class BloggerServiceImpl implements BloggerService {
 
     public void setArticleMapper(ArticleMapper articleMapper) {
         this.articleMapper = articleMapper;
+    }
+
+    public void setTagMapper(TagMapper tagMapper) {
+        this.tagMapper = tagMapper;
     }
 
     @Override
@@ -45,6 +52,11 @@ public class BloggerServiceImpl implements BloggerService {
     }
 
     @Override
+    public List<Tag> getTagByAccount(String account) {
+        return tagMapper.selectAllTags(account);
+    }
+
+    @Override
     public Article getReccentPostArticle(String account) {
         List<Article> articleSet = articleMapper.selectFirstPostArticle(account);
         return articleSet.get(0);
@@ -59,4 +71,6 @@ public class BloggerServiceImpl implements BloggerService {
     public Blogger getBloggerByAccount(String account) {
         return bloggerMapper.selectByAccount(account);
     }
+
+
 }

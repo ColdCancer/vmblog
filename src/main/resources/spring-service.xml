@@ -14,6 +14,7 @@
     <bean id="bloggerServiceImpl" class="com.demo.service.impl.BloggerServiceImpl">
         <property name="bloggerMapper" ref="bloggerMapper"/>
         <property name="articleMapper" ref="articleMapper"/>
+        <property name="tagMapper" ref="tagMapper"/>
     </bean>
 
     <bean id="visitorServiceImpl" class="com.demo.service.impl.VisitorServiceImpl">

@@ -44,6 +44,7 @@ public class AdminController {
         return "admin/admin-dashboard";
     }
 
+
     /*===================About foreword classify web====================*/
     @GetMapping("/admin/classify")
     public String forewordAdminClassify() {
