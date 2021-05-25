@@ -2,6 +2,7 @@ package com.demo.service.impl;
 
 import com.demo.dao.ArticleMapper;
 import com.demo.dao.BloggerMapper;
+import com.demo.dao.LinkTagMapper;
 import com.demo.dao.TagMapper;
 import com.demo.pojo.Article;
 import com.demo.pojo.Blogger;
@@ -20,6 +21,7 @@ public class BloggerServiceImpl implements BloggerService {
     private BloggerMapper bloggerMapper;
     private ArticleMapper articleMapper;
     private TagMapper tagMapper;
+    private LinkTagMapper linkTagMapper;
 
     public void setBloggerMapper(BloggerMapper bloggerMapper) {
         this.bloggerMapper = bloggerMapper;
@@ -31,6 +33,10 @@ public class BloggerServiceImpl implements BloggerService {
 
     public void setTagMapper(TagMapper tagMapper) {
         this.tagMapper = tagMapper;
+    }
+
+    public void setLinkTagMapper(LinkTagMapper linkTagMapper) {
+        this.linkTagMapper = linkTagMapper;
     }
 
     @Override
@@ -54,6 +60,11 @@ public class BloggerServiceImpl implements BloggerService {
     @Override
     public List<Tag> getTagByAccount(String account) {
         return tagMapper.selectAllTags(account);
+    }
+
+    @Override
+    public int getTagLinkCount(Tag tag) {
+        return linkTagMapper.selectCountByKey(tag);
     }
 
     @Override

@@ -27,6 +27,7 @@
         <mapper class="com.demo.dao.BloggerMapper"/>
         <mapper class="com.demo.dao.ArticleMapper"/>
         <mapper class="com.demo.dao.TagMapper"/>
+        <mapper class="com.demo.dao.LinkTagMapper"/>
     </mappers>
 
 </configuration>

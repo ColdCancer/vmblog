@@ -26,6 +26,7 @@
     <mvc:resources mapping="/code/pattern/**" location="/WEB-INF/code/pattern/"/>
 
     <mvc:resources mapping="/bootstrap/css/**" location="/WEB-INF/static/vendor/bootstrap/css/"/>
+    <mvc:resources mapping="/bootstrap/js/**" location="/WEB-INF/static/vendor/bootstrap/js/"/>
     <mvc:resources mapping="/jquery/js/**" location="/WEB-INF/static/vendor/jquery/js/"/>
 
     <mvc:resources mapping="/js/**" location="/WEB-INF/static/js/"/>

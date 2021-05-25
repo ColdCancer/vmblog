@@ -8,7 +8,7 @@ $(function () {
         }
         return s;
     }
-    /*using ajax come to get article.html content message*/
+    /*using ajax come to get tag.html content message*/
     $.ajax({
         /*get json message by url*/
         url: window.location.href + '/getTagList',
@@ -28,4 +28,19 @@ $(function () {
             }
         }
     });
+
+    $('#add-tag').click(function () {
+        // alert($('#tag-name').val());
+        $.ajax({
+            /*get json message by url*/
+            url: window.location.href + '/addTag',
+            data: {'tag-name': $('#tag-name').val()},
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+            }
+        });
+    });
+
 });
+

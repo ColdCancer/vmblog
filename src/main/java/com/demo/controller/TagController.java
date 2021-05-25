@@ -54,8 +54,7 @@ public class TagController {
         for (Tag tag : tags) {
             HashMap<String, Object> tagJson = new HashMap<String, Object>();
             tagJson.put("name", tag.getName());
-//            int count = bloggerService.getTagLinkCount(tag);
-            int count = 1;
+            int count = bloggerService.getTagLinkCount(tag);
             linkCount += count;
             tagJson.put("count", count);
             tagList.add(tagJson);
@@ -67,4 +66,16 @@ public class TagController {
         return mapper.writeValueAsString(message);
     }
 
+    /*==================About tag page message====================*/
+    @SneakyThrows
+    @GetMapping("/admin/tag/addTag")
+    @ResponseBody
+    public String addTag(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
+        HashMap<String, Object> message = new HashMap<String, Object>();
+
+        final ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(message);
+    }
 }

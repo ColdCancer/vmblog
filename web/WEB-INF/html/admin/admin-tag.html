@@ -33,7 +33,7 @@
         <span>recently.</span>
         <hr class="my-3">
         <span class="lead">Then, You will can operate each tag or ...</span>
-        <a class="btn btn-primary float-right" href="#">New Tag</a>
+        <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addTagModal">New Tag</button>
       </div>
       <table class="table">
         <thead>
@@ -45,20 +45,47 @@
           <th scope="col">Delete Tag</th>
         </tr>
         </thead>
-        <tbody id="tag-list">
-<!--        <tr>-->
-<!--          <th scope="row">1</th>-->
-<!--          <td>Hello World</td>-->
-<!--          <td>Tue Apr 06 11:15:03 CST 2021</td>-->
-<!--          <td><a class="btn btn-warning" href="#">更改</a></td>-->
-<!--          <td><a class="btn btn-danger" href="#">删除</a></td>-->
-<!--        </tr>-->
-        </tbody>
+        <tbody id="tag-list"></tbody>
       </table>
     </div>
   </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addTagModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Tag</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+<!--        <div class="input-group my-4">-->
+<!--          <div class="input-group-prepend">-->
+<!--            <span class="input-group-text">Blogger Name:</span>-->
+<!--          </div>-->
+<!--          <input type="text" class="form-control" id="account-name" readonly value="blogger">-->
+<!--        </div>-->
+        <div class="input-group my-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Tag Name:</span>
+          </div>
+          <input type="text" class="form-control" id="tag-name">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="add-tag">确定添加</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="/js/admin-tag.js"></script>
 </body>
 </html>
