@@ -63,6 +63,11 @@ public class BloggerServiceImpl implements BloggerService {
     }
 
     @Override
+    public boolean addTagByAccount(String account, String tagName) {
+        return tagMapper.insertTag(account, tagName) == 1;
+    }
+
+    @Override
     public int getTagLinkCount(Tag tag) {
         return linkTagMapper.selectCountByKey(tag);
     }

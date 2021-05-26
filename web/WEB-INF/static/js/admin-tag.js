@@ -34,7 +34,7 @@ $(function () {
         $.ajax({
             /*get json message by url*/
             url: window.location.href + '/addTag',
-            data: {'tag-name': $('#tag-name').val()},
+            data: {'tagName': $('#tag-name').val()},
             type: 'post',
             dataType: 'json',
             success: function (data) {

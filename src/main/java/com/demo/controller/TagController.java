@@ -24,6 +24,8 @@ public class TagController {
     @Qualifier("bloggerServiceImpl")
     private BloggerService bloggerService;
 
+
+
     /*=====================About foreword tag web=======================*/
     @GetMapping("/admin/tag")
     public String forewordAdminTag() {
@@ -70,10 +72,13 @@ public class TagController {
     @SneakyThrows
     @GetMapping("/admin/tag/addTag")
     @ResponseBody
-    public String addTag(HttpServletRequest request) {
+    public String addTag(HttpServletRequest request, String tagName) {
         HttpSession session = request.getSession();
         Blogger blogger = (Blogger) session.getAttribute("blogger");
         HashMap<String, Object> message = new HashMap<String, Object>();
+        boolean flag = bloggerService.addTagByAccount(blogger.getAccount(), tagName);
+
+        message.put("result", flag);
 
         final ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(message);

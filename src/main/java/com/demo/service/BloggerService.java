@@ -15,4 +15,5 @@ public interface BloggerService {
     boolean postArticle(String account, String title, String time, String content);
     List<Tag> getTagByAccount(String account);
     int getTagLinkCount(Tag tag);
+    boolean addTagByAccount(String account, String tagName);
 }
