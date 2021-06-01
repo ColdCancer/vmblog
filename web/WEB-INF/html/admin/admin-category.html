@@ -29,25 +29,25 @@
     <div class="col-md-8">
       <div class="jumbotron">
         <span>Your categories have a total of creating about</span>
-        <span class="font-weight-bold text-primary" id="tag-count"></span>
+        <span class="font-weight-bold text-primary" id="category-count"></span>
         <span>, and have a total of linking</span>
-        <span class="font-weight-bold text-primary" id="tag-link-count"></span>
+        <span class="font-weight-bold text-primary" id="category-link-count"></span>
         <span>recently.</span>
         <hr class="my-3">
         <span class="lead">Then, You will can operate each tag or ...</span>
-        <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addTagModal">New Category</button>
+        <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addCategoryModal">New Category</button>
       </div>
       <table class="table">
         <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Tag</th>
+          <th scope="col">Category</th>
           <th scope="col">Link Count</th>
           <th scope="col">Modify Name</th>
-          <th scope="col">Delete Tag</th>
+          <th scope="col">Delete Category</th>
         </tr>
         </thead>
-        <tbody id="tag-list"></tbody>
+        <tbody id="category-list"></tbody>
       </table>
     </div>
   </div>
@@ -55,7 +55,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="addTagModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -76,12 +76,12 @@
           <div class="input-group-prepend">
             <span class="input-group-text">Category Name:</span>
           </div>
-          <input type="text" class="form-control" id="tag-name">
+          <input type="text" class="form-control" id="category-name">
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary" id="add-tag">确定添加</button>
+        <button type="button" class="btn btn-primary" id="add-category">确定添加</button>
       </div>
     </div>
   </div>
