@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.css">
   <link type="text/css" rel="stylesheet" href="/css/navbar-page.css">
-  <title>Tag</title>
+  <title>后台管理</title>
 </head>
 <body>
 <!--Dashboard Navbar-->
@@ -22,18 +22,20 @@
   </div>
 </nav>
 
+
+<!--Setting Content-->
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="jumbotron">
-        <span>Your tags have a total of creating about</span>
+        <span>Your categories have a total of creating about</span>
         <span class="font-weight-bold text-primary" id="tag-count"></span>
         <span>, and have a total of linking</span>
         <span class="font-weight-bold text-primary" id="tag-link-count"></span>
         <span>recently.</span>
         <hr class="my-3">
         <span class="lead">Then, You will can operate each tag or ...</span>
-        <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addTagModal">New Tag</button>
+        <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addTagModal">New Category</button>
       </div>
       <table class="table">
         <thead>
@@ -57,22 +59,22 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Tag</h5>
+        <h5 class="modal-title" id="exampleModalLabel">添加类别属性</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-<!--        <div class="input-group my-4">-->
-<!--          <div class="input-group-prepend">-->
-<!--            <span class="input-group-text">Blogger Name:</span>-->
-<!--          </div>-->
-<!--          <input type="text" class="form-control" id="account-name" readonly value="blogger">-->
-<!--        </div>-->
-        <p>合法的标签名字：不区分字母大小写（a == A），<可中文></可中文></p>
+        <!--        <div class="input-group my-4">-->
+        <!--          <div class="input-group-prepend">-->
+        <!--            <span class="input-group-text">Blogger Name:</span>-->
+        <!--          </div>-->
+        <!--          <input type="text" class="form-control" id="account-name" readonly value="blogger">-->
+        <!--        </div>-->
+        <p>合法的类别名字：不区分字母大小写（a == A），<可中文></可中文></p>
         <div class="input-group my-4">
           <div class="input-group-prepend">
-            <span class="input-group-text">Tag Name:</span>
+            <span class="input-group-text">Category Name:</span>
           </div>
           <input type="text" class="form-control" id="tag-name">
         </div>
@@ -87,6 +89,6 @@
 
 <script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
-<script type="text/javascript" src="/js/admin-tag.js"></script>
+<script type="text/javascript" src="/js/admin-category.js"></script>
 </body>
 </html>

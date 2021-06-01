@@ -28,6 +28,8 @@
         <mapper class="com.demo.dao.ArticleMapper"/>
         <mapper class="com.demo.dao.TagMapper"/>
         <mapper class="com.demo.dao.LinkTagMapper"/>
+        <mapper class="com.demo.dao.CategoryMapper"/>
+        <mapper class="com.demo.dao.LinkCategoryMapper"/>
     </mappers>
 
 </configuration>

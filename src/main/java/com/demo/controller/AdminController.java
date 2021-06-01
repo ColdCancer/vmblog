@@ -46,9 +46,9 @@ public class AdminController {
 
 
     /*===================About foreword classify web====================*/
-    @GetMapping("/admin/classify")
+    @GetMapping("/admin/category")
     public String forewordAdminClassify() {
-        return "admin/admin-classify";
+        return "admin/admin-category";
     }
 
     /*===================About foreword comment web=====================*/
