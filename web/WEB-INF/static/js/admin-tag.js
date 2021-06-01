@@ -38,6 +38,12 @@ $(function () {
             type: 'post',
             dataType: 'json',
             success: function (data) {
+                if (data.result) {
+                    alert("添加标签成功！");
+                    window.location.reload();
+                } else {
+                    alert("添加标签失败，检查是否已存在！");
+                }
             }
         });
     });

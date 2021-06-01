@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +25,6 @@ public class TagController {
     @Qualifier("bloggerServiceImpl")
     private BloggerService bloggerService;
 
-
-
     /*=====================About foreword tag web=======================*/
     @GetMapping("/admin/tag")
     public String forewordAdminTag() {
@@ -34,7 +33,7 @@ public class TagController {
 
     /*==================About article page message====================*/
     @SneakyThrows
-    @GetMapping("/admin/tag/getTagList")
+    @GetMapping(value="/admin/tag/getTagList", produces="application/json; charset=utf-8")
     @ResponseBody
     public String getTagList(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -70,13 +69,15 @@ public class TagController {
 
     /*==================About tag page message====================*/
     @SneakyThrows
-    @GetMapping("/admin/tag/addTag")
+    @PostMapping("/admin/tag/addTag")
     @ResponseBody
     public String addTag(HttpServletRequest request, String tagName) {
         HttpSession session = request.getSession();
         Blogger blogger = (Blogger) session.getAttribute("blogger");
         HashMap<String, Object> message = new HashMap<String, Object>();
-        boolean flag = bloggerService.addTagByAccount(blogger.getAccount(), tagName);
+
+        Tag tag = new Tag(blogger.getAccount(), tagName);
+        boolean flag = bloggerService.addTag(tag);
 
         message.put("result", flag);
 

@@ -7,6 +7,4 @@
         select count(*) from link_tag where account=#{account} and name=#{name};
     </select>
 
-    <insert id="insertTag">
-    </insert>
 </mapper>

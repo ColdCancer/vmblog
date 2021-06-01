@@ -63,8 +63,14 @@ public class BloggerServiceImpl implements BloggerService {
     }
 
     @Override
-    public boolean addTagByAccount(String account, String tagName) {
-        return tagMapper.insertTag(account, tagName) == 1;
+    public boolean addTag(Tag tag) {
+        boolean flag;
+        try {
+            flag = tagMapper.insertTag(tag) == 1;
+        } catch (Exception e) {
+            flag = false;
+        }
+        return flag;
     }
 
     @Override
