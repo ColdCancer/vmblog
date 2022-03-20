@@ -21,7 +21,6 @@ import java.util.List;
 @Controller
 public class ArticleController {
     @Autowired()
-    @Qualifier("bloggerServiceImpl")
     private BloggerService bloggerService;
 
     /*==================About foreword article web====================*/

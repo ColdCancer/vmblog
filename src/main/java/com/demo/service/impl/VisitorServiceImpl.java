@@ -6,14 +6,18 @@ import com.demo.pojo.Article;
 import com.demo.pojo.Blogger;
 import com.demo.service.VisitorService;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Data
+@Service("visitorService")
 public class VisitorServiceImpl implements VisitorService {
+    @Autowired
     private BloggerMapper bloggerMapper;
+    @Autowired
     private ArticleMapper articleMapper;
 
     @Override

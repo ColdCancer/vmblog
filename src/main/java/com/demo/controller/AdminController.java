@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class AdminController {
     @Autowired()
-    @Qualifier("bloggerServiceImpl")
     private BloggerService bloggerService;
 
     /*===============About admin to login this web site==============*/

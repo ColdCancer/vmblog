@@ -22,7 +22,6 @@ import java.util.List;
 @Controller
 public class TagController {
     @Autowired()
-    @Qualifier("bloggerServiceImpl")
     private BloggerService bloggerService;
 
     /*=====================About foreword tag web=======================*/

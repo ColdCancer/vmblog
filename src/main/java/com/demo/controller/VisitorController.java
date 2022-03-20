@@ -25,7 +25,6 @@ import java.util.List;
 public class VisitorController {
 
     @Autowired()
-    @Qualifier("visitorServiceImpl")
     private VisitorService visitorService;
 
     private static final byte[] bytes = new byte[512];

@@ -11,16 +11,23 @@ import com.demo.service.BloggerService;
 import com.demo.util.PLog;
 import com.demo.util.Tools;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@Service("bloggerService")
 public class BloggerServiceImpl implements BloggerService {
+    @Autowired
     private BloggerMapper bloggerMapper;
+    @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
     private TagMapper tagMapper;
+    @Autowired
     private LinkTagMapper linkTagMapper;
 
     public void setBloggerMapper(BloggerMapper bloggerMapper) {
