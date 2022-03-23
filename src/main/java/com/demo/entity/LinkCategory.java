@@ -1,6 +1,5 @@
-package com.demo.pojo;
+package com.demo.entity;
 
-import jdk.nashorn.internal.objects.annotations.Constructor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category {
+public class LinkCategory {
     private String account;
+    private String id;
     private String name;
 }

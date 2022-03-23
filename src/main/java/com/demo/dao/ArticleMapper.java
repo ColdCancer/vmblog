@@ -1,12 +1,10 @@
 package com.demo.dao;
 
-import com.demo.pojo.Article;
-import com.demo.service.impl.BloggerServiceImpl;
+import com.demo.entity.Article;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import java.util.Date;
 import java.util.List;
 
 @Mapper

@@ -1,9 +1,8 @@
 package com.demo.service;
 
-import com.demo.pojo.Article;
-import com.demo.pojo.Blogger;
+import com.demo.entity.Article;
+import com.demo.entity.Blogger;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface VisitorService {

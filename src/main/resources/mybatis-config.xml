@@ -21,7 +21,7 @@
     <!--    </settings>-->
 
     <typeAliases>
-        <package name="com.demo.pojo" />
+        <package name="com.demo.entity" />
     </typeAliases>
 
 </configuration>

@@ -1,6 +1,6 @@
 package com.demo.dao;
 
-import com.demo.pojo.Tag;
+import com.demo.entity.Tag;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

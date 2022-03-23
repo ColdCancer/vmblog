@@ -2,15 +2,12 @@ package com.demo.service.impl;
 
 import com.demo.dao.ArticleMapper;
 import com.demo.dao.BloggerMapper;
-import com.demo.pojo.Article;
-import com.demo.pojo.Blogger;
+import com.demo.entity.Article;
+import com.demo.entity.Blogger;
 import com.demo.service.VisitorService;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service("visitorService")

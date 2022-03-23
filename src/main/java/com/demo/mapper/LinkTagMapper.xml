@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demo.dao.LinkTagMapper">
 
-    <select id="selectCountByKey" parameterType="com.demo.pojo.LinkTag" resultType="int">
+    <select id="selectCountByKey" parameterType="com.demo.entity.LinkTag" resultType="int">
         select count(*) from link_tag where account=#{account} and name=#{name};
     </select>
 

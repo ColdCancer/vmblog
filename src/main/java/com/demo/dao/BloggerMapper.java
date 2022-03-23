@@ -1,7 +1,6 @@
 package com.demo.dao;
 
-import com.demo.pojo.Article;
-import com.demo.pojo.Blogger;
+import com.demo.entity.Blogger;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
