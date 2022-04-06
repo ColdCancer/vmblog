@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="vmblog@localhost" uuid="0b1930cb-52fb-43e9-8117-bf047dfe06bd">
+    <data-source source="LOCAL" name="vmblogdb" uuid="0b1930cb-52fb-43e9-8117-bf047dfe06bd">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/vmblog</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/vmblog?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNullserver&amp;Timezone=Asia/Shanghai</jdbc-url>
       <driver-properties>
         <property name="serverTimezone" value="Asia/Shanghai" />
       </driver-properties>
