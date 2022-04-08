@@ -3,7 +3,7 @@
 
     <!--Setting Welcome page-->
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>view/index.html</welcome-file>
     </welcome-file-list>
 
     <context-param>

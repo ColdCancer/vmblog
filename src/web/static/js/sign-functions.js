@@ -1,37 +1,63 @@
 $(function () {
     $('#btn-sign-up').click(function () {
-        var $account = $('#SignUpAccount').val();
-        var $password = $('#SignUpPassword').val();
-        var $repassword = $('#SignUpRePassword').val();
+        var $account_elem = $('#SignUpAccount');
+        var $password_elem = $('#SignUpPassword');
+        var $repassword_elem = $('#SignUpRePassword');
+
+        var pattern = /^\w{6,31}$/;
+        if (!pattern.test($account_elem.val())) {
+            alert_info("Please enter the correct account.");
+            $account_elem.val('');
+        } else if (!pattern.test($password_elem.val())) {
+            alert_info("Please enter the correct password.");
+            $password_elem.val('');
+        } else if (!pattern.test($repassword_elem.val())) {
+            alert_info("Please enter the correct re-password.");
+            $repassword_elem.val('');
+        } else if ($password_elem.val() !== $repassword_elem.val()) {
+            alert_info("The second password is inconsistent.");
+        } else {
+            $.ajax({
+                url: '/web/passport/signup',
+                data: {
+                    'account': $account_elem.val(),
+                    'password': $.md5($password_elem.val())},
+                type: 'post',
+                dataType: 'json',
+                success: function (content) {
+                    // alert_info(typeof(content));
+                    alert_info(content.message);
+                }
+            });
+        }
+    });
+
+    $('#btn-sign-in').click(function () {
+        var $account = $('#SignInAccount').val();
+        var $password = $('#SignInPassword').val();
+        var $remember = $('#SignInRemember').is(':checked');
+        // alert_info($remember.toString()); // false:on,
 
         var pattern = /^\w{6,31}$/;
         if (!pattern.test($account)) {
             alert_info("Please enter the correct account.");
-            return null;
-        }
-        if (!pattern.test($password)) {
+        } else if (!pattern.test($password)) {
             alert_info("Please enter the correct password.");
-            return null;
-        }
-        if (!pattern.test($repassword)) {
-            alert_info("Please enter the correct re-password.");
-            return null;
-        }
-        if ($password !== $repassword) {
-            alert_info("The second password is inconsistent.");
-            return null;
-        }
 
-        $.ajax({
-            url: '/web/passport/signup',
-            data: {'account': $account, 'password': $password},
-            type: 'post',
-            dataType: 'text',
-            success: function (data) {
-                data = JSON.parse(data);
-                alert_info(data["message"]);
-            }
-        });
+        } else {
+            $.ajax({
+                url: '/web/passport/signin',
+                data: {
+                    'account': $account,
+                    'password': $.md5($password),
+                    'remember': $remember},
+                type: 'post',
+                dataType: 'json',
+                success: function (content) {
+                    alert_info(content["message"]);
+                }
+            });
+        }
     });
 });
 

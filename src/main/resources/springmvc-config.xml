@@ -21,6 +21,7 @@
 <!--    <mvc:resources mapping="/editor/lib/**" location="/WEB-INF/static/editor/lib/"/>-->
 
     <mvc:resources mapping="/bootstrap/css/**" location="/static/vendor/bootstrap/css/"/>
+    <mvc:resources mapping="/bootstrap/font/**" location="/static/vendor/bootstrap/font/"/>
     <mvc:resources mapping="/bootstrap/js/**" location="/static/vendor/bootstrap/js/"/>
     <mvc:resources mapping="/jquery/js/**" location="/static/vendor/jquery/js/"/>
 

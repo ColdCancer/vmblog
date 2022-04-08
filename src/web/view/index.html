@@ -5,6 +5,7 @@
 <!--  <link type="text/css" rel="stylesheet" href="/css/navbar-page.css">-->
   <link type="text/css" rel="stylesheet" href="/css/index-display.css">
   <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link type="text/css" rel="stylesheet" href="/bootstrap/font/bootstrap-icons.css">
   <title>VM-Blog</title>
 </head>
 <body>
@@ -17,20 +18,30 @@
   </button>
   <div class="collapse navbar-collapse bg-light rounded" id="navbarScroll">
     <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
-      <li class="nav-item mx-2 active">
-        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+      <li class="nav-item mx-1 active">
+        <a class="nav-link" href="#">
+          <i class="bi bi-house"></i>Home<span class="sr-only">(current)</span>
+        </a>
       </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link" href="#">Article</a>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="#">
+          <i class="bi bi-card-list"></i> Article
+        </a>
       </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link" href="#">Category</a>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="#">
+          <i class="bi bi-archive"></i> Category
+        </a>
       </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link" href="#">Chat</a>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="#">
+          <i class="bi bi-chat-dots"></i> Chat
+        </a>
       </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link" href="#">About</a>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="#">
+          <i class="bi bi-collection"></i> About
+        </a>
       </li>
     </ul>
     <form class="d-flex">
@@ -61,7 +72,7 @@
       <a class="btn btn-success rounded-pill ml-lg-4" href="#" id="navbarScrollingSignInDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
         Sign In
       </a>
-      <form class="dropdown-menu dropdown-menu-lg-right p-2">
+      <div class="dropdown-menu dropdown-menu-lg-right p-2">
         <div class="form-group">
           <label for="SignInAccount">Account</label>
           <input type="text" class="form-control" id="SignInAccount" placeholder="Input Account">
@@ -78,8 +89,8 @@
             </label>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-      </form>
+        <button id="btn-sign-in" type="submit" class="btn btn-primary btn-block">Sign in</button>
+      </div>
     </div>
   </div>
 </nav>
@@ -187,6 +198,7 @@
   </div>
 </div>
 <script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/jquery/js/jquery.md5.js"></script>
 <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
 <!--<script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>-->
 <script type="text/javascript" src="/js/sign-functions.js"></script>
