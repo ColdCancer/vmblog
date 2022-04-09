@@ -48,49 +48,76 @@
       <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
-    <div class="dropdown">
-      <a class="btn btn-dark rounded-pill ml-lg-4" href="#" id="navbarScrollingSignUpDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-        Sign Up
-      </a>
-      <div class="dropdown-menu dropdown-menu-lg-right p-2">
-        <div class="form-group">
-          <label for="SignUpAccount">Account</label>
-          <input type="text" class="form-control" id="SignUpAccount" placeholder="Input Account">
-        </div>
-        <div class="form-group">
-          <label for="SignUpPassword">Password</label>
-          <input type="password" class="form-control" id="SignUpPassword" placeholder="Input Password">
-        </div>
-        <div class="form-group">
-          <label for="SignUpRePassword">Repeat Password</label>
-          <input type="password" class="form-control" id="SignUpRePassword" placeholder="Input Password">
-        </div>
-        <button id="btn-sign-up" class="btn btn-primary btn-block">Sign Up</button>
-      </div>
-    </div>
-    <div class="dropdown">
-      <a class="btn btn-success rounded-pill ml-lg-4" href="#" id="navbarScrollingSignInDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-        Sign In
-      </a>
-      <div class="dropdown-menu dropdown-menu-lg-right p-2">
-        <div class="form-group">
-          <label for="SignInAccount">Account</label>
-          <input type="text" class="form-control" id="SignInAccount" placeholder="Input Account">
-        </div>
-        <div class="form-group">
-          <label for="SignInPassword">Password</label>
-          <input type="password" class="form-control" id="SignInPassword" placeholder="Input Password">
-        </div>
-        <div class="form-group">
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="SignInRemember">
-            <label class="form-check-label" for="SignInRemember">
-              Remember me
-            </label>
+    <div class="d-flex justify-content-lg-end justify-content-center">
+<!--    Sign Up Begin-->
+      <div id="SignUpBox" class="dropdown my-2 ml-2 ml-lg-4">
+        <a class="btn btn-dark rounded-pill" href="#" id="navbarScrollingSignUpDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          Sign Up
+        </a>
+        <div class="dropdown-menu dropdown-menu-right p-2">
+          <div class="form-group">
+            <label for="SignUpAccount">Account</label>
+            <input type="text" class="form-control" id="SignUpAccount" placeholder="Input Account">
           </div>
+          <div class="form-group">
+            <label for="SignUpPassword">Password</label>
+            <input type="password" class="form-control" id="SignUpPassword" placeholder="Input Password">
+          </div>
+          <div class="form-group">
+            <label for="SignUpRePassword">Repeat Password</label>
+            <input type="password" class="form-control" id="SignUpRePassword" placeholder="Input Password">
+          </div>
+          <button id="btn-sign-up" class="btn btn-primary btn-block">Sign Up</button>
         </div>
-        <button id="btn-sign-in" type="submit" class="btn btn-primary btn-block">Sign in</button>
       </div>
+<!--    Sign Up End-->
+<!--    Sign In Begin-->
+      <div id="SignInBox" class="dropdown my-2 ml-2">
+        <a class="btn btn-success rounded-pill" href="#" id="navbarScrollingSignInDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          Sign In
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg-right p-2">
+          <div class="form-group">
+            <label for="SignInAccount">Account</label>
+            <input type="text" class="form-control" id="SignInAccount" placeholder="Input Account">
+          </div>
+          <div class="form-group">
+            <label for="SignInPassword">Password</label>
+            <input type="password" class="form-control" id="SignInPassword" placeholder="Input Password">
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="SignInRemember">
+              <label class="form-check-label" for="SignInRemember">
+                Remember me
+              </label>
+            </div>
+          </div>
+          <button id="btn-sign-in" type="submit" class="btn btn-primary btn-block">Sign in</button>
+        </div>
+      </div>
+<!--    Sign In End-->
+<!--    Account Begin -->
+      <div id="AccountBox" class="dropdown my-2 ml-lg-4 d-none">
+      <a class="dropdown-toggle rounded-pill" href="#" id="navbarScrollingAccountDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-activity"></i>
+        Account
+      </a>
+      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarScrollingDropdown">
+        <li><a class="dropdown-item" href="/web/dashboard">
+          <i class="bi bi-text-center mr-2"></i>Dashboard
+        </a></li>
+        <li><a class="dropdown-item" href="#">
+          <i class="bi bi-person-bounding-box mr-2"></i>Profile
+        </a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">
+          <i class="bi bi-x-square mr-2"></i>Sign Out
+        </a></li>
+      </ul>
+    </div>
+<!--    Account End -->
+
     </div>
   </div>
 </nav>
@@ -201,6 +228,7 @@
 <script type="text/javascript" src="/jquery/js/jquery.md5.js"></script>
 <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
 <!--<script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>-->
+<script type="text/javascript" src="/js/base-functions.js"></script>
 <script type="text/javascript" src="/js/sign-functions.js"></script>
 </body>
 </html>

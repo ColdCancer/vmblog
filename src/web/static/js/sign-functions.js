@@ -1,4 +1,9 @@
 $(function () {
+    $init_param = $.getUrlParam('nologin');
+    if ($init_param === 'true') {
+        alert_info("Sign In Account, Please.");
+    }
+
     $('#btn-sign-up').click(function () {
         var $account_elem = $('#SignUpAccount');
         var $password_elem = $('#SignUpPassword');
@@ -25,7 +30,6 @@ $(function () {
                 type: 'post',
                 dataType: 'json',
                 success: function (content) {
-                    // alert_info(typeof(content));
                     alert_info(content.message);
                 }
             });
@@ -55,6 +59,13 @@ $(function () {
                 dataType: 'json',
                 success: function (content) {
                     alert_info(content["message"]);
+                    console.log(typeof(content['code']));
+                    console.log(content['code']);
+                    if (content['code'] === 0) {
+                        $('#SignInBox').addClass("d-none");
+                        $('#SignUpBox').addClass("d-none");
+                        $('#AccountBox').removeClass("d-none");
+                    }
                 }
             });
         }
