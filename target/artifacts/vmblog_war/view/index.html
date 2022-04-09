@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<!--  <link type="text/css" rel="stylesheet" href="/css/navbar-page.css">-->
+  <link type="text/css" rel="stylesheet" href="/css/index-display.css">
+  <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link type="text/css" rel="stylesheet" href="/bootstrap/font/bootstrap-icons.css">
+  <title>VM-Blog</title>
+</head>
+<body>
+<!--nav-header-->
+<div class="container shadow rounded fixed-top bg-light">
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="#">VMBLOG</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse bg-light rounded" id="navbarScroll">
+    <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
+      <li class="nav-item mx-1 active">
+        <a class="nav-link" href="#">
+          <i class="bi bi-house"></i>Home<span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="#">
+          <i class="bi bi-card-list"></i> Article
+        </a>
+      </li>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="#">
+          <i class="bi bi-archive"></i> Category
+        </a>
+      </li>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="#">
+          <i class="bi bi-chat-dots"></i> Chat
+        </a>
+      </li>
+      <li class="nav-item mx-1">
+        <a class="nav-link" href="#">
+          <i class="bi bi-collection"></i> About
+        </a>
+      </li>
+    </ul>
+    <form class="d-flex">
+      <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    <div class="d-flex justify-content-lg-end justify-content-center">
+<!--    Sign Up Begin-->
+      <div id="SignUpBox" class="dropdown my-2 ml-2 ml-lg-4">
+        <a class="btn btn-dark rounded-pill" href="#" id="navbarScrollingSignUpDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          Sign Up
+        </a>
+        <div class="dropdown-menu dropdown-menu-right p-2">
+          <div class="form-group">
+            <label for="SignUpAccount">Account</label>
+            <input type="text" class="form-control" id="SignUpAccount" placeholder="Input Account">
+          </div>
+          <div class="form-group">
+            <label for="SignUpPassword">Password</label>
+            <input type="password" class="form-control" id="SignUpPassword" placeholder="Input Password">
+          </div>
+          <div class="form-group">
+            <label for="SignUpRePassword">Repeat Password</label>
+            <input type="password" class="form-control" id="SignUpRePassword" placeholder="Input Password">
+          </div>
+          <button id="btn-sign-up" class="btn btn-primary btn-block">Sign Up</button>
+        </div>
+      </div>
+<!--    Sign Up End-->
+<!--    Sign In Begin-->
+      <div id="SignInBox" class="dropdown my-2 ml-2">
+        <a class="btn btn-success rounded-pill" href="#" id="navbarScrollingSignInDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          Sign In
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg-right p-2">
+          <div class="form-group">
+            <label for="SignInAccount">Account</label>
+            <input type="text" class="form-control" id="SignInAccount" placeholder="Input Account">
+          </div>
+          <div class="form-group">
+            <label for="SignInPassword">Password</label>
+            <input type="password" class="form-control" id="SignInPassword" placeholder="Input Password">
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="SignInRemember">
+              <label class="form-check-label" for="SignInRemember">
+                Remember me
+              </label>
+            </div>
+          </div>
+          <button id="btn-sign-in" type="submit" class="btn btn-primary btn-block">Sign in</button>
+        </div>
+      </div>
+<!--    Sign In End-->
+<!--    Account Begin -->
+      <div id="AccountBox" class="dropdown my-2 ml-lg-4 d-none">
+      <a class="dropdown-toggle rounded-pill" href="#" id="navbarScrollingAccountDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-activity"></i>
+        Account
+      </a>
+      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarScrollingDropdown">
+        <li><a class="dropdown-item" href="/web/dashboard">
+          <i class="bi bi-text-center mr-2"></i>Dashboard
+        </a></li>
+        <li><a class="dropdown-item" href="#">
+          <i class="bi bi-person-bounding-box mr-2"></i>Profile
+        </a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">
+          <i class="bi bi-x-square mr-2"></i>Sign Out
+        </a></li>
+      </ul>
+    </div>
+<!--    Account End -->
+
+    </div>
+  </div>
+</nav>
+</div>
+<!--main-content-->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9 col-12">
+<!--  one article description-->
+      <div class="card shadow mb-3" >
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img class="img-thumbnail" src="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wHeT?ver=80f6" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><a href="#">Card title</a></h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">
+                <small class="font-italic">post:</small>
+                <small class="text-muted">3 mins ago</small>
+                <small class="font-italic">, by:</small>
+                <small class="text-muted font-weight-bold">
+                  <a class="text-dark" href="#">blogger</a>
+                </small>
+                <small class="font-italic">, views:</small>
+                <span class="badge badge-info">8</span>
+                <small class="font-italic">, like:</small>
+                <span class="badge badge-success">5</span>
+                <small class="font-italic">, dislike:</small>
+                <span class="badge badge-warning">2</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card shadow border-dark mb-3">
+        <div class="card-header">Reading List</div>
+        <div class="card-body text-dark">
+          <p class="card-text text-truncate">
+            <span class="badge badge-info">2</span>
+            <a href="#">Some quick example text to build.</a>
+          </p>
+          <p class="card-text text-truncate">
+            <span class="badge badge-info">2</span>
+            <a href="#">Some quick example text to build.</a>
+          </p>
+          <p class="card-text text-truncate">
+            <span class="badge badge-info">2</span>
+            <a href="#">Some quick example text to build.</a>
+          </p>
+          <p class="card-text text-truncate">
+            <span class="badge badge-info">2</span>
+            <a href="#">Some quick example text to build.</a>
+          </p>
+          <p class="card-text text-truncate">
+            <span class="badge badge-info">2</span>
+            <a href="#">Some quick example text to build.</a>
+          </p>
+        </div>
+      </div>
+<!--      Recent Comment-->
+      <div class="card shadow border-success mb-3">
+        <div class="card-header">Recent Comments</div>
+          <ul class="list-group list-group-flush">
+<!--            one article comment-->
+            <li class="list-group-item">
+              <a class="text-info" href="#">
+                <div class="d-block text-truncate">
+                  Article: Hello World
+                </div>
+                <div class="d-block text-truncate">
+                  <small class="text-muted">
+                    <span class="text-dark" href="#">blogger</span>
+                  </small>
+                  <small class="font-italic">@</small>
+                  <small class="text-muted">
+                    <span class="text-dark" href="#">svipvm</span>
+                  </small>
+                  <small class="font-italic">:</small>
+                  <small class="text-muted font-weight-bold">
+                    <span class="text-dark" href="#">blogger</span>
+                  </small>
+                </div>
+              </a>
+            </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!--page-foot-->
+
+<div class="position-fixed mr-5 mb-3" style="z-index: 5; right: 0; bottom: 0;">
+  <div id="alert-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+    <div class="toast-header">
+      <strong class="mr-auto">Notice</strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div id="alert-content" class="toast-body bg-warning"></div>
+  </div>
+</div>
+<script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/jquery/js/jquery.md5.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+<!--<script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>-->
+<script type="text/javascript" src="/js/base-functions.js"></script>
+<script type="text/javascript" src="/js/sign-functions.js"></script>
+</body>
+</html>

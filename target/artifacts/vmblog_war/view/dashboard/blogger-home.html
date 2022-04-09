@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link type="text/css" rel="stylesheet" href="/css/navbar-page.css">
+  <title>Blogger - Home</title>
+</head>
+<body>
+<!--NavBar Model-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">BLogger Name</a>
+    <div class="collapse navbar-collapse justify-content-end">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="article">Article</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="link">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about">About</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--main content-->
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <!--self information-->
+      <div class="card bg-light mb-4">
+        <div class="card-header bg-info">Self Information</div>
+        <div class="card-body">
+          <div class="row">
+            <!-- 1th col information -->
+            <div class="col-md-6">
+              <ul class="list-group list-group-horizontal mb-3">
+                <li class="list-group-item">姓名：</li>
+                <li class="list-group-item" id="home-name"></li>
+              </ul>
+              <ul class="list-group list-group-horizontal mb-3">
+                <li class="list-group-item">出生地：</li>
+                <li class="list-group-item" id="home-birthplace"></li>
+              </ul>
+              <ul class="list-group list-group-horizontal">
+                <li class="list-group-item">邮箱：</li>
+                <li class="list-group-item" id="home-email"></li>
+              </ul>
+            </div>
+            <!-- 2th col information -->
+            <div class="col-md-6">
+              <ul class="list-group list-group-horizontal mb-3">
+                <li class="list-group-item">性别：</li>
+                <li class="list-group-item" id="home-sex"></li>
+              </ul>
+              <ul class="list-group list-group-horizontal mb-3">
+                <li class="list-group-item">教育背景：</li>
+                <li class="list-group-item" id="home-education"></li>
+              </ul>
+              <ul class="list-group list-group-horizontal">
+                <li class="list-group-item">公司/职位：</li>
+                <li class="list-group-item" id="home-position"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- self talk about ... -->
+      <div class="card bg-light mb-4">
+        <div class="card-header bg-info">What About Talk</div>
+        <div class="card-body" id="home-talk">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          on the shoulders of giants.
+        </div>
+      </div>
+      <!-- about self web -->
+      <div class="card bg-light mb-4">
+        <div class="card-header bg-info">About Self Web</div>
+        <div class="card-body">
+          <div class="row">
+            <!-- 1th col web information -->
+            <div class="col-md-6">
+              <ul class="list-group list-group-horizontal mb-3">
+                <li class="list-group-item">博文数：</li>
+                <li class="list-group-item" id="blog-total">999 篇</li>
+              </ul>
+              <ul class="list-group list-group-horizontal">
+                <li class="list-group-item">最近发表：</li>
+                <li class="list-group-item" id="blog-time">2021-01-01 00:00</li>
+              </ul>
+            </div>
+            <!-- 2th col web information -->
+            <div class="col-md-6">
+              <ul class="list-group list-group-horizontal mb-3">
+                <li class="list-group-item">评论数：</li>
+                <li class="list-group-item" id="blog-comment">999 条</li>
+              </ul>
+              <ul class="list-group list-group-horizontal">
+                <li class="list-group-item">博主天数：</li>
+                <li class="list-group-item" id="blog-alive">365 天</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- blog comment -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-warning">Last Comment</div>
+        <div class="card-body">
+          <div>
+            Hello World
+            <small class="pl-3">blogger</small><br>
+            A slideshow component for cycling through elements—images or slides of text—like a carousel.
+            <hr>
+          </div>
+          <div>
+            Hello World
+            <small class="pl-3">blogger</small><br>
+            A slideshow component for cycling through elements—images or slides of text—like a carousel.
+            <hr>
+          </div>
+          <div>
+            Hello World
+            <small class="pl-3">blogger</small><br>
+            A slideshow component for cycling through elements—images or slides of text—like a carousel.
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/js/blogger-home.js"></script>
+</body>
+</html>

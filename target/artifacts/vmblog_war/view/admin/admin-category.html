@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+  <link type="text/css" rel="stylesheet" href="/css/navbar-page.css">
+  <title>后台管理</title>
+</head>
+<body>
+<!--Dashboard Navbar-->
+<nav class="fixed-top" aria-label="breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="dashboard">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="article">Article</a></li>
+      <li class="breadcrumb-item"><a href="tag">Tag</a></li>
+      <li class="breadcrumb-item"><a href="category">Category</a></li>
+      <li class="breadcrumb-item"><a href="comment">Comment</a></li>
+      <li class="breadcrumb-item"><a href="message">Message</a></li>
+      <li class="breadcrumb-item"><a href="#">Out</a></li>
+    </ol>
+  </div>
+</nav>
+
+
+<!--Setting Content-->
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="jumbotron">
+        <span>Your categories have a total of creating about</span>
+        <span class="font-weight-bold text-primary" id="category-count"></span>
+        <span>, and have a total of linking</span>
+        <span class="font-weight-bold text-primary" id="category-link-count"></span>
+        <span>recently.</span>
+        <hr class="my-3">
+        <span class="lead">Then, You will can operate each tag or ...</span>
+        <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addCategoryModal">New Category</button>
+      </div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Category</th>
+          <th scope="col">Link Count</th>
+          <th scope="col">Modify Name</th>
+          <th scope="col">Delete Category</th>
+        </tr>
+        </thead>
+        <tbody id="category-list"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">添加类别属性</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--        <div class="input-group my-4">-->
+        <!--          <div class="input-group-prepend">-->
+        <!--            <span class="input-group-text">Blogger Name:</span>-->
+        <!--          </div>-->
+        <!--          <input type="text" class="form-control" id="account-name" readonly value="blogger">-->
+        <!--        </div>-->
+        <p>合法的类别名字：不区分字母大小写（a == A），<可中文></可中文></p>
+        <div class="input-group my-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Category Name:</span>
+          </div>
+          <input type="text" class="form-control" id="category-name">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="add-category">确定添加</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/admin-category.js"></script>
+</body>
+</html>
