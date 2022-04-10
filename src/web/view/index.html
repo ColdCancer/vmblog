@@ -50,7 +50,7 @@
     </form>
     <div class="d-flex justify-content-lg-end justify-content-center">
 <!--    Sign Up Begin-->
-      <div id="SignUpBox" class="dropdown my-2 ml-2 ml-lg-4">
+      <div id="SignUpBox" class="dropdown my-2 my-lg-0 ml-2 ml-lg-4">
         <a class="btn btn-dark rounded-pill" href="#" id="navbarScrollingSignUpDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
           Sign Up
         </a>
@@ -72,7 +72,7 @@
       </div>
 <!--    Sign Up End-->
 <!--    Sign In Begin-->
-      <div id="SignInBox" class="dropdown my-2 ml-2">
+      <div id="SignInBox" class="dropdown my-2 my-lg-0 ml-2">
         <a class="btn btn-success rounded-pill" href="#" id="navbarScrollingSignInDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
           Sign In
         </a>
@@ -98,7 +98,7 @@
       </div>
 <!--    Sign In End-->
 <!--    Account Begin -->
-      <div id="AccountBox" class="dropdown my-2 ml-lg-4 d-none">
+      <div id="AccountBox" class="dropdown my-2 my-lg-0 ml-lg-4 d-none">
       <a class="dropdown-toggle rounded-pill" href="#" id="navbarScrollingAccountDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-activity"></i>
         Account
@@ -125,35 +125,35 @@
 <!--main-content-->
 <div class="container">
   <div class="row">
-    <div class="col-lg-9 col-12">
+    <div id="article-list" class="col-lg-9 col-12">
 <!--  one article description-->
-      <div class="card shadow mb-3" >
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img class="img-thumbnail" src="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wHeT?ver=80f6" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title"><a href="#">Card title</a></h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text">
-                <small class="font-italic">post:</small>
-                <small class="text-muted">3 mins ago</small>
-                <small class="font-italic">, by:</small>
-                <small class="text-muted font-weight-bold">
-                  <a class="text-dark" href="#">blogger</a>
-                </small>
-                <small class="font-italic">, views:</small>
-                <span class="badge badge-info">8</span>
-                <small class="font-italic">, like:</small>
-                <span class="badge badge-success">5</span>
-                <small class="font-italic">, dislike:</small>
-                <span class="badge badge-warning">2</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+<!--      <div class="card shadow mb-3" >-->
+<!--        <div class="row no-gutters">-->
+<!--          <div class="col-md-4">-->
+<!--            <img class="img-thumbnail" src="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wHeT?ver=80f6" alt="...">-->
+<!--          </div>-->
+<!--          <div class="col-md-8">-->
+<!--            <div class="card-body">-->
+<!--              <h5 class="card-title"><a href="#">Card title</a></h5>-->
+<!--              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+<!--              <p class="card-text">-->
+<!--                <small class="font-italic">post:</small>-->
+<!--                <small class="text-muted">3 mins ago</small>-->
+<!--                <small class="font-italic">, by:</small>-->
+<!--                <small class="text-muted font-weight-bold">-->
+<!--                  <a class="text-dark" href="#">blogger</a>-->
+<!--                </small>-->
+<!--                <small class="font-italic">, views:</small>-->
+<!--                <span class="badge badge-info">8</span>-->
+<!--                <small class="font-italic">, like:</small>-->
+<!--                <span class="badge badge-success">5</span>-->
+<!--                <small class="font-italic">, dislike:</small>-->
+<!--                <span class="badge badge-warning">2</span>-->
+<!--              </p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
     <div class="col-lg-3">
       <div class="card shadow border-dark mb-3">
@@ -210,6 +210,14 @@
       </div>
     </div>
   </div>
+  <div class="row mb-2">
+    <div class="col">
+      <div class="btn-group d-block text-center" role="group" aria-label="Basic example">
+        <button type="button" id="article-page-previous" class="btn btn-outline-secondary">Previous</button>
+        <button type="button" id="article-page-next" class="btn btn-outline-secondary">Next</button>
+      </div>
+    </div>
+  </div>
 </div>
 <!--page-foot-->
 
@@ -230,5 +238,6 @@
 <!--<script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>-->
 <script type="text/javascript" src="/js/base-functions.js"></script>
 <script type="text/javascript" src="/js/sign-functions.js"></script>
+<script type="text/javascript" src="/js/web-index.js"></script>
 </body>
 </html>

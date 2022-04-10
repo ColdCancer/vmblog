@@ -13,5 +13,5 @@ import java.util.Map;
 public class ResponseData {
     private final Integer code;
     private final String message;
-    private final Map<String, Object> data = new HashMap<String, Object>();
+    private Map<String, Object> data = null;
 }

@@ -71,8 +71,3 @@ $(function () {
         }
     });
 });
-
-function alert_info(message) {
-    $('#alert-content').html(message);
-    $('#alert-toast').toast('show');
-}

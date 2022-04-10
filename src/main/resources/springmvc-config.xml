@@ -16,9 +16,10 @@
     <mvc:annotation-driven/>
     <!-- 静态资源过滤 -->
     <mvc:default-servlet-handler/>
-<!--    <mvc:resources mapping="/editor/**" location="/WEB-INF/static/editor/"/>-->
-<!--    <mvc:resources mapping="/editor/css/**" location="/WEB-INF/static/editor/css/"/>-->
-<!--    <mvc:resources mapping="/editor/lib/**" location="/WEB-INF/static/editor/lib/"/>-->
+    <mvc:resources mapping="/editor/**" location="/static/editor/"/>
+    <mvc:resources mapping="/editor/css/**" location="/static/editor/css/"/>
+    <mvc:resources mapping="/editor/lib/**" location="/static/editor/lib/"/>
+    <mvc:resources mapping="/editor/fonts/**" location="/static/editor/fonts/"/>
 
     <mvc:resources mapping="/bootstrap/css/**" location="/static/vendor/bootstrap/css/"/>
     <mvc:resources mapping="/bootstrap/font/**" location="/static/vendor/bootstrap/font/"/>

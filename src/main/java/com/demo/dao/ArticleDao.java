@@ -16,6 +16,7 @@ public interface ArticleDao {
     @Results(id = "ArticleResultMap", value = {
             @Result(property = "id", column = "id"),
             @Result(property = "bloggerId", column = "blogger_id"),
+            @Result(property = "title", column = "title"),
             @Result(property = "linkName", column = "link_name"),
             @Result(property = "fileName", column = "file_name"),
             @Result(property = "postDate", column = "post_date"),
@@ -30,10 +31,11 @@ public interface ArticleDao {
     Article queryById(Integer id);
 
     @Select("select * from article limit #{limit}, #{offset}")
+    @ResultMap(value = {"ArticleResultMap"})
     List<Article> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
-    @Insert("insert into article(blogger_id, link_name, file_name) " +
-            "values(#{bloggerId}, #{linkName}, #{fileName)")
+    @Insert("insert into article(blogger_id, title, link_name, file_name, post_date) " +
+            "values(#{bloggerId}, #{title}, #{linkName}, #{fileName}, #{postDate})")
     int insert(Article article);
 
     @Update("update article set link_name=#{linkName} where id=#{id}")

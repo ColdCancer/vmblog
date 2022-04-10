@@ -3,6 +3,7 @@ package com.demo.controller;
 import com.demo.utils.ResponseData;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,4 +52,14 @@ public class RedirectController {
         return "index";
     }
 
+    @GetMapping("/web/editor/article/add")
+    public String addArticle() {
+        return "editor/article-editor";
+    }
+
+    @GetMapping("/article/{blogger}/{link}")
+    public String toArticleByLink(@PathVariable("blogger") String blogger,
+                                  @PathVariable("link") String like) {
+        return "article";
+    }
 }

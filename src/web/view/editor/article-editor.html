@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="/css/index-display.css">
+    <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/bootstrap/font/bootstrap-icons.css">
+    <link type="text/css" rel="stylesheet" href="/editor/css/editormd.min.css">
+    <title>VM-Blog</title>
+</head>
+<body>
+<!--nav-header-->
+<div class="container shadow rounded fixed-top bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">VMBLOG - Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse bg-light rounded" id="navbarScroll">
+            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
+                <li class="nav-item mx-1 active">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-house"></i> Article
+                    </a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-card-list"></i> Category
+                    </a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-archive"></i> Media
+                    </a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-chat-dots"></i> Comment
+                    </a>
+                </li>
+            </ul>
+            <div class="d-flex justify-content-lg-end justify-content-center">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-primary">Save</button>
+                    <button id="btn-post" type="button" class="btn btn-outline-primary">Post</button>
+                    <button type="button" class="btn btn-outline-primary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<!--main-content-->
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text border-primary bg-light" id="basic-addon-title">Title</span>
+                </div>
+                <input id="article-title" type="text" class="form-control border-primary" placeholder="Article Title" aria-label="article-title">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text border-primary bg-light" id="basic-addon-post">Post Date</span>
+                </div>
+                <input id="article-post" type="datetime-local" class="form-control border-primary" aria-label="article-post">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text border-primary bg-light" id="basic-addon-update">Update Date</span>
+                </div>
+                <input id="article-update" disabled type="datetime-local" class="form-control border-primary" aria-label="article-update">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="article-editormd">
+            <label><textarea class="editormd-markdown-textarea" style="display: none"></textarea></label>
+            <label><textarea class="editormd-html-textarea" name="real-content"></textarea></label>
+        </div>
+    </div>
+</div>
+<!--page-foot-->
+<div class="position-fixed mr-5 mb-3" style="z-index: 5; right: 0; bottom: 0;">
+    <div id="alert-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-header">
+            <strong class="mr-auto">Notice</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="alert-content" class="toast-body bg-warning"></div>
+    </div>
+</div>
+<script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+<!--<script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>-->
+<script type="text/javascript" src="/editor/editormd.min.js"></script>
+<!--<script type="text/javascript" src="/js/base-functions.js"></script>-->
+<script type="text/javascript" src="/js/editor.js"></script>
+</body>
+</html>

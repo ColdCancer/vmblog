@@ -44,7 +44,7 @@ public class BloggerController {
         int flag = bloggerService.insert(blogger);
         String message = "Sign Up " + (flag == 1 ? "Success." : "Failure.");
 
-        ResponseData responseData = new ResponseData(flag, message);
+        ResponseData responseData = new ResponseData(flag, message, null);
         return responseData;
     }
 
@@ -58,11 +58,11 @@ public class BloggerController {
 
         ResponseData responseData = null;
         if(bloggerService.checkAccountValid(account, password, remember)) {
-            responseData = new ResponseData(0, "Sign In Success.");
+            responseData = new ResponseData(0, "Sign In Success.", null);
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
         } else {
-            responseData = new ResponseData(-1, "Sign In Failure.");
+            responseData = new ResponseData(-1, "Sign In Failure.", null);
         }
 
         return responseData;
