@@ -9,6 +9,7 @@ import com.demo.utils.ResponseData;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -42,6 +43,13 @@ public class ArticleController {
         return new ResponseData(0, "article", null);
     }
 
+    @PostMapping("/api/article/addCover")
+    public ResponseData addCover(@RequestParam("cover") MultipartFile coverFile) {
+        System.out.println(coverFile);
+//        return this.articleService.queryById(id);
+        return new ResponseData(0, "cover", null);
+    }
+
     @GetMapping("/api/article/page/{number}")
     public ResponseData getArticlesByPageNumber(
                     @PathVariable("number") Integer number) {
@@ -54,13 +62,16 @@ public class ArticleController {
             Map<String, Object> data = new HashMap<String, Object>();
             for (int i = 0; i < articleList.size(); i++) {
                 Article article = articleList.get(i);
-//                System.out.println(article);
                 Map<String, Object> mapper = new HashMap<String, Object>();
-                mapper.put("title", article.getTitle());
-                mapper.put("segmental", "defult");
-                mapper.put("image", "#");
-                mapper.put("post", "3 mins");
                 Blogger blogger = bloggerService.queryById(article.getBloggerId());
+                mapper.put("title", article.getTitle());
+                String cover_path = File.separator + "api" + File.separator +
+                        "resources" + File.separator + "images" +
+                        File.separator + "article-cover-default.jpg";
+                // cover_path: /api/resources/images/article-cover-default.jpg
+                mapper.put("segmental", "defult");
+                mapper.put("cover", cover_path);
+                mapper.put("post", "3 mins");
                 mapper.put("blogger", blogger.getErName());
                 mapper.put("views", article.getVisCount());
                 mapper.put("like", article.getLikeCount());
@@ -75,24 +86,23 @@ public class ArticleController {
         return responseData;
     }
 
-    @PostMapping("/web/article/add")
-    @ResponseBody
+    @PostMapping("/api/article/add")
     public ResponseData addArticle(HttpSession session,
-                                   @Param("title")String title,
-                                   @Param("article")String article,
-                                   @Param("postDate")String postDate) {
-//        System.out.println(postDate);
-        System.out.println(title + " : " + article);
-//        System.out.println(session.getServletContext().getRealPath("/"));
+                       @RequestParam("title") String title,
+                       @RequestParam("article") String article,
+                       @RequestParam("postDate") String postDate) {
         String account = (String) session.getAttribute("account");
         String link_name = BaseTools.RandomStr(12);
         String file_name = BaseTools.RandomStr(20);
-        String file_path = session.getServletContext().getRealPath("/") +
-                "WEB-INF" + File.separator + "blogger" + File.separator +
-                account + File.separator + "article" + File.separator + file_name;
-//        System.out.println(postDate.replace("T", " "));
-//        System.out.println(postDate);
+        String base_path = session.getServletContext().getRealPath("/WEB-INF/") +
+                "blogger" + File.separator + account + File.separator + "article";
+        String file_path = base_path + File.separator + file_name;
         postDate = postDate.replace("T", " ");
+
+        File directory = new File(base_path);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
 
         ResponseData responseData = null;
         try {
@@ -101,12 +111,17 @@ public class ArticleController {
             writer.flush();
             writer.close();
             Blogger blogger = bloggerService.queryByAccount(account);
-            Article article_ojb = new Article(0, blogger.getId(), title,
-                    link_name, file_name, BaseTools.toDate(postDate),
-                    null, 0, 0,
-                    0, 0);
-            articleService.insert(article_ojb);
-            responseData = new ResponseData(0, "success", null);
+            Article article_ojb = new Article(0, blogger.getId(),
+                    null, title, link_name, file_name, "posted",
+                    BaseTools.toDate(postDate), null, 0,
+                    0, 0, 0);
+//            System.out.println(article_ojb);
+//            articleService.insert(article_ojb);
+            article_ojb = articleService.insertAndReturn(article_ojb);
+            Map<String, Object> data = new HashMap<String, Object>();
+            data.put("account", account);
+            data.put("article-link", article_ojb.getLinkName());
+            responseData = new ResponseData(0, "success", data);
         } catch (IOException e) {
             responseData = new ResponseData(-1, "failure", null);
         }

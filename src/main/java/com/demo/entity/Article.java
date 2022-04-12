@@ -24,9 +24,11 @@ public class Article implements Serializable {
     
     private Integer id;
     private Integer bloggerId;
+    private Integer coverId;
     private String title;
     private String linkName;
     private String fileName;
+    private String flagType;
     private Date postDate;
     private Date updateDate;
     private Integer topRank;

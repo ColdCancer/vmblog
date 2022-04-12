@@ -1,3 +1,67 @@
+## 流程图
+
+### 发布文章
+``` flow 
+start=>start: 开始
+end=>end: 结束
+primaryEdit=>operation: 编辑标题、内容、封面
+start->primaryEdit
+postArticle=>condition: 发布文章
+primaryEdit->postArticle
+postCover=>condition: 初始化封面
+postArticle(yes,right)->postCover
+serverError=>operation: 服务器错误
+postArticle(no,left)->serverError
+postResult=>operation: 发布完成
+postCover(yes,right)->postResult
+postCover(no,left)->serverError
+serverError->end
+postResult->end
+```
+<!-- operation1=>operation: 操作框1
+operation2=>operation: 操作框2
+end=>end: 结束
+condition(yes,right)->operation1
+condition(no)->operation2
+operation1->end
+operation2->end -->
+
+## web-site 网页
+```
+# 无权限可浏览
+\index                                      # 网站主页
+\home                                       # 网站主页
+\article                                    # 网站博文列表
+\article\{bloggerName}                      # 博主博文列表
+\article\{bloggerName}\{articleLink}        # 网站具体博文
+\category                                   # 网站分类列表
+\category\{bloggerName}                     # 博主分类列表
+\category\{bloggerName}\categoryLink}       # 博主分类博主列表
+\chat                                       # 网站聊天
+\chat\{bloggerName}                         # 博主权限聊天
+\about                                      # 网站信息
+\about\{bloggerName}                        # 博主身份信息
+\blogger\{bloggerName}                      # 博主主页
+\blogger\{bloggerName}\index                # 博主主页
+\blogger\{bloggerName}\home                 # 博主主页
+
+\web
+\web\article\addArticle                     # 博主增加博文
+\web\article\addCover
+\web\passport\signup                        # 博主注册
+\web\passport\signin                        # 博主登录
+
+```
+
+# web-site 接口
+```
+\api
+\api\article
+\api\article\{bloggerName}\{articleLink}
+\api\article\page\{pageNum}
+```
+
+
 ## 数据库
 
 ``` sql

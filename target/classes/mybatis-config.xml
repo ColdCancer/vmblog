@@ -20,8 +20,11 @@
     <!--        <setting name="localCacheScope" value="SESSION"/>-->
     <!--    </settings>-->
 
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
     <typeAliases>
         <package name="com.demo.entity" />
     </typeAliases>
-
 </configuration>

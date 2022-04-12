@@ -4,7 +4,7 @@ $(function () {
     getDefaultTime($('#article-post'));
 
     var editor = editormd("article-editormd", {
-        height              : 580,
+        height              : 520,
         watch               : true,                // 关闭实时预览
         syncScrolling       : "single",
         // fontsize            : 28,
@@ -31,13 +31,13 @@ $(function () {
 
     $('#btn-post').click(function () {
         var title = $('#article-title').val();
-        // var article = $('#')
+        // console.log($('#article-image')[0].files[0]);
         if (title === '') {
             alert_info("Input Article Title, Please");
         } else {
             var article = editor.getHTML();
             $.ajax({
-                url: '/web/article/add',
+                url: '/api/article/add',
                 data: {
                     'title': title,
                     'article': article,
@@ -48,6 +48,22 @@ $(function () {
                 success: function (content) {
                     alert_info(content['message']);
                     getDefaultTime($('#article-post'));
+
+                    // var file = $('#article-cover')[0].files[0];
+                    // var formData = new FormData();
+                    // formData.append("cover", file);
+                    //
+                    // $.ajax({
+                    //     url: '/api/article/addCover',
+                    //     type: 'post',
+                    //     processData: false,
+                    //     contentType: false,
+                    //     data: formData,
+                    //     dataType: 'json',
+                    //     success: function (content) {
+                    //         alert_info(content['message']);
+                    //     }
+                    // });
                 }
             });
         }

@@ -12,7 +12,7 @@
 <!--nav-header-->
 <div class="container shadow rounded fixed-top bg-light">
     <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#">VMBLOG - Dashboard</a>
+        <a class="navbar-brand" href="#">VMBLOG</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -25,17 +25,12 @@
                 </li>
                 <li class="nav-item mx-1">
                     <a class="nav-link" href="#">
-                        <i class="bi bi-card-list"></i> Category
+                        <i class="bi bi-card-list"></i> Dashboard
                     </a>
                 </li>
                 <li class="nav-item mx-1">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-archive"></i> Media
-                    </a>
-                </li>
-                <li class="nav-item mx-1">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-chat-dots"></i> Comment
+                    <a id="last-post-date" class="nav-link disabled" href="#">
+                        Post: 2022-04-10 22:39:12
                     </a>
                 </li>
             </ul>
@@ -63,6 +58,19 @@
         <div class="col">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
+                    <span class="input-group-text border-primary bg-light" id="basic-addon-image">Cover Photo</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="article-cover" enctype="multipart/form-data">
+                    <label class="custom-file-label" for="article-cover">Choose file</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
                     <span class="input-group-text border-primary bg-light" id="basic-addon-post">Post Date</span>
                 </div>
                 <input id="article-post" type="datetime-local" class="form-control border-primary" aria-label="article-post">
@@ -76,6 +84,7 @@
                 <input id="article-update" disabled type="datetime-local" class="form-control border-primary" aria-label="article-update">
             </div>
         </div>
+
     </div>
     <div class="row">
         <div id="article-editormd">

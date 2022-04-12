@@ -1,6 +1,8 @@
 package com.demo.service;
 
 import com.demo.entity.Article;
+import com.demo.entity.Blogger;
+
 import java.util.List;
 
 /**
@@ -14,5 +16,5 @@ public interface ArticleService {
     List<Article> queryAllByLimit(int offset, int limit);
     Article insert(Article article);
     boolean deleteById(Integer id);
-
+    Article insertAndReturn(Article article);
 }

@@ -6,6 +6,18 @@
   <link type="text/css" rel="stylesheet" href="/css/index-display.css">
   <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
   <link type="text/css" rel="stylesheet" href="/bootstrap/font/bootstrap-icons.css">
+  <style type="text/css">
+    @media (max-width: 1200px) {
+      .card-columns {
+        column-count: 2;
+      }
+    }
+    @media (max-width: 768px) {
+      .card-columns {
+        column-count: 1;
+      }
+    }
+  </style>
   <title>VM-Blog</title>
 </head>
 <body>
@@ -125,35 +137,35 @@
 <!--main-content-->
 <div class="container">
   <div class="row">
-    <div id="article-list" class="col-lg-9 col-12">
-<!--  one article description-->
-<!--      <div class="card shadow mb-3" >-->
-<!--        <div class="row no-gutters">-->
-<!--          <div class="col-md-4">-->
-<!--            <img class="img-thumbnail" src="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wHeT?ver=80f6" alt="...">-->
+    <div class="col-lg-9 col-12">
+      <div id="article-list" class="card-columns">
+<!--            one article description-->
+<!--        <div class="card">-->
+<!--          <img src="{2}" class="card-img-top img-thumbnail" alt="...">-->
+<!--          <div class="card-body">-->
+<!--            <h5 class="card-title text-center"><a href="{8}">{0}</a></h5>-->
+<!--            <p class="card-text">{1}</p>-->
 <!--          </div>-->
-<!--          <div class="col-md-8">-->
-<!--            <div class="card-body">-->
-<!--              <h5 class="card-title"><a href="#">Card title</a></h5>-->
-<!--              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
-<!--              <p class="card-text">-->
-<!--                <small class="font-italic">post:</small>-->
-<!--                <small class="text-muted">3 mins ago</small>-->
-<!--                <small class="font-italic">, by:</small>-->
-<!--                <small class="text-muted font-weight-bold">-->
-<!--                  <a class="text-dark" href="#">blogger</a>-->
-<!--                </small>-->
-<!--                <small class="font-italic">, views:</small>-->
-<!--                <span class="badge badge-info">8</span>-->
-<!--                <small class="font-italic">, like:</small>-->
-<!--                <span class="badge badge-success">5</span>-->
-<!--                <small class="font-italic">, dislike:</small>-->
-<!--                <span class="badge badge-warning">2</span>-->
-<!--              </p>-->
-<!--            </div>-->
+<!--          <div class="card-footer">-->
+<!--            <span class="d-block">-->
+<!--              <small class="font-italic">post:</small>-->
+<!--              <small class="text-muted">{3}</small>-->
+<!--              <small class="font-italic">, by:</small>-->
+<!--              <small class="text-muted font-weight-bold">-->
+<!--                <a class="text-dark" href="#">{4}</a>-->
+<!--              </small>-->
+<!--            </span>-->
+<!--            <span class="d-block text-right">-->
+<!--              <small class="font-italic">views:</small>-->
+<!--              <span class="badge badge-info">{5}</span>-->
+<!--              <small class="font-italic">, like:</small>-->
+<!--              <span class="badge badge-success">{6}</span>-->
+<!--              <small class="font-italic">, dislike:</small>-->
+<!--              <span class="badge badge-warning">{7}</span>-->
+<!--            </span>-->
 <!--          </div>-->
 <!--        </div>-->
-<!--      </div>-->
+      </div>
     </div>
     <div class="col-lg-3">
       <div class="card shadow border-dark mb-3">
