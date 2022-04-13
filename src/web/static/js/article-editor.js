@@ -1,10 +1,10 @@
 // var editor;
 
 $(function () {
-    getDefaultTime($('#article-post'));
+    getDefaultTime($('#article-data'));
 
     var editor = editormd("article-editormd", {
-        height              : 520,
+        height              : 580,
         watch               : true,                // 关闭实时预览
         syncScrolling       : "single",
         // fontsize            : 28,
@@ -41,7 +41,7 @@ $(function () {
                 data: {
                     'title': title,
                     'article': article,
-                    'postDate': $('#article-post').val()
+                    'postDate': $('#article-data').val()
                 },
                 type: 'post',
                 dataType: 'json',

@@ -66,7 +66,7 @@ public class ArticleController {
                 Blogger blogger = bloggerService.queryById(article.getBloggerId());
                 mapper.put("title", article.getTitle());
                 String cover_path = File.separator + "api" + File.separator +
-                        "resources" + File.separator + "images" +
+                        "mediae" + File.separator + "images" +
                         File.separator + "article-cover-default.jpg";
                 // cover_path: /api/resources/images/article-cover-default.jpg
                 mapper.put("segmental", "defult");

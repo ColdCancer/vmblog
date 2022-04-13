@@ -29,7 +29,7 @@
     <mvc:resources mapping="/js/**" location="/static/js/"/>
     <mvc:resources mapping="/css/**" location="/static/css/"/>
 
-    <mvc:resources mapping="/api/resources/images/**" location="/WEB-INF/resources/images/"/>
+    <mvc:resources mapping="/api/mediae/images/**" location="/WEB-INF/mediae/images/"/>
 
     <!--自定义消息转化器的编码-->
 <!--    <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">-->
