@@ -1,9 +1,9 @@
-// var editor;
+var editor;
 
 $(function () {
-    getDefaultTime($('#article-data'));
+    // getDefaultTime($('#article-data'));
 
-    var editor = editormd("article-editormd", {
+    editor = editormd("article-editormd", {
         height              : 580,
         watch               : true,                // 关闭实时预览
         syncScrolling       : "single",
@@ -36,46 +36,96 @@ $(function () {
             alert_info("Input Article Title, Please");
         } else {
             var article = editor.getHTML();
+            var blob_ojb = new Blob([article], {"type" : "text/html;charset=utf-8"});
+            // console.log(article1);
+            // console.log(typeof article1);
+            // var textCon =
+            var formData = new FormData();
+            var nowData = getDefaultTime();
+            // nowData = nowData.replace('T', ' ');
+            formData.append("article", blob_ojb);
+            formData.append("title", title);
+            formData.append("postDate", nowData);
             $.ajax({
-                url: '/api/article/add',
-                data: {
-                    'title': title,
-                    'article': article,
-                    'postDate': $('#article-data').val()
-                },
+                url: '/api/article/addArticle',
+                data: formData,
                 type: 'post',
+                processData: false,
+                contentType: false,
                 dataType: 'json',
                 success: function (content) {
                     alert_info(content['message']);
-                    getDefaultTime($('#article-post'));
-
-                    // var file = $('#article-cover')[0].files[0];
-                    // var formData = new FormData();
-                    // formData.append("cover", file);
-                    //
-                    // $.ajax({
-                    //     url: '/api/article/addCover',
-                    //     type: 'post',
-                    //     processData: false,
-                    //     contentType: false,
-                    //     data: formData,
-                    //     dataType: 'json',
-                    //     success: function (content) {
-                    //         alert_info(content['message']);
-                    //     }
-                    // });
+                    // getDefaultTime($('#article-post'));
+                    if (content['code'] !== 0) return;
+                    var data = content['data'];
+                    checkAndSendCover(data['account'], data['article-link']);
+                    $('#last-post-date').html("Last Update: " + nowData);
+                    changeNotEdit();
                 }
             });
         }
     });
+
+    $('#btn-edit').click(function () {
+        $('#btn-save').attr('disabled', false);
+        $('#btn-edit').addClass('d-none');
+        $('#btn-post').removeClass('d-none');
+        $('#article-title').attr('disabled', false);
+        $('#article-cover').attr('disabled', false);
+        $('#article-category').attr('disabled', false);
+        // editor.config({ readOnly : false });
+        $('.editormd-preview-close-btn').click();
+        editor.watch();
+        // $('#article-content').attr('disabled', false);
+    });
+
+    $('#btn-exit').click(function () {
+        location.href = '/web/dashboard/article';
+    });
 });
 
-function getDefaultTime(elem) {
+function checkAndSendCover(account, link) {
+    var file = $('#article-cover')[0].files[0];
+    // console.log(file);
+    if (file) {
+        var formData = new FormData();
+        formData.append("cover", file);
+        formData.append('account', account);
+        formData.append('link', link);
+
+        $.ajax({
+            url: '/api/article/addCover',
+            type: 'post',
+            processData: false,
+            contentType: false,
+            data: formData,
+            dataType: 'json',
+            success: function (content) {
+                // alert_info(content['message']);
+            }
+        });
+    }
+}
+
+function getDefaultTime() {
     var myDate = new Date((new Date).getTime() + 8 * 60 * 60 * 1000);
-    var time = myDate.toJSON().substr(0,19);
+    return myDate.toJSON().substr(0, 19).replace('T', ' ');
     //.split('T').join(' ').substr(0,19);
     // alert_info(time);
-    $(elem).val(time);
+}
+
+function changeNotEdit() {
+    $('#btn-save').attr('disabled', true);
+    $('#btn-edit').removeClass('d-none');
+    $('#btn-post').addClass('d-none');
+    $('#article-title').attr('disabled', true);
+    $('#article-cover').attr('disabled', true);
+    $('#article-category').attr('disabled', true);
+    editor.unwatch();
+    editor.previewing();
+    $('.editormd-preview-close-btn').addClass('d-none');
+    // editor.config({ readOnly : true });
+    // $('#article-content').attr('disabled', false);
 }
 
 function alert_info(message) {

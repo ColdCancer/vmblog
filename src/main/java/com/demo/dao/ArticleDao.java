@@ -39,6 +39,7 @@ public interface ArticleDao {
 
     @Insert("insert into article(blogger_id, title, link_name, file_name, flag_type, post_date) " +
             "values(#{bloggerId}, #{title}, #{linkName}, #{fileName}, #{flagType}, #{postDate})")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(Article article);
 
     @Update("update article set link_name=#{linkName} where id=#{id}")
@@ -56,6 +57,10 @@ public interface ArticleDao {
     @Delete("delete from article where id=#{id}")
     int deleteById(Integer id);
 
-    @Select("select * from article where blogger_id=#{id} and file_name=#{name}")
-    Article queryByBloggerIdAndLinkName(@Param("id") Integer bloggerId, @Param("name") String fileName);
+    @Select("select * from article where blogger_id=#{id} and link_name=#{name}")
+    Article queryByBloggerIdAndLinkName(@Param("id") Integer account, @Param("name") String linkName);
+
+    @Update("update article set cover_id=#{coverId}, title=#{title}, link_name=#{linkName}, " +
+            "flag_type=#{flagType}, update_date=#{updateDate} where id=#{id}")
+    int update(Article article);
 }

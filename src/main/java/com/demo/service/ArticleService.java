@@ -1,7 +1,6 @@
 package com.demo.service;
 
 import com.demo.entity.Article;
-import com.demo.entity.Blogger;
 
 import java.util.List;
 
@@ -17,4 +16,6 @@ public interface ArticleService {
     Article insert(Article article);
     boolean deleteById(Integer id);
     Article insertAndReturn(Article article);
+    Article queryByAccoutAndLink(Integer account, String link);
+    int update(Article article);
 }

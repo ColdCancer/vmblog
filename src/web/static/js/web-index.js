@@ -25,10 +25,14 @@ function getArticleByPageNum(pageNum) {
             $article_list_elem.html('');
             for (var article_index in article_json) {
                 var article = article_json[article_index];
-                $article_list_elem.append(new ArticleCart(article.title,
+                var article_elem = new ArticleCart(article.title,
                     article.segmental, article.cover, article.post,
                     article.blogger, article.views, article.like,
-                    article.dislike, article.link).convert());
+                    article.dislike, article.link).convert();
+                if (article.cover === '#') {
+                    $(article_elem).find("img")[0].remove();
+                }
+                $article_list_elem.append(article_elem);
             }
             window.scrollTo(0, 0);
         }

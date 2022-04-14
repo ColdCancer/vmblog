@@ -29,16 +29,15 @@
                     </a>
                 </li>
                 <li class="nav-item mx-1">
-                    <a id="last-post-date" class="nav-link disabled" href="#">
-                        Post: 2022-04-10 22:39:12
-                    </a>
+                    <a id="last-post-date" class="nav-link disabled" href="#"></a>
                 </li>
             </ul>
             <div class="d-flex justify-content-lg-end justify-content-center">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-outline-primary">Save</button>
+                    <button id="btn-save" type="button" class="btn btn-outline-primary">Save</button>
+                    <button id="btn-edit" type="button" class="btn btn-outline-primary d-none">Edit</button>
                     <button id="btn-post" type="button" class="btn btn-outline-primary">Post</button>
-                    <button type="button" class="btn btn-outline-primary">Cancel</button>
+                    <button id="btn-exit" type="button" class="btn btn-outline-primary">Exit</button>
                 </div>
             </div>
         </div>
@@ -109,12 +108,12 @@
     <div class="row">
         <div id="article-editormd">
             <label><textarea class="editormd-markdown-textarea" style="display: none"></textarea></label>
-            <label><textarea class="editormd-html-textarea" name="real-content"></textarea></label>
+            <label><textarea id="article-content" class="editormd-html-textarea" name="real-content"></textarea></label>
         </div>
     </div>
 </div>
 <!--page-foot-->
-<div class="position-fixed mr-5 mb-3" style="z-index: 5; right: 0; bottom: 0;">
+<div class="position-fixed mr-5 mb-3" style="z-index: 99; right: 0; bottom: 0;">
     <div id="alert-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
         <div class="toast-header">
             <strong class="mr-auto">Notice</strong>

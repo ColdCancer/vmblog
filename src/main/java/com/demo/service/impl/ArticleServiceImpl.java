@@ -2,7 +2,6 @@ package com.demo.service.impl;
 
 import com.demo.entity.Article;
 import com.demo.dao.ArticleDao;
-import com.demo.entity.Blogger;
 import com.demo.service.ArticleService;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +27,16 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> queryAllByLimit(int offset, int limit) {
         return this.articleDao.queryAllByLimit(offset, limit);
+    }
+
+    @Override
+    public Article queryByAccoutAndLink(Integer account, String link) {
+        return this.articleDao.queryByBloggerIdAndLinkName(account, link);
+    }
+
+    @Override
+    public int update(Article article) {
+        return this.articleDao.update(article);
     }
 
     @Override

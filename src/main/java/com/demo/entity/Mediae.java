@@ -18,13 +18,13 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ErResource implements Serializable {
+public class Mediae implements Serializable {
     private static final long serialVersionUID = 877197592084574425L;
     
     private Integer id;
     private Integer bloggerId;
-    private String linkName;
-    private String fileName;
+    private String mdName;
+    private String mdDigest;
     private String flagType;
     private Date postDate;
 }
