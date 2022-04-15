@@ -9,15 +9,12 @@ import com.demo.service.MediaeService;
 import com.demo.utils.BaseTools;
 import com.demo.utils.ResponseData;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +53,7 @@ public class ArticleController {
 //        System.out.println(oFilename);
         int lastIndex = oFilename.lastIndexOf(".");
         String fileType = oFilename.substring(lastIndex);
-        String mdDigest = BaseTools.RandomStr(18);
+        String mdDigest = BaseTools.randomStr(18);
         String fileName = DigestUtils.shaHex(account + "&" + mdDigest);
 
         String base_path = session.getServletContext().getRealPath("/WEB-INF/mediae/images");
@@ -75,7 +72,7 @@ public class ArticleController {
         ResponseData responseData = null;
 
         Blogger blogger = bloggerService.queryByAccount(account);
-        String mdName = BaseTools.RandomStr(12);
+        String mdName = BaseTools.randomStr(12);
         Mediae mediae = new Mediae(null, blogger.getId(), mdName, mdDigest, fileType, null);
 //        System.out.println(mediae);
         mediae = mediaeService.insert(mediae);
@@ -108,7 +105,7 @@ public class ArticleController {
                     String real_file = DigestUtils.shaHex(blogger.getErAccount() +
                             "&" + mediae.getMdDigest());
                     String cover_path = File.separator + "api" + File.separator +
-                            "mediae" + File.separator + "images" + File.separator +
+                            "resource" + File.separator + "images" + File.separator +
                             real_file + mediae.getFlagType();
                     mapper.put("cover", cover_path);
 //                    System.out.println(cover_path);
@@ -132,18 +129,45 @@ public class ArticleController {
         return responseData;
     }
 
+
+    @GetMapping("/web/api/article/items/page/{number}")
+    public ResponseData getArticleItemsByPageNumber(
+                    @PathVariable("number") Integer number) {
+        int number_of_one_page = 10;
+        int begin_index = (number - 1) * number_of_one_page;
+        List<Article> articleList = articleService.queryAllByLimit(
+                number_of_one_page, begin_index);
+        ResponseData responseData = null;
+        if (articleList != null) {
+            Map<String, Object> data = new HashMap<String, Object>();
+            for (int i = 0; i < articleList.size(); i++) {
+                Article article = articleList.get(i);
+                Map<String, Object> mapper = new HashMap<String, Object>();
+                Blogger blogger = bloggerService.queryById(article.getBloggerId());
+                mapper.put("id", begin_index + i + 1);
+                mapper.put("title", article.getTitle());
+                mapper.put("postDate", BaseTools.toString(article.getPostDate()));
+                mapper.put("updateDate", BaseTools.toString(article.getUpdateDate()));
+                data.put("" + (i + 1), mapper);
+            }
+            responseData = new ResponseData(0, "default", data);
+        } else {
+            responseData = new ResponseData(-1, "failure", null);
+        }
+        return responseData;
+    }
+
     @PostMapping("/api/article/addArticle")
     public ResponseData addArticle(HttpSession session,
                        @RequestParam("title") String title,
                        @RequestParam("article") MultipartFile article,
                        @RequestParam("postDate") String postDate) {
         String account = (String) session.getAttribute("account");
-        String link_name = BaseTools.RandomStr(12);
-        String file_name = BaseTools.RandomStr(20);
+        String link_name = BaseTools.randomStr(12);
+        String file_name = BaseTools.randomStr(20);
         String base_path = session.getServletContext().getRealPath("/WEB-INF/") +
                 "blogger" + File.separator + account + File.separator + "article";
         String file_path = base_path + File.separator + file_name;
-//        postDate = postDate.replace("T", " ");
 
         File directory = new File(base_path);
         if (!directory.exists()) {
@@ -152,10 +176,6 @@ public class ArticleController {
 
         ResponseData responseData = null;
         try {
-//            FileWriter writer = new FileWriter(file_path);
-//            writer.write(article);
-//            writer.flush();
-//            writer.close();
             File file = new File(file_path);
             article.transferTo(file);
             Blogger blogger = bloggerService.queryByAccount(account);
@@ -163,12 +183,11 @@ public class ArticleController {
                     null, title, link_name, file_name, "posted",
                     BaseTools.toDate(postDate), null, 0,
                     0, 0, 0);
-//            System.out.println(article_ojb);
-//            articleService.insert(article_ojb);
             articleService.insert(article_ojb);
             Map<String, Object> data = new HashMap<String, Object>();
             data.put("account", account);
             data.put("article-link", link_name);
+            data.put("update-date", postDate);
             responseData = new ResponseData(0, "success", data);
         } catch (IOException e) {
             responseData = new ResponseData(-1, "failure", null);
@@ -176,4 +195,37 @@ public class ArticleController {
         return responseData;
     }
 
+    @PostMapping("/api/article/updateArticle")
+    public ResponseData addArticle(HttpSession session,
+                       @RequestParam("article") MultipartFile article,
+                       @RequestParam("title") String title,
+//                       @RequestParam("account") String account,
+                       @RequestParam("link") String link,
+                       @RequestParam("postDate") String postDate) {
+        String account = (String) session.getAttribute("account");
+        Blogger blogger = bloggerService.queryByAccount(account);
+        Article article_ojb = articleService.queryByAccoutAndLink(blogger.getId(), link);
+        article_ojb.setTitle(title);
+        article_ojb.setFlagType("updated");
+        article_ojb.setUpdateDate(BaseTools.toDate(postDate));
+        articleService.update(article_ojb);
+        String base_path = session.getServletContext().getRealPath("/WEB-INF/blogger/") +
+                File.separator + account + File.separator + "article" + File.separator;
+        File directory = new File(base_path);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        File file = new File(base_path + article_ojb.getFileName());
+        try {
+            article.transferTo(file);
+            Map<String, Object> data = new HashMap<String, Object>();
+            data.put("account", account);
+            data.put("article-link", link);
+            data.put("update-date", postDate);
+            return new ResponseData(0, "success", data);
+        } catch (IOException e) {
+            return new ResponseData(-1, "update failure", null);
+        }
+    }
 }

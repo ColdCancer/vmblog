@@ -35,3 +35,22 @@ class ArticleCart {
         return $(this.pattern);
     }
 }
+
+class ArticleItem {
+    constructor(id, title, post_data, update_date, opt) {
+        this.pattern = "<tr class=\"article-manager-item\">\n" +
+            "             <th class=\"option-item d-none\">\n" +
+            "               <label><input type=\"radio\"></label>\n" +
+            "             </th>\n" +
+            "             <th id=\"article-id\" scope=\"row\">{0}</th>\n" +
+            "             <td id=\"article-title\">{1}</td>\n" +
+            "             <td id=\"article-post-date\">{2}</td>\n" +
+            "             <td id=\"article-update-date\">{3}</td>\n" +
+            "           </tr>"
+        this.pattern = String.format(this.pattern, id, title, post_data, update_date, opt)
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}

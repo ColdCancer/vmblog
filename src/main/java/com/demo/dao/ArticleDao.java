@@ -34,7 +34,7 @@ public interface ArticleDao {
     Article queryById(Integer id);
 
 //    @ResultMap(value = {"ArticleResultMap"})
-    @Select("select * from article limit #{limit}, #{offset}")
+    @Select("select * from article order by id desc limit #{limit}, #{offset}")
     List<Article> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
     @Insert("insert into article(blogger_id, title, link_name, file_name, flag_type, post_date) " +

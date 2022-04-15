@@ -1,6 +1,7 @@
 package com.demo.utils;
 
 import com.sun.corba.se.spi.orbutil.fsm.FSMImpl;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,7 @@ public class BaseTools {
         return UUID.randomUUID().toString();
     }
 
-    public static String RandomStr(int length) {
+    public static String randomStr(int length) {
         String example = "0123456789" +
                 "abcdefghijklmnopqrstuvwxyz" +
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -36,5 +37,14 @@ public class BaseTools {
 //            e.printStackTrace();
         }
         return null;
+    }
+
+    public static String digest(String str1, String str2) {
+        return DigestUtils.shaHex(str1 + "&" + str2);
+    }
+
+    public static String toString(Date date) {
+        if (date == null) return "-";
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
     }
 }

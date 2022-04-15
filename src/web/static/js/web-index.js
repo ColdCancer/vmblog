@@ -12,7 +12,6 @@ $(function () {
     });
 });
 
-
 function getArticleByPageNum(pageNum) {
     $.ajax({
         url: '/api/article/page/' + pageNum,

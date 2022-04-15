@@ -31,6 +31,9 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <nav class="nav px-3 ">
+        <span class="nav-link text-light">
+            <i class="bi bi-activity"></i> Blogger
+        </span>
         <a class="nav-link text-light" href="#">Profile</a>
         <a class="nav-link text-light" href="#">Sign Out</a>
     </nav>
@@ -79,7 +82,7 @@
 <!--        main content begin -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <div id="information-box" class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Article</h1> </br>
+                <h1 class="h2">Article</h1> <br>
                 <div class="row mb-4">
                     <div class="col text-center">
                         <a class="btn btn-outline-primary" href="/web/editor/article/add">
@@ -104,33 +107,61 @@
                 </div>
                 <table class="table table-striped">
                     <thead>
-                    <tr>
-                        <th class="option-item d-none" scope="col">Option</th>
-                        <th scope="col">Index</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Last</th>
-                    </tr>
+                        <tr>
+                            <th class="option-item d-none" scope="col">
+                                Option
+                            </th>
+                            <th scope="col">Index</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Update</th>
+                            <th scope="col">Last</th>
+                        </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Hello World</td>
-                        <td>2022-04-08 23:31:57</td>
-                        <td>2022-04-08 23:31:57</td>
-                    </tr>
+                    <tbody id="article-manager-body">
+<!--                        <tr class="article-manager-item">-->
+<!--                            <th class="option-item d-none">-->
+<!--                                <label><input type="radio"></label>-->
+<!--                            </th>-->
+<!--                            <th id="article-id" scope="row">1</th>-->
+<!--                            <td id="article-title">Hello World</td>-->
+<!--                            <td id="article-post-date">2022-04-08 23:31:57</td>-->
+<!--                            <td id="article-update-date">2022-04-08 23:31:57</td>-->
+<!--                        </tr>-->
                     </tbody>
                 </table>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="btn-group d-block text-center" role="group" aria-label="Basic example">
+                        <button type="button" id="article-page-previous" class="btn btn-outline-secondary">Previous</button>
+                        <button type="button" id="article-page-next" class="btn btn-outline-secondary">Next</button>
+                    </div>
+                </div>
             </div>
         </main>
 <!--        main content end-->
     </div>
 </div>
 
+<!--page-foot-->
+<div class="position-fixed mr-5 mb-3" style="z-index: 5; right: 0; bottom: 0;">
+    <div id="alert-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-header">
+            <strong class="mr-auto">Notice</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="alert-content" class="toast-body bg-warning"></div>
+    </div>
+</div>
 
 <script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
 <!--<script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>-->
+<script type="text/javascript" src="/js/base-functions.js"></script>
+<script type="text/javascript" src="/js/base-classes.js"></script>
 <script type="text/javascript" src="/js/dashboard.js"></script>
+<script type="text/javascript" src="/js/article-manager.js"></script>
 </body>
 </html>

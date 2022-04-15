@@ -12,7 +12,6 @@ $(function () {
     });
 });
 
-
 function getArticleByPageNum(pageNum) {
     $.ajax({
         url: '/api/article/page/' + pageNum,
@@ -30,9 +29,7 @@ function getArticleByPageNum(pageNum) {
                     article.blogger, article.views, article.like,
                     article.dislike, article.link).convert();
                 if (article.cover === '#') {
-                    // $article_elem.find()
                     $(article_elem).find("img")[0].remove();
-                    // console.log(temp);
                 }
                 $article_list_elem.append(article_elem);
             }
