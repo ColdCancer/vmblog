@@ -2,6 +2,7 @@ class ArticleCart {
     constructor(title, segmental, cover, post, blogger,
                 views, like, dislike, link) {
         var url = "/article/" + blogger + "/" + link;
+        // segmental = "<span style='white-space: pre;'>" + segmental + "</span>";
         this.pattern = "      <div class=\"card\">\n" +
             "        <img src=\"{2}\" class=\"card-img-top img-thumbnail\" alt=\"...\">\n" +
             "        <div class=\"card-body\">\n" +
@@ -27,6 +28,7 @@ class ArticleCart {
             "          </span>\n" +
             "        </div>\n" +
             "      </div>\n";
+        // console.log(segmental);
         this.pattern = String.format(this.pattern, title, segmental, cover,
             post, blogger, views, like, dislike, url);
     };
@@ -37,17 +39,23 @@ class ArticleCart {
 }
 
 class ArticleItem {
-    constructor(id, title, post_data, update_date, opt) {
-        this.pattern = "<tr class=\"article-manager-item\">\n" +
-            "             <th class=\"option-item d-none\">\n" +
-            "               <label><input type=\"radio\"></label>\n" +
-            "             </th>\n" +
-            "             <th id=\"article-id\" scope=\"row\">{0}</th>\n" +
-            "             <td id=\"article-title\">{1}</td>\n" +
-            "             <td id=\"article-post-date\">{2}</td>\n" +
-            "             <td id=\"article-update-date\">{3}</td>\n" +
-            "           </tr>"
-        this.pattern = String.format(this.pattern, id, title, post_data, update_date, opt)
+    constructor(id, title, post_data, update_date, link) {
+        var url = "/web/editor/article/edit/" + link;
+        this.pattern = "<tr class=article-manager-item\">\n" +
+            "             <td class=\"option-item text-center d-none\">\n" +
+            "               <label class=\"mb-1\">" +
+            "                   <input class='opt-items' type=\"checkbox\" name='opts' value='{5}'>" +
+            "               </label>\n" +
+            "             </td>\n" +
+            "             <td class=\"text-center\" id=\"article-id\" scope=\"row\">{0}</td>\n" +
+            "             <td class=\"text-center\" id=\"article-title\">{1}</td>\n" +
+            "             <td class=\"text-center\" id=\"article-post-date\">{2}</td>\n" +
+            "             <td class=\"text-center\" id=\"article-update-date\">{3}</td>\n" +
+            "             <td class=\"text-center edit-item\" id=\"article-edit\">\n" +
+            "               <a class=\"btn btn-sm btn-dark py-0\" href=\"{4}\">Edit</a>\n" +
+            "             </td>\n" +
+            "           </tr>";
+        this.pattern = String.format(this.pattern, id, title, post_data, update_date, url, link);
     }
 
     convert() {

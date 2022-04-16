@@ -18,4 +18,5 @@ public interface ArticleService {
     Article insertAndReturn(Article article);
     Article queryByAccoutAndLink(Integer account, String link);
     int update(Article article);
+    int deleteByAccountAndLink(Integer id, String link);
 }

@@ -35,6 +35,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public int deleteByAccountAndLink(Integer id, String link) {
+        return this.articleDao.deleteByBloggerIdAndLink(id, link);
+    }
+
+    @Override
     public int update(Article article) {
         return this.articleDao.update(article);
     }

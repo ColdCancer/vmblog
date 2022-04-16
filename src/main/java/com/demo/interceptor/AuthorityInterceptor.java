@@ -19,7 +19,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 //            httpServletRequest.setAttribute("message", "Sign In Account, Please.");
 //            httpServletRequest.getRequestDispatcher("index").
 //                    forward(httpServletRequest, httpServletResponse);
-            httpServletResponse.sendRedirect("/index?nologin=true");
+            httpServletResponse.sendRedirect("/index");
             return false;
         }
     }

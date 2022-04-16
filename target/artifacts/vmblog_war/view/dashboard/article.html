@@ -82,51 +82,55 @@
 <!--        main content begin -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <div id="information-box" class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Article</h1> <br>
+                <h1 class="h2">Article Manager</h1> <br>
                 <div class="row mb-4">
-                    <div class="col text-center">
+                    <div class="col-6 col-lg-3 mb-3 mb-lg-0 text-center">
                         <a class="btn btn-outline-primary" href="/web/editor/article/add">
                             <i class="bi bi-plus-circle"></i> Add Article
                         </a>
                     </div>
-                    <div class="col text-center">
-                        <button type="button" class="btn btn-outline-primary">
+                    <div class="col-6 col-lg-3 mb-3 mb-lg-0 text-center">
+                        <button id="article-operation" type="button" class="btn btn-outline-primary">
                             <i class="bi bi-justify"></i> Operation
                         </button>
                     </div>
-                    <div class="col text-center">
-                        <button type="button" class="btn btn-outline-primary">
+                    <div class="col-6 col-lg-3 text-center">
+                        <button id="article-delete" type="button" class="btn btn-outline-primary disabled">
                             <i class="bi bi-trash"></i> Delete Article
                         </button>
                     </div>
-                    <div class="col text-center">
-                        <button type="button" class="btn btn-outline-primary">
+                    <div class="col-6 col-lg-3 text-center">
+                        <button id="article-classify" type="button" class="btn btn-outline-primary disabled">
                             <i class="bi bi-view-stacked"></i> Classify Article
                         </button>
                     </div>
                 </div>
-                <table class="table table-striped">
+                <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th class="option-item d-none" scope="col">
-                                Option
+                            <th class="option-item text-center d-none" scope="col">
+                                Select
                             </th>
-                            <th scope="col">Index</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Update</th>
-                            <th scope="col">Last</th>
+                            <th class="text-center" scope="col">Index</th>
+                            <th class="text-center" scope="col">Title</th>
+                            <th class="text-center" scope="col">Post</th>
+                            <th class="text-center" scope="col">Last</th>
+                            <th class="edit-item text-center" scope="col">Opt</th>
                         </tr>
                     </thead>
                     <tbody id="article-manager-body">
-<!--                        <tr class="article-manager-item">-->
-<!--                            <th class="option-item d-none">-->
-<!--                                <label><input type="radio"></label>-->
-<!--                            </th>-->
-<!--                            <th id="article-id" scope="row">1</th>-->
-<!--                            <td id="article-title">Hello World</td>-->
-<!--                            <td id="article-post-date">2022-04-08 23:31:57</td>-->
-<!--                            <td id="article-update-date">2022-04-08 23:31:57</td>-->
-<!--                        </tr>-->
+                        <tr class="article-manager-item">
+                            <td class="option-item text-center d-none">
+                                <label><input type="radio"></label>
+                            </td>
+                            <td class="text-center" id="article-id" scope="row">{0}</td>
+                            <td class="text-center" id="article-title">{1}</td>
+                            <td class="text-center" id="article-post-date">{2}</td>
+                            <td class="text-center" id="article-update-date">{3}</td>
+                            <td class="text-center edit-item" id="article-edit">
+                                <a class="btn btn-sm btn-dark py-0" href="{4}">Edit</a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

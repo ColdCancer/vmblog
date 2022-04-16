@@ -63,4 +63,7 @@ public interface ArticleDao {
     @Update("update article set cover_id=#{coverId}, title=#{title}, link_name=#{linkName}, " +
             "flag_type=#{flagType}, update_date=#{updateDate} where id=#{id}")
     int update(Article article);
+
+    @Delete("delete from article where blogger_id=#{id} and link_name=#{link}")
+    int deleteByBloggerIdAndLink(@Param("id") Integer id, @Param("link") String link);
 }

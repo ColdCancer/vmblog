@@ -57,6 +57,11 @@ public class RedirectController {
         return "editor/article-editor";
     }
 
+    @GetMapping("web/editor/article/edit/{link}")
+    public String editArticle(@PathVariable("link") String link) {
+        return "editor/article-editor";
+    }
+
     @GetMapping("/article/{blogger}/{link}")
     public String toArticleByLink(@PathVariable("blogger") String blogger,
                                   @PathVariable("link") String like) {

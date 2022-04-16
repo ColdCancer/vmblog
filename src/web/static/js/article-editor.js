@@ -44,6 +44,14 @@ $(function () {
         }
     });
 
+    $('#btn-save').click(function () {
+        if (update_flag) {
+            requestUpdateBackupArticle();
+        } else {
+            requestAddBackupArticle();
+        }
+    });
+
     $('#btn-edit').click(function () {
         changeToEdit();
     });
@@ -55,10 +63,16 @@ $(function () {
     $('#article-cover').change(function () {
         update_img = true; // no update img
     });
+
+    var path_items = window.location.pathname.split("/");
+    // console.log(path_items);
+    if (path_items[4] === "edit" && path_items.length > 5) {
+        requestEditArticle(path_items[5]);
+    }
 });
 
-function requestUpdateArticle() {
-    var article = editor.getHTML();
+function requestUpdateBackupArticle() {
+    var article = editor.getMarkdown();
     var blob_ojb = new Blob([article], {"type" : "text/html;charset=utf-8"});
     var formData = new FormData();
     var nowData = getDefaultTime();
@@ -68,7 +82,7 @@ function requestUpdateArticle() {
     formData.append("link", update_link);
     formData.append("postDate", nowData);
     $.ajax({
-        url: '/api/article/updateArticle',
+        url: '/web/api/article/updateBackupArticle',
         data: formData,
         type: 'post',
         processData: false,
@@ -82,13 +96,13 @@ function requestUpdateArticle() {
                 checkAndSendCover(data['account'], data['article-link']);
             }
             changeToNotEdit();
-            // updateStatus(data);
+            updateStatus(data);
         }
     });
 }
 
-function requestAddArticle() {
-    var article = editor.getHTML();
+function requestAddBackupArticle() {
+    var article = editor.getMarkdown();
     var blob_ojb = new Blob([article], {"type" : "text/html;charset=utf-8"});
     var formData = new FormData();
     var nowData = getDefaultTime();
@@ -96,7 +110,105 @@ function requestAddArticle() {
     formData.append("title", $('#article-title').val());
     formData.append("postDate", nowData);
     $.ajax({
-        url: '/api/article/addArticle',
+        url: '/web/api/article/addBackupArticle',
+        data: formData,
+        type: 'post',
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (content) {
+            alert_info(content['message']);
+            if (content['code'] !== 0) return;
+            var data = content['data'];
+            checkAndSendCover(data['account'], data['article-link']);
+            changeToNotEdit();
+            updateStatus(data);
+        }
+    });
+}
+
+function requestEditArticle(link) {
+    // var article = editor.getHTML();
+    var account = null;
+    $.ajax({
+        url: '/web/api/article/editInfo',
+        data: {'link': link},
+        type: 'get',
+        async: false,
+        dataType: 'json',
+        success: function (content) {
+            alert_info(content['message']);
+            if (content['code'] !== 0) return;
+            var data = content['data'];
+            console.log(data);
+            changeToEdit();
+            account = data['account'];
+            updateStatus(data);
+            loadEditState(data);
+        }
+    });
+
+    $.ajax({
+        url: '/web/api/article/md/content',
+        data: {'link': link, 'account': account},
+        type: 'get',
+        dataType: 'text',
+        success: function (content) {
+            // alert_info(content['message']);
+            // if (content['code'] !== 0) return;
+            // var data = content['data'];
+            // console.log(content);
+            setTimeout(function(){
+                editor.setValue(content);
+            }, 500);
+        }
+    });
+}
+
+function loadEditState(data) {
+    $('#article-title').val(data['title']);
+}
+
+function requestUpdateArticle() {
+    var article = editor.getMarkdown();
+    var blob_ojb = new Blob([article], {"type" : "text/html;charset=utf-8"});
+    var formData = new FormData();
+    var nowData = getDefaultTime();
+    formData.append("article", blob_ojb);
+    formData.append("title", $('#article-title').val());
+    // formData.append("account", update_account);
+    formData.append("link", update_link);
+    formData.append("postDate", nowData);
+    $.ajax({
+        url: '/web/api/article/updateArticle',
+        data: formData,
+        type: 'post',
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (content) {
+            alert_info(content['message']);
+            if (content['code'] !== 0) return;
+            var data = content['data'];
+            if (update_img) {
+                checkAndSendCover(data['account'], data['article-link']);
+            }
+            changeToNotEdit();
+            updateStatus(data);
+        }
+    });
+}
+
+function requestAddArticle() {
+    var article = editor.getMarkdown();
+    var blob_ojb = new Blob([article], {"type" : "text/html;charset=utf-8"});
+    var formData = new FormData();
+    var nowData = getDefaultTime();
+    formData.append("article", blob_ojb);
+    formData.append("title", $('#article-title').val());
+    formData.append("postDate", nowData);
+    $.ajax({
+        url: '/web/api/article/addArticle',
         data: formData,
         type: 'post',
         processData: false,
@@ -183,7 +295,11 @@ function changeToEdit() {
     update_img = false;
     // editor.config({ readOnly : false });
     $('.editormd-preview-close-btn').click();
-    editor.watch();
+    try {
+        editor.watch();
+    } catch (e) {
+        console.log("editor init ...");
+    }
 }
 
 function alert_info(message) {
