@@ -6,25 +6,25 @@
     <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="/bootstrap/font/bootstrap-icons.css">
     <link type="text/css" rel="stylesheet" href="/editor/css/editormd.min.css">
-    <title>VM-Blog</title>
+    <title>Editor</title>
 </head>
 <body>
 <!--nav-header-->
 <div class="container-fluid shadow-sm rounded bg-light">
     <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#">VMBLOG</a>
+        <a class="navbar-brand" href="/">VMBLOG</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse bg-light rounded" id="navbarScroll">
             <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
-                <li class="nav-item mx-1 active">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-house"></i> Article
-                    </a>
-                </li>
+                <!--<li class="nav-item mx-1 active">-->
+                <!--    <a class="nav-link" href="#">-->
+                <!--        <i class="bi bi-house"></i> Article-->
+                <!--    </a>-->
+                <!--</li>-->
                 <li class="nav-item mx-1">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/web/dashboard">
                         <i class="bi bi-card-list"></i> Dashboard
                     </a>
                 </li>
@@ -70,20 +70,18 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text border-primary bg-light" id="basic-addon-category">Category</span>
                 </div>
+                <label for="article-category"></label>
                 <select id="article-category" class="custom-select">
                     <option selected>Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
                 </select>
             </div>
         </div>
         <div class="col-6 col-lg-3">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text border-primary bg-light" id="basic-addon-post">Post Date</span>
+                    <span class="input-group-text border-primary bg-light" id="basic-addon-rank">Post Rank</span>
                 </div>
-                <input id="article-data" type="datetime-local" class="form-control border-primary" aria-label="article-post">
+                <input id="article-rank" type="range" min="1" max="10" value="1" class="form-control custom-range border-0 my-auto mx-3" aria-label="article-rank">
             </div>
         </div>
     </div>
@@ -129,6 +127,8 @@
 <!--<script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>-->
 <script type="text/javascript" src="/editor/editormd.min.js"></script>
 <!--<script type="text/javascript" src="/js/base-functions.js"></script>-->
+<script type="text/javascript" src="/js/base-functions.js"></script>
+<script type="text/javascript" src="/js/base-classes.js"></script>
 <script type="text/javascript" src="/js/article-editor.js"></script>
 </body>
 </html>

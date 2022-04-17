@@ -9,11 +9,10 @@ $(function () {
         height              : 580,
         watch               : true,                // 关闭实时预览
         syncScrolling       : "single",
-        // fontsize            : 28,
         // htmlDecode          : true,
-        // emoji               : true,
-        // flowChart           : true,
-        // tex                 : true,         // 开启科学公式TeX语言支持，默认关闭
+        emoji               : true,
+        flowChart           : true,
+        tex                 : true,         // 开启科学公式TeX语言支持，默认关闭
         saveHTMLToTextarea  : true,
         // tocm                : true,         // Using [TOCM]
         // sequenceDiagram     : true,
@@ -62,6 +61,11 @@ $(function () {
 
     $('#article-cover').change(function () {
         update_img = true; // no update img
+        // $('#article-cover')[0].files[0].name
+        var img_elem = $('#article-cover');
+        var div_elem = $(img_elem[0].parentElement);
+        var label_elem = $(div_elem[0].getElementsByTagName('label'));
+        label_elem.text(img_elem[0].files[0].name);
     });
 
     var path_items = window.location.pathname.split("/");
@@ -127,6 +131,17 @@ function requestAddBackupArticle() {
     });
 }
 
+function loadCategory(categories) {
+    if (categories.length === 0) return;
+    // console.log(categories);
+    var category_elem = $('#article-category');
+    category_elem.val("<option selected>Choose...</option>");
+    for (var index in categories) {
+        var category = categories[index];
+        category_elem.append(new SelectCategory(-1, category).convert());
+    }
+}
+
 function requestEditArticle(link) {
     // var article = editor.getHTML();
     var account = null;
@@ -140,11 +155,12 @@ function requestEditArticle(link) {
             alert_info(content['message']);
             if (content['code'] !== 0) return;
             var data = content['data'];
-            console.log(data);
+            // console.log(data);
             changeToEdit();
             account = data['account'];
             updateStatus(data);
             loadEditState(data);
+            loadCategory(data['categories']);
         }
     });
 
@@ -253,7 +269,7 @@ function checkAndSendCover(account, link) {
         formData.append('link', link);
 
         $.ajax({
-            url: '/api/article/addCover',
+            url: '/web/api/article/addCover',
             type: 'post',
             processData: false,
             contentType: false,

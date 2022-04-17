@@ -35,6 +35,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public int addVisCount(Integer id) {
+        return this.articleDao.autoAddVisCountById(id);
+    }
+
+    @Override
     public int deleteByAccountAndLink(Integer id, String link) {
         return this.articleDao.deleteByBloggerIdAndLink(id, link);
     }

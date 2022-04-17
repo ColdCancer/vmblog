@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--  <link type="text/css" rel="stylesheet" href="/css/navbar-page.css">-->
+    <link type="text/css" rel="stylesheet" href="/css/index-display.css">
+    <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/bootstrap/font/bootstrap-icons.css">
+    <link type="text/css" rel="stylesheet" href="/editor/css/editormd.min.css">
+    <style type="text/css">
+        @media (max-width: 1200px) {
+            .card-columns {
+                column-count: 2;
+            }
+        }
+        @media (max-width: 768px) {
+            .card-columns {
+                column-count: 1;
+            }
+        }
+    </style>
+    <title>VM-Blog</title>
+</head>
+<body>
+<!--nav-header-->
+<div class="container-fluid shadow rounded fixed-top bg-light">
+    <nav class="navbar navbar-expand-xl navbar-light">
+        <a class="navbar-brand" href="/">VMBLOG</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse bg-light rounded" id="navbarScroll">
+            <ul class="navbar-nav mr-auto my-2 my-xl-0 navbar-nav-scroll" style="max-height: 100px;">
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="/home">
+                        <i class="bi bi-house"></i>Home<span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="/article">
+                        <i class="bi bi-card-list"></i> Article
+                    </a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="/category">
+                        <i class="bi bi-archive"></i> Category
+                    </a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="/chat">
+                        <i class="bi bi-chat-dots"></i> Chat
+                    </a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="/about">
+                        <i class="bi bi-collection"></i> About
+                    </a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <div class="d-flex justify-content-xl-end justify-content-center">
+                <!--    Sign Up Begin-->
+                <div id="SignUpBox" class="dropdown my-2 my-xl-0 ml-2 ml-xl-4">
+                    <a class="btn btn-dark rounded-pill" href="#" id="navbarScrollingSignUpDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Sign Up
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right p-2">
+                        <div class="form-group">
+                            <label for="SignUpAccount">Account</label>
+                            <input type="text" class="form-control" id="SignUpAccount" placeholder="Input Account">
+                        </div>
+                        <div class="form-group">
+                            <label for="SignUpPassword">Password</label>
+                            <input type="password" class="form-control" id="SignUpPassword" placeholder="Input Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="SignUpRePassword">Repeat Password</label>
+                            <input type="password" class="form-control" id="SignUpRePassword" placeholder="Input Password">
+                        </div>
+                        <button id="btn-sign-up" class="btn btn-primary btn-block">Sign Up</button>
+                    </div>
+                </div>
+                <!--    Sign Up End-->
+                <!--    Sign In Begin-->
+                <div id="SignInBox" class="dropdown my-2 my-xl-0 ml-2">
+                    <a class="btn btn-success rounded-pill" href="#" id="navbarScrollingSignInDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Sign In
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right p-2">
+                        <div class="form-group">
+                            <label for="SignInAccount">Account</label>
+                            <input type="text" class="form-control" id="SignInAccount" placeholder="Input Account">
+                        </div>
+                        <div class="form-group">
+                            <label for="SignInPassword">Password</label>
+                            <input type="password" class="form-control" id="SignInPassword" placeholder="Input Password">
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="SignInRemember">
+                                <label class="form-check-label" for="SignInRemember">
+                                    Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <button id="btn-sign-in" type="submit" class="btn btn-primary btn-block">Sign in</button>
+                    </div>
+                </div>
+                <!--    Sign In End-->
+                <!--    Account Begin -->
+                <!--      <figure style="width: 150px;height: 150px;">-->
+                <!--          <img class="img-responsive " src="img.jpg" alt="头像"/>-->
+                <!--      </figure>-->
+                <div id="AccountBox" class="dropdown my-2 my-xl-0 ml-xl-2 d-none">
+                    <img id="profile-photo" class="image-responsive rounded-circle" src="#" height="35" width="35" alt="..."/>
+                    <a class="dropdown-toggle rounded-pill" href="#" id="navbarScrollingAccountDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Account
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" href="/web/dashboard">
+                            <i class="bi bi-text-center mr-2"></i>Dashboard
+                        </a></li>
+                        <li><a class="dropdown-item" href="#">
+                            <i class="bi bi-person-bounding-box mr-2"></i>Profile
+                        </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">
+                            <i class="bi bi-x-square mr-2"></i>Sign Out
+                        </a></li>
+                    </ul>
+                </div>
+                <!--    Account End -->
+            </div>
+        </div>
+    </nav>
+</div>
+<!--main-content-->
+<div class="container">
+    <div class="row mt-3">
+        <div class="col">
+            <span id="article-title" class="h1 d-block text-center"></span>
+        </div>
+    </div>
+    <div class="row mt-0">
+        <div class="col">
+            <div id="article-previous" style="z-index: 50 !important;">
+                <hr class="mb-0"/>
+                <label><textarea class="editormd-markdown-textarea" style="display: none"></textarea></label>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-12 col-lg-4 my-2 my-lg-0 text-center">
+            <span><i class="bi bi-calendar-date"></i> Post Date: <span id="article-date"></span></span>
+        </div>
+        <div class="col-12 col-lg-4 my-2 my-lg-0 text-center">
+            <i class="bi bi-eye"></i> Watch: <span id="article-watch"></span>
+            &nbsp;&nbsp;
+            <i class="bi bi-heart-pulse"></i> Like: <span id="article-like"></span>
+            &nbsp;&nbsp;
+            <i class="bi bi-heartbreak"></i> Dislike: <span id="article-dislike"></span>
+            <!--<span class="my-auto d-block">-->
+            <!--</span>-->
+        </div>
+        <div class="col-12 col-lg-4 my-2 my-lg-0 text-center">
+            <a id="action-like" class="btn btn-link d-inline-block p-0">
+                <i class="bi bi-heart-fill"></i> Like
+            </a>
+            &nbsp;&nbsp;
+            <a id="action-dislike" class="btn btn-link text-danger d-inline-block p-0">
+                <i class="bi bi-heartbreak-fill"></i> Dislike
+            </a>
+        </div>
+    </div>
+    <hr/>
+    <div class="row mt-3">
+        <div class="col">
+            <div class="jumbotron py-3">
+                <div class="mb-3">
+                    <label for="validationTextarea">Comment</label>
+                    <textarea class="form-control" id="validationTextarea" placeholder="Required example textarea" required></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--page-foot-->
+<div class="position-fixed mr-5 mb-3" style="z-index: 5; right: 0; bottom: 0;">
+    <div id="alert-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-header">
+            <strong class="mr-auto">Notice</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="alert-content" class="toast-body bg-warning"></div>
+    </div>
+</div>
+<script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/jquery/js/jquery.md5.js"></script>
+<!--<script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>-->
+<script type="text/javascript" src="/editor/editormd.min.js"></script>
+<script type="text/javascript" src="/editor/lib/marked.min.js"></script>
+<script type="text/javascript" src="/editor/lib/prettify.min.js"></script>
+<script type="text/javascript" src="/editor/lib/raphael.min.js"></script>
+<script type="text/javascript" src="/editor/lib/underscore.min.js"></script>
+<script type="text/javascript" src="/editor/lib/sequence-diagram.min.js"></script>
+<script type="text/javascript" src="/editor/lib/flowchart.min.js"></script>
+<script type="text/javascript" src="/editor/lib/jquery.flowchart.min.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/base-functions.js"></script>
+<script type="text/javascript" src="/js/base-classes.js"></script>
+<script type="text/javascript" src="/js/sign-functions.js"></script>
+<script type="text/javascript" src="/js/sign-index.js"></script>
+<script type="text/javascript" src="/js/web-previous.js"></script>
+</body>
+</html>

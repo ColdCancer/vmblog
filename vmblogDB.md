@@ -1,5 +1,7 @@
 ## 流程图
-
+// .CodeMirror-linenumber
+// .editormd .CodeMirror pre
+// .editormd-html-preview,.editormd-preview-container
 ### 发布文章
 ``` flow 
 start=>start: 开始
@@ -71,15 +73,49 @@ create database if not exists vmblog default
 use vmblog;
 
 create table if not exists blogger (
-    id bigint(20) unsigned,
+    id int auto_increment,
     er_name varchar(15) not null,
     er_sex varchar(3) default null,
     er_motto varchar(255) default null,
     er_account varchar(31) not null unique,
-    er_password varchar(31) not null,
+    er_password varchar(63) not null,
+    sa_salt varchar(63) not null,
     register_date datetime default now(),
     last_login_date datetime default null,
     primary key(id)
+) engine InnoDB;
+
+create table if not exists mediae (
+    id int auto_increment,
+    blogger_id int,
+    md_name varchar(63) not null,
+    md_digest varchar(63) not null unique,
+    flag_type varchar(15) not null,
+    post_date datetime default now(),
+    primary key(id),
+    foreign key(blogger_id) references blogger(id),
+    unique index(blogger_id, md_digest)
+) engine InnoDB;
+
+create table if not exists article (
+    id int auto_increment,
+    blogger_id int,
+    cover_id int default null,
+    title varchar(63) not null,
+    link_name varchar(63) not null,
+    file_name varchar(63) not null,
+    flag_type varchar(15) not null,
+    post_date datetime default now(),
+    update_date datetime default null,
+    top_rank int default 0,
+    like_count int default 0,
+    dislike_count int default 0,
+    vis_count int default 0,
+    primary key(id),
+    foreign key(blogger_id) references blogger(id),
+    foreign key(cover_id) references mediae(id),
+    unique index(blogger_id, link_name),
+    unique index(blogger_id, file_name)
 ) engine InnoDB;
 
 create table if not exists er_position (
@@ -123,27 +159,6 @@ create table if not exists all_chat (
     foreign key(blogger_id) references blogger(id)
 ) engine InnoDB;
 
-create table if not exists article (
-    id bigint(20) unsigned,
-    blogger_id bigint(20) unsigned,
-    link_name varchar(31) not null,
-    file_name varchar(36) not null,
-    post_date datetime default now(),
-    hot_rank int default 0,
-    vis_count int default 0,
-    primary key(id),
-    foreign key(blogger_id) references blogger(id)
-) engine InnoDB;
-
-create table if not exists resource (
-    id bigint(20) unsigned,
-    blogger_id bigint(20) unsigned,
-    link_name varchar(31) not null,
-    file_name varchar(36) not null,
-    post_date datetime default now(),
-    primary key(id),
-    foreign key(blogger_id) references blogger(id)
-) engine InnoDB;
 
 create table if not exists resource_link (
     id bigint(20) unsigned,

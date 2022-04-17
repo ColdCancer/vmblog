@@ -13,11 +13,13 @@ class ArticleCart {
             "          <span class=\"d-block\">\n" +
             "            <small class=\"font-italic\">post:</small>\n" +
             "            <small class=\"text-muted\">{3}</small>\n" +
-            "            <small class=\"font-italic\">, by:</small>\n" +
-            "            <small class=\"text-muted font-weight-bold\">\n" +
-            "              <a class=\"text-dark\" href=\"#\">{4}</a>\n" +
-            "            </small>\n" +
             "          </span>\n" +
+            "          <span class='d-block text-center'>" +
+            "            <small class=\"font-italic\">by:</small>\n" +
+            "            <small class=\"text-muted font-weight-bold\">\n" +
+            "              <a class=\"text-dark\" href=\"/blogger/{4}\">{4}</a>\n" +
+            "            </small>\n" +
+            "          </span>" +
             "          <span class=\"d-block text-right\">\n" +
             "            <small class=\"font-italic\">views:</small>\n" +
             "            <span class=\"badge badge-info\">{5}</span>\n" +
@@ -56,6 +58,17 @@ class ArticleItem {
             "             </td>\n" +
             "           </tr>";
         this.pattern = String.format(this.pattern, id, title, post_data, update_date, url, link);
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}
+
+class SelectCategory {
+    constructor(value, text) {
+        this.pattern = "<option class=\"select-category\" value=\"{0}\">{1}</option>\n";
+        this.pattern = String.format(this.pattern, value, text);
     }
 
     convert() {

@@ -32,7 +32,5 @@ public class Article implements Serializable {
     private Date postDate;
     private Date updateDate;
     private Integer topRank;
-    private Integer likeCount;
-    private Integer dislikeCount;
     private Integer visCount;
 }

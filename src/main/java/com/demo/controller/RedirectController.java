@@ -65,6 +65,6 @@ public class RedirectController {
     @GetMapping("/article/{blogger}/{link}")
     public String toArticleByLink(@PathVariable("blogger") String blogger,
                                   @PathVariable("link") String like) {
-        return "article";
+        return "previous";
     }
 }

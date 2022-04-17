@@ -4,10 +4,12 @@ import com.demo.entity.Article;
 import com.demo.entity.Blogger;
 import com.demo.entity.Mediae;
 import com.demo.service.ArticleService;
+import com.demo.service.ArticleStateService;
 import com.demo.service.BloggerService;
 import com.demo.service.MediaeService;
 import com.demo.utils.BaseTools;
 import com.demo.utils.ResponseData;
+import com.demo.utils.ResponseState;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.http.HttpHeaders;
@@ -33,6 +35,8 @@ public class ArticleController {
     @Resource
     private ArticleService articleService;
     @Resource
+    private ArticleStateService articleStateService;
+    @Resource
     private BloggerService bloggerService;
     @Resource
     private MediaeService mediaeService;
@@ -49,131 +53,138 @@ public class ArticleController {
             @RequestParam("account") String account,
             @RequestParam("link") String link,
             HttpSession session) {
-//        System.out.println(coverFile);
-//        System.out.println(account + " : " + link);
-
         String oFilename = coverFile.getOriginalFilename();
-//        System.out.println(oFilename);
         int lastIndex = oFilename.lastIndexOf(".");
-        String fileType = oFilename.substring(lastIndex);
-        String mdDigest = BaseTools.randomStr(18);
-        String fileName = DigestUtils.shaHex(account + "&" + mdDigest);
 
-        String base_path = session.getServletContext().getRealPath("/WEB-INF/mediae/images");
-        String file_path = base_path + File.separator + fileName + fileType;
-//        System.out.println(file_path);
-        File directory = new File(base_path);
-        if (!directory.exists()) { directory.mkdirs(); }
+        String file_type = oFilename.substring(lastIndex);
+        String md_digest = BaseTools.randomStr(18);
+        String md_name = BaseTools.randomStr(12);
 
-        File file = new File(file_path);
+        String file_name = BaseTools.digest(account, md_digest);
+        String file_path = BaseTools.getImagePath(session, file_name + file_type);
+
         try {
+            File file = new File(file_path);
             coverFile.transferTo(file);
         } catch (IOException e) {
-            return new ResponseData(-1, "upload cover error.", null);
+            return new ResponseData(ResponseState.FAILURE, null);
         }
 
-        ResponseData responseData = null;
-
         Blogger blogger = bloggerService.queryByAccount(account);
-        String mdName = BaseTools.randomStr(12);
-        Mediae mediae = new Mediae(null, blogger.getId(), mdName, mdDigest, fileType, null);
-//        System.out.println(mediae);
+        int id = blogger.getId();
+
+        Mediae mediae = new Mediae(null, id, md_name, md_digest, file_type, null);
         mediae = mediaeService.insert(mediae);
-//        System.out.println(mediae);
+
         Article article = articleService.queryByAccoutAndLink(blogger.getId(), link);
         article.setCoverId(mediae.getId());
         articleService.update(article);
 
-//        System.out.println(mediae.getId());
-        return new ResponseData(0, "cover", null);
+        return new ResponseData(ResponseState.SUCCESS, null);
     }
 
     @GetMapping("/api/article/page/{number}")
     public ResponseData getArticlesByPageNumber(HttpSession session,
                     @PathVariable("number") Integer number) {
-        int number_of_one_page = 12;
-        int begin_index = (number - 1) * number_of_one_page;
-        List<Article> articleList = articleService.queryAllByLimit(
-                number_of_one_page, begin_index);
-        ResponseData responseData = null;
+        if (number <= 0) return new ResponseData(ResponseState.EMPTY, null);
+        int article_size = 12, begin_index = (number - 1) * article_size;
+        List<Article> articleList = articleService.queryAllByLimit(article_size, begin_index);
+        if (articleList.size() == 0) return new ResponseData(ResponseState.EMPTY, null);
 
-        if (articleList != null) {
-            Map<String, Object> data = new HashMap<String, Object>();
-            for (int i = 0; i < articleList.size(); i++) {
-                Article article = articleList.get(i);
-                Map<String, Object> mapper = new HashMap<String, Object>();
-                Blogger blogger = bloggerService.queryById(article.getBloggerId());
-                mapper.put("title", article.getTitle());
-                if (article.getCoverId() != null) {
-                    Mediae mediae = mediaeService.queryById(article.getCoverId());
-                    String real_file = DigestUtils.shaHex(blogger.getErAccount() +
-                            "&" + mediae.getMdDigest());
-                    String cover_path = File.separator + "api" + File.separator +
-                            "resource" + File.separator + "images" + File.separator +
-                            real_file + mediae.getFlagType();
-                    mapper.put("cover", cover_path);
-//                    System.out.println(cover_path);
-                } else {
-                    mapper.put("cover", "#");
-                }
-                // cover_path: /api/meidae/images/article-cover-default.jpg
-                String base_path = session.getServletContext().getRealPath("/WEB-INF/blogger/") +
-                        blogger.getErAccount() + File.separator + "article" + File.separator;
-                File directory = new File(base_path);
-                if (!directory.exists()) directory.mkdirs();
-                String file_name = article.getFileName();
-                File file = new File(base_path + file_name);
-//                System.out.println(base_path + file_name);
-                String segment = null;
-                try {
-                    byte[] bytes = FileUtils.readFileToByteArray(file);
-//                    String encoded = Base64.getEncoder().encodeToString(bytes);
-//                    System.out.println(bytes.length); / 2 = str
-                    segment = new String(bytes, "utf-8");
-//                    System.out.println(segment);
-                    segment = BaseTools.delHTMLTag(segment);
-//                    System.out.println(segment);
-//                    System.out.println(segment.length());
-                } catch (IOException e) {
-//                    e.printStackTrace();
-                    segment = "no content";
-                }
+        Map<String, Object> data = new HashMap<String, Object>();
+        for (int i = 0; i < articleList.size(); i++) {
+            Article article = articleList.get(i);
+            Map<String, Object> mapper = new HashMap<String, Object>();
 
-                mapper.put("segmental", segment);
-                mapper.put("post", "3 mins");
-                mapper.put("blogger", blogger.getErName());
-                mapper.put("views", article.getVisCount());
-                mapper.put("like", article.getLikeCount());
-                mapper.put("dislike", article.getDislikeCount());
-                mapper.put("link", article.getLinkName());
-                data.put("" + (i + 1), mapper);
+            Blogger blogger = bloggerService.queryById(article.getBloggerId());
+            String account = blogger.getErAccount();
+            if (article.getCoverId() != null) {
+                Mediae mediae = mediaeService.queryById(article.getCoverId());
+                String file_name = BaseTools.digest(account, mediae.getMdDigest());
+                //  url: /api/resource/images/xxx.type
+                String cover_path = "/api/resource/images/" + file_name + mediae.getFlagType();
+                mapper.put("cover", cover_path);
+            } else {
+                mapper.put("cover", "#");
             }
-            responseData = new ResponseData(0, "default", data);
-        } else {
-            responseData = new ResponseData(-1, "failure", null);
+            // cover_path: /api/meidae/images/article-cover-default.jpg
+            String file_path = BaseTools.getMDPath(session, account, article.getFileName());
+            File file = new File(file_path + ".md");
+            String segment = null;
+            try {
+                byte[] bytes = FileUtils.readFileToByteArray(file);
+                // len(segment) = len(bytes) * 2 +- 1;
+                segment = new String(bytes, "utf-8");
+                segment = BaseTools.delHTMLTag(segment);
+                int length = Math.min(100, segment.length());
+                segment = segment.substring(0, length);
+            } catch (IOException e) {
+                // e.printStackTrace();
+                segment = "no content";
+            }
+
+            Date date = article.getPostDate();
+            if (article.getUpdateDate() != null) {
+                date = article.getUpdateDate();
+            }
+
+            int like_count = articleStateService.queryCountByArticleId(article.getId(), "like");
+            int dislike_count = articleStateService.queryCountByArticleId(article.getId(), "dislike");
+
+            mapper.put("title", article.getTitle());
+            mapper.put("segmental", segment);
+            mapper.put("post", BaseTools.subDate(date, new Date()));
+            mapper.put("blogger", blogger.getErName());
+            mapper.put("views", article.getVisCount());
+            mapper.put("like", like_count);
+            mapper.put("dislike", dislike_count);
+            mapper.put("link", article.getLinkName());
+            data.put("" + (i + 1), mapper);
         }
-        return responseData;
+
+        return new ResponseData(ResponseState.SUCCESS, data);
     }
 
     @GetMapping("/web/api/article/md/content")
-    public ResponseEntity<byte[]> getArticleContent(HttpSession session,
+    public ResponseEntity<byte[]> getEditArticleContent(HttpSession session,
                             @RequestParam("account") String account,
                             @RequestParam("link") String link) {
         Blogger blogger = bloggerService.queryByAccount(account);
         Article article = articleService.queryByAccoutAndLink(blogger.getId(), link);
-        String base_path = session.getServletContext().getRealPath("/WEB-INF/blogger/") +
-               account + File.separator + "article" + File.separator + article.getFileName();
-//        response.setContentType("application/x-download");
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setAcceptCharset();
-        InputStream is = null;
+        String file_path = BaseTools.getMDPath(session, account, article.getFileName());
+
         ResponseEntity<byte[]> responseEntity = null;
         try {
-            File file = new File(base_path + ".save");
+            File file = new File(file_path + ".save");
             byte[] bytes = FileUtils.readFileToByteArray(file);
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Disposition", "attachment;filename=markdown.md");
-//            headers.setContentType(MediaType.TEXT_HTML);
+            headers.add("Content-Disposition",
+                    "attachment;filename=markdown.md");
+            // headers.setContentType(MediaType.TEXT_HTML);
+            HttpStatus httpStatus = HttpStatus.OK;
+            responseEntity = new ResponseEntity<byte[]>(bytes, headers, httpStatus);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return responseEntity;
+    }
+
+    @GetMapping("/api/article/md/content")
+    public ResponseEntity<byte[]> getViewArticleContent(HttpSession session,
+                            @RequestParam("account") String account,
+                            @RequestParam("link") String link) {
+        Blogger blogger = bloggerService.queryByAccount(account);
+        Article article = articleService.queryByAccoutAndLink(blogger.getId(), link);
+        String file_path = BaseTools.getMDPath(session, account, article.getFileName());
+
+        ResponseEntity<byte[]> responseEntity = null;
+        try {
+            File file = new File(file_path + ".md");
+            byte[] bytes = FileUtils.readFileToByteArray(file);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition",
+                    "attachment;filename=markdown.md");
+            // headers.setContentType(MediaType.TEXT_HTML);
             HttpStatus httpStatus = HttpStatus.OK;
             responseEntity = new ResponseEntity<byte[]>(bytes, headers, httpStatus);
         } catch (IOException e) {
@@ -185,106 +196,85 @@ public class ArticleController {
     @PostMapping("/web/api/article/delete/list")
     public ResponseData deleteArticles(HttpSession session,
             @RequestParam(value="deleteList") String[] links) {
-//        System.out.println(Arrays.toString(links));
-        if (links == null) {
-            return new ResponseData(-1, "delete failure", null);
-        }
+        if (links == null) return new ResponseData(ResponseState.EMPTY, null);
 
         Map<String, Object> data = new HashMap<String, Object>();
         String account = (String) session.getAttribute("account");
         Blogger blogger = bloggerService.queryByAccount(account);
+
         int count = 0;
         for (int i = 0; i < links.length; i++) {
             Map<String, Object> mapper = new HashMap<String, Object>();
-            mapper.put("link", links[i]);
             Article article = articleService.queryByAccoutAndLink(blogger.getId(), links[i]);
-//            System.out.println(account + " : " + links[i]);
-            String file_path = session.getServletContext().getRealPath("/WEB-INF/blogger/") +
-                    account + File.separator + "article" + File.separator + article.getFileName();
+            String file_path = BaseTools.getMDPath(session, account, article.getFileName());
             int flag = articleService.deleteByAccountAndLink(blogger.getId(), links[i]);
-//            System.out.println(file_path);
-            File saved_file = new File(file_path + ".save");
-            if (saved_file.exists()) {
-                saved_file.delete();
-                flag = 1;
-            }
-            File file = new File(file_path);
-            if (file.exists()) {
-                file.delete();
-                flag = 1;
-            }
+            BaseTools.deleteMarkdown(file_path);
 
+            mapper.put("link", links[i]);
             mapper.put("delete", flag);
+
             if (flag == 1) count += 1;
             data.put("" + (i + 1), mapper);
         }
         data.put("success", count);
 
         if (count == 0) {
-            return new ResponseData(1, "not delete articles", null);
+            return new ResponseData(ResponseState.EMPTY, null);
         } else {
-            return new ResponseData(0, "delete success", data);
+            return new ResponseData(ResponseState.SUCCESS, data);
         }
     }
 
     @GetMapping("/web/api/article/editInfo")
-    public ResponseData getArticlesByPageNumber(HttpSession session,
+    public ResponseData getArticleEditInfo(HttpSession session,
                     @RequestParam("link") String link) {
         String account = (String) session.getAttribute("account");
         Blogger blogger = bloggerService.queryByAccount(account);
         Article article = articleService.queryByAccoutAndLink(blogger.getId(), link);
-        ResponseData responseData = null;
-        if (article != null) {
-            Map<String, Object> data = new HashMap<String, Object>();
-//            Blogger blogger = bloggerService.queryById(article.getBloggerId());
-            data.put("title", article.getTitle());
-            data.put("account", blogger.getErAccount());
-            data.put("article-link", link);
-            String updateDate = BaseTools.toString(article.getUpdateDate());
-            if ("-".equals(updateDate)) updateDate = BaseTools.toString(article.getPostDate());
-            data.put("update-date", updateDate);
-//            Mediae mediae = mediaeService.queryById(article.getCoverId());
-//            String real_file = DigestUtils.shaHex(blogger.getErAccount() +
-//                    "&" + mediae.getMdDigest());
-//            String cover_path = File.separator + "api" + File.separator +
-//                    "resource" + File.separator + "images" + File.separator +
-//                    real_file + mediae.getFlagType();
-//                    System.out.println(cover_path);
 
-            responseData = new ResponseData(0, "Edit Article, Please", data);
-        } else {
-            responseData = new ResponseData(-1, "Article Not Exist", null);
+        if (article == null) return new ResponseData(ResponseState.EMPTY, null);
+
+        Map<String, Object> data = new HashMap<String, Object>();
+        String updateDate = BaseTools.toString(article.getUpdateDate());
+        if ("-".equals(updateDate)) {
+            updateDate = BaseTools.toString(article.getPostDate());
         }
-        return responseData;
-    }
 
+        data.put("title", article.getTitle());
+        data.put("account", blogger.getErAccount());
+        data.put("article-link", link);
+        data.put("update-date", updateDate);
+        List<String> categories = new ArrayList<String>();
+        categories.add("one");
+        categories.add("two");
+        data.put("categories", categories);
+
+        return new ResponseData(ResponseState.SUCCESS, data);
+    }
 
     @GetMapping("/web/api/article/items/page/{number}")
     public ResponseData getArticleItemsByPageNumber(
                     @PathVariable("number") Integer number) {
-        int number_of_one_page = 10;
-        int begin_index = (number - 1) * number_of_one_page;
-        List<Article> articleList = articleService.queryAllByLimit(
-                number_of_one_page, begin_index);
-        ResponseData responseData = null;
-        if (articleList != null) {
-            Map<String, Object> data = new HashMap<String, Object>();
-            for (int i = 0; i < articleList.size(); i++) {
-                Article article = articleList.get(i);
-                Map<String, Object> mapper = new HashMap<String, Object>();
-                Blogger blogger = bloggerService.queryById(article.getBloggerId());
-                mapper.put("id", begin_index + i + 1);
-                mapper.put("title", article.getTitle());
-                mapper.put("postDate", BaseTools.toString(article.getPostDate()));
-                mapper.put("updateDate", BaseTools.toString(article.getUpdateDate()));
-                mapper.put("link", article.getLinkName());
-                data.put("" + (i + 1), mapper);
-            }
-            responseData = new ResponseData(0, "default", data);
-        } else {
-            responseData = new ResponseData(-1, "failure", null);
+        int page_size = 10, begin_index = (number - 1) * page_size;
+        List<Article> articleList = articleService.queryAllByLimit(page_size, begin_index);
+
+        if (articleList == null) return new ResponseData(ResponseState.EMPTY, null);
+
+        Map<String, Object> data = new HashMap<String, Object>();
+        for (int i = 0; i < articleList.size(); i++) {
+            Map<String, Object> mapper = new HashMap<String, Object>();
+            Article article = articleList.get(i);
+
+            mapper.put("id", begin_index + i + 1);
+            mapper.put("title", article.getTitle());
+            mapper.put("postDate", BaseTools.toString(article.getPostDate()));
+            mapper.put("updateDate", BaseTools.toString(article.getUpdateDate()));
+            mapper.put("link", article.getLinkName());
+
+            data.put("" + (i + 1), mapper);
         }
-        return responseData;
+
+        return new ResponseData(ResponseState.SUCCESS, data);
     }
 
     @PostMapping("/web/api/article/addArticle")
@@ -295,37 +285,30 @@ public class ArticleController {
         String account = (String) session.getAttribute("account");
         String link_name = BaseTools.randomStr(12);
         String file_name = BaseTools.randomStr(20);
-        String base_path = session.getServletContext().getRealPath("/WEB-INF/") +
-                "blogger" + File.separator + account + File.separator + "article";
-        String file_path = base_path + File.separator + file_name;
+        String file_path = BaseTools.getMDPath(session, account, file_name);
         String backup_file_path = file_path + ".save";
-
-        File directory = new File(base_path);
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
+        Blogger blogger = bloggerService.queryByAccount(account);
 
         ResponseData responseData = null;
         try {
-            System.out.println(file_path);
-            System.out.println(backup_file_path);
-            File file = new File(file_path);
-            File backup_file = new File(backup_file_path);
+            File file = new File(file_path + ".md");
             article.transferTo(file);
+            File backup_file = new File(backup_file_path);
             article.transferTo(backup_file);
-            Blogger blogger = bloggerService.queryByAccount(account);
-            Article article_ojb = new Article(0, blogger.getId(),
+
+            Article article_ojb = new Article(null, blogger.getId(),
                     null, title, link_name, file_name, "posted",
-                    BaseTools.toDate(postDate), null, 0,
-                    0, 0, 0);
+                    BaseTools.toDate(postDate), null, 0, 0);
             articleService.insert(article_ojb);
+
             Map<String, Object> data = new HashMap<String, Object>();
             data.put("account", account);
             data.put("article-link", link_name);
             data.put("update-date", postDate);
+
             responseData = new ResponseData(0, "success", data);
         } catch (IOException e) {
-            responseData = new ResponseData(-1, "failure", null);
+            responseData = new ResponseData(ResponseState.FAILURE, null);
         }
         return responseData;
     }
@@ -338,62 +321,53 @@ public class ArticleController {
         String account = (String) session.getAttribute("account");
         String link_name = BaseTools.randomStr(12);
         String file_name = BaseTools.randomStr(20);
-        String base_path = session.getServletContext().getRealPath("/WEB-INF/") +
-                "blogger" + File.separator + account + File.separator + "article";
-        String file_path = base_path + File.separator + file_name + ".save";
+        Blogger blogger = bloggerService.queryByAccount(account);
+        String file_path = BaseTools.getMDPath(session, account, file_name) + ".save";
 
-        File directory = new File(base_path);
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-
-        ResponseData responseData = null;
         try {
             File file = new File(file_path);
             article.transferTo(file);
-            Blogger blogger = bloggerService.queryByAccount(account);
+
             Article article_ojb = new Article(0, blogger.getId(),
                     null, title, link_name, file_name, "saved",
-                    BaseTools.toDate(postDate), null, 0,
-                    0, 0, 0);
+                    BaseTools.toDate(postDate), null, 0, 0);
             articleService.insert(article_ojb);
+
             Map<String, Object> data = new HashMap<String, Object>();
             data.put("account", account);
             data.put("article-link", link_name);
             data.put("update-date", postDate);
-            responseData = new ResponseData(0, "success", data);
+
+            return new ResponseData(0, "success", data);
         } catch (IOException e) {
-            responseData = new ResponseData(-1, "failure", null);
+            return new ResponseData(-1, "failure", null);
         }
-        return responseData;
     }
 
     @PostMapping("/web/api/article/updateArticle")
     public ResponseData addArticle(HttpSession session,
                        @RequestParam("article") MultipartFile article,
                        @RequestParam("title") String title,
-//                       @RequestParam("account") String account,
                        @RequestParam("link") String link,
                        @RequestParam("postDate") String postDate) {
         String account = (String) session.getAttribute("account");
         Blogger blogger = bloggerService.queryByAccount(account);
+
         Article article_ojb = articleService.queryByAccoutAndLink(blogger.getId(), link);
         article_ojb.setTitle(title);
         article_ojb.setFlagType("updated");
         article_ojb.setUpdateDate(BaseTools.toDate(postDate));
         articleService.update(article_ojb);
-        String base_path = session.getServletContext().getRealPath("/WEB-INF/blogger/") +
-                File.separator + account + File.separator + "article" + File.separator;
-        File directory = new File(base_path);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
 
-        File file = new File(base_path + article_ojb.getFileName());
-        File backcup_file = new File(base_path + article_ojb.getFileName() + ".save");
+        String file_path = BaseTools.getMDPath(session, account, article_ojb.getFileName());
+        String backup_path = file_path + ".save";
+
+        File file = new File(file_path + ".md");
+        File backcup_file = new File(backup_path);
         try {
             article.transferTo(file);
             article.transferTo(backcup_file);
+
             Map<String, Object> data = new HashMap<String, Object>();
             data.put("account", account);
             data.put("article-link", link);
@@ -408,36 +382,60 @@ public class ArticleController {
     public ResponseData updateBackupArticle(HttpSession session,
                        @RequestParam("article") MultipartFile article,
                        @RequestParam("title") String title,
-//                       @RequestParam("account") String account,
                        @RequestParam("link") String link,
                        @RequestParam("postDate") String postDate) {
         String account = (String) session.getAttribute("account");
         Blogger blogger = bloggerService.queryByAccount(account);
+
         Article article_ojb = articleService.queryByAccoutAndLink(blogger.getId(), link);
         article_ojb.setTitle(title);
         article_ojb.setFlagType("saved");
         article_ojb.setUpdateDate(BaseTools.toDate(postDate));
         articleService.update(article_ojb);
-        String base_path = session.getServletContext().getRealPath("/WEB-INF/blogger/") +
-                File.separator + account + File.separator + "article" + File.separator;
-        File directory = new File(base_path);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+
+        String file_path = BaseTools.getMDPath(session, account, article_ojb.getFileName());
 
 //        File file = new File(base_path + article_ojb.getFileName());
-        File backcup_file = new File(base_path + article_ojb.getFileName() + ".save");
+        File backcup_file = new File(file_path + ".save");
         try {
 //            article.transferTo(file);
             article.transferTo(backcup_file);
+
             Map<String, Object> data = new HashMap<String, Object>();
             data.put("account", account);
             data.put("article-link", link);
             data.put("update-date", postDate);
-            return new ResponseData(0, "success", data);
+
+            return new ResponseData(ResponseState.SUCCESS, data);
         } catch (IOException e) {
-            return new ResponseData(-1, "update failure", null);
+            return new ResponseData(ResponseState.FAILURE, null);
         }
+    }
+
+    @GetMapping("/api/article/info")
+    public ResponseData getArticleInfo(@RequestParam("link") String link,
+                                       @RequestParam("account") String account) {
+        // System.out.println(account + " : " + link);
+        Blogger blogger = bloggerService.queryByAccount(account);
+        if (blogger == null) return new ResponseData(ResponseState.EMPTY, null);
+        Article article = articleService.queryByAccoutAndLink(blogger.getId(), link);
+        if (article == null) return new ResponseData(ResponseState.EMPTY, null);
+
+        int like_count = articleStateService.queryCountByArticleId(article.getId(), "like");
+        int dislike_count = articleStateService.queryCountByArticleId(article.getId(), "dislike");
+
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("title", article.getTitle());
+        data.put("postDate", BaseTools.toString(article.getPostDate()));
+        data.put("likeCount", like_count);
+        data.put("dislikeCount", dislike_count);
+
+        int flag = articleService.addVisCount(article.getId());
+        data.put("vistor", flag);
+        data.put("visCount", article.getVisCount() + flag);
+
+
+        return new ResponseData(ResponseState.SUCCESS, data);
     }
 
 }

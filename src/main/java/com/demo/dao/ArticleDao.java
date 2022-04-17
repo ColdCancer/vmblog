@@ -25,8 +25,6 @@ public interface ArticleDao {
 //            @Result(property = "postDate", column = "post_date"),
 //            @Result(property = "updateDate", column = "update_date"),
 //            @Result(property = "topRank", column = "top_rank"),
-//            @Result(property = "likeCount", column = "like_count"),
-//            @Result(property = "dislikeCount", column = "dislike_count"),
 //            @Result(property = "visCount", column = "vis_count")
 //    })
 
