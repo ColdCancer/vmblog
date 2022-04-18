@@ -43,7 +43,16 @@ $(function () {
             alert_info(content_['message']);
             if (content_['code'] === 0) {
                 successAction(account);
+                location.reload();
             }
+        }
+    });
+
+    $('#out-link').click(function () {
+        content = requestLoginOut();
+        alert_info(content);
+        if (content['code'] === 0) {
+            location.reload();
         }
     });
 });

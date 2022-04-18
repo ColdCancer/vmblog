@@ -15,6 +15,20 @@ function requestLoginUp(account, password) {
     return content;
 }
 
+function requestLoginOut() {
+    var content = '';
+    $.ajax({
+        url: '/web/passport/signout',
+        type: 'post',
+        async: false,
+        dataType: 'json',
+        success: function (content_) {
+            content = content_;
+        }
+    });
+    return content;
+}
+
 function requestLoginIn(account, password, remember) {
     var content = null;
     $.ajax({
