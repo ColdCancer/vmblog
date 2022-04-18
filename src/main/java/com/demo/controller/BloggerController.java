@@ -5,6 +5,7 @@ import com.demo.entity.Blogger;
 import com.demo.service.BloggerService;
 import com.demo.utils.BaseTools;
 import com.demo.utils.ResponseData;
+import com.demo.utils.ResponseState;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.deploy.net.HttpResponse;
 import lombok.SneakyThrows;
@@ -40,7 +41,8 @@ public class BloggerController {
 
     @SneakyThrows
     @PostMapping("web/passport/signup")
-    public ResponseData signup(@Param("account")String account,
+    public ResponseData signup(HttpSession session,
+                               @Param("account")String account,
                                @Param("password")String password) {
         Blogger blogger = new Blogger();
         blogger.setErName("blogger");
@@ -52,8 +54,13 @@ public class BloggerController {
         int flag = bloggerService.insert(blogger);
         String message = "Sign Up " + (flag == 1 ? "Success." : "Failure.");
 
-        ResponseData responseData = new ResponseData(flag, message, null);
-        return responseData;
+        if (flag == 1) {
+            String src = BaseTools.getResourcesPath(session, "blogger", "../");
+            String dec = BaseTools.getResourcesPath(session, account, "../");
+            BaseTools.folderCopy(src, dec);
+        }
+
+        return new ResponseData(flag, message, null);
     }
 
     @SneakyThrows
@@ -109,5 +116,15 @@ public class BloggerController {
             responseEntity = new ResponseEntity<byte[]>(null, headers, HttpStatus.NOT_FOUND);
         }
         return responseEntity;
+    }
+
+    @PostMapping("/web/passport/signout")
+    public ResponseData signout(HttpSession session) {
+        if (session.getAttribute("account") != null) {
+            session.invalidate();
+            return new ResponseData(ResponseState.SUCCESS, null);
+        } else {
+            return new ResponseData(ResponseState.EMPTY, null);
+        }
     }
 }

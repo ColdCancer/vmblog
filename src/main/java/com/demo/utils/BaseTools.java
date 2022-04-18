@@ -5,6 +5,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,6 +66,8 @@ public class BaseTools {
 
     public static String getResourcesPath(HttpSession session, String account, String file_name) {
         String base_path = session.getServletContext().getRealPath(blogger_name);
+        if ("../".equals(file_name)) return base_path + account + File.separator;
+
         String file_path = base_path + account + File.separator + "resources" + File.separator;
         File dir = new File(file_path);
         if (!dir.exists()) {
@@ -142,4 +147,53 @@ public class BaseTools {
 
         return htmlStr.trim(); //返回文本字符串
     }
+
+    public static void fileCopy(String srcPath, String destPath){
+        File f = new File(srcPath);
+        File F = new File(destPath);
+
+        byte [] a = new byte[1024];
+        try {
+            FileInputStream f1 = new FileInputStream(f);
+            FileOutputStream F1 = new FileOutputStream(F);
+
+            while(true) {
+                int b = f1.read(a);
+
+                if (b == -1) break;
+                F1.write(a, 0, b);
+                F1.flush();
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void folderCopy(String srcPath, String destPath){
+        File srcFolder = new File(srcPath);
+        File destFolder = new File(destPath);
+        if(!srcFolder.isDirectory()) return;
+        if (!srcFolder.exists()) return;
+        if (destFolder.isFile()) return;
+
+        if(!destFolder.exists()) {
+            boolean flag = destFolder.mkdirs();
+        }
+
+        File [] files=srcFolder.listFiles();
+        for(File srcFile : files != null ? files : new File[0]) {
+            if (srcFile.isFile()) {
+                File newDestFile = new File(destFolder, srcFile.getName());
+                fileCopy(srcFile.getAbsolutePath(), newDestFile.getAbsolutePath());
+            }
+
+            if(srcFile.isDirectory()) {
+                File newDestFolder = new File(destFolder,srcFile.getName());
+                folderCopy(srcFile.getAbsolutePath(),newDestFolder.getAbsolutePath());
+            }
+        }
+    }
+
+
 }

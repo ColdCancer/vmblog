@@ -36,6 +36,26 @@ public class ArticleStateServiceImpl implements ArticleStateService {
     }
 
     @Override
+    public ArticleState queryByIds(Integer bloggerId, Integer articleId) {
+        return this.articleStateDao.queryByUniqe(bloggerId, articleId);
+    }
+
+    @Override
+    public int modifyState(Integer bloggerId, Integer articleId, String state) {
+        ArticleState articleState = articleStateDao.queryByUniqe(bloggerId, articleId);
+        // 0:(0,0) - 1:(1,0) - 2:(1,-1)
+        int flag;
+        if (articleState == null) {
+            articleStateDao.insert(new ArticleState(null, bloggerId, articleId, state));
+            return 1;
+        } else {
+            if (state.equals(articleState.getOnState())) return 0;
+            flag = articleStateDao.updateState(bloggerId, articleId, state);
+        }
+        return flag == 1 ? 2 : 0;
+    }
+
+    @Override
     public int queryCountByArticleId(Integer id, String state) {
         return this.articleStateDao.queryCountByArticleId(id, state);
     }

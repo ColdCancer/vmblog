@@ -21,4 +21,6 @@ public interface ArticleService {
     int deleteByAccountAndLink(Integer id, String link);
 
     int addVisCount(Integer id);
+
+    List<Article> queryAllByBloggerIdAndLimit(Integer bloggerId, int offset, int limit);
 }

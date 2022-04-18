@@ -1,6 +1,7 @@
 package com.demo.controller;
 
 import com.demo.entity.Article;
+import com.demo.entity.ArticleState;
 import com.demo.entity.Blogger;
 import com.demo.entity.Mediae;
 import com.demo.service.ArticleService;
@@ -253,10 +254,13 @@ public class ArticleController {
     }
 
     @GetMapping("/web/api/article/items/page/{number}")
-    public ResponseData getArticleItemsByPageNumber(
+    public ResponseData getArticleItemsByPageNumber(HttpSession session,
                     @PathVariable("number") Integer number) {
+        String account = (String) session.getAttribute("account");
+        Blogger blogger = bloggerService.queryByAccount(account);
         int page_size = 10, begin_index = (number - 1) * page_size;
-        List<Article> articleList = articleService.queryAllByLimit(page_size, begin_index);
+        List<Article> articleList = articleService.queryAllByBloggerIdAndLimit(
+                blogger.getId(), page_size, begin_index);
 
         if (articleList == null) return new ResponseData(ResponseState.EMPTY, null);
 
@@ -413,8 +417,9 @@ public class ArticleController {
     }
 
     @GetMapping("/api/article/info")
-    public ResponseData getArticleInfo(@RequestParam("link") String link,
-                                       @RequestParam("account") String account) {
+    public ResponseData getArticleInfo(HttpSession session,
+                               @RequestParam("link") String link,
+                               @RequestParam("account") String account) {
         // System.out.println(account + " : " + link);
         Blogger blogger = bloggerService.queryByAccount(account);
         if (blogger == null) return new ResponseData(ResponseState.EMPTY, null);
@@ -434,8 +439,35 @@ public class ArticleController {
         data.put("vistor", flag);
         data.put("visCount", article.getVisCount() + flag);
 
+        String auth_account = (String) session.getAttribute("account");
+        Blogger auth = bloggerService.queryByAccount(auth_account);
+        if (auth == null) {
+            data.put("state", "");
+        } else {
+            ArticleState articleState = articleStateService.queryByIds(auth.getId(), article.getId());
+            data.put("state", articleState == null ? "" : articleState.getOnState());
+        }
 
         return new ResponseData(ResponseState.SUCCESS, data);
     }
 
+    @PostMapping("/api/article/operation/state")
+    public ResponseData operateArticleState(HttpSession session,
+                        @RequestParam("account") String account,
+                        @RequestParam("link") String link,
+                        @RequestParam("state") String state) {
+        String self_account = (String) session.getAttribute("account");
+        if (self_account == null) return new ResponseData(ResponseState.FAILURE, null);
+
+        Blogger self = bloggerService.queryByAccount(self_account);
+        Blogger blogger = bloggerService.queryByAccount(account);
+        Article article = articleService.queryByAccoutAndLink(blogger.getId(), link);
+        // int like = articleStateService.queryCountByArticleId(article.getId(), "like");
+        // int dislike = articleStateService.queryCountByArticleId(article.getId(), "dislike");
+        // 0:(0,0) - 1:(1,0) - 2:(1,-1)
+        int flag = articleStateService.modifyState(self.getId(), article.getId(), state);
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("like", flag);
+        return new ResponseData(ResponseState.SUCCESS, data);
+    }
 }

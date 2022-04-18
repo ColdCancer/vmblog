@@ -64,4 +64,7 @@ public interface ArticleDao {
 
     @Delete("delete from article where blogger_id=#{id} and link_name=#{link}")
     int deleteByBloggerIdAndLink(@Param("id") Integer id, @Param("link") String link);
+
+    @Select("select * from article where blogger_id=#{bloggerId} order by id desc limit #{limit}, #{offset}")
+    List<Article> queryAllByBloggerIdAndLimit(@Param("bloggerId") Integer bloggerId, @Param("offset") int offset, @Param("limit") int limit);
 }

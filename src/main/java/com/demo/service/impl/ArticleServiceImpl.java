@@ -35,6 +35,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<Article> queryAllByBloggerIdAndLimit(Integer bloggerId, int offset, int limit) {
+        return this.articleDao.queryAllByBloggerIdAndLimit(bloggerId, offset, limit);
+    }
+
+    @Override
     public int addVisCount(Integer id) {
         return this.articleDao.autoAddVisCountById(id);
     }

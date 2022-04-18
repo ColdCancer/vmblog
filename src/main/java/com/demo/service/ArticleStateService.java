@@ -16,4 +16,8 @@ public interface ArticleStateService {
     boolean deleteById(Integer id);
 
     int queryCountByArticleId(Integer id, String state);
+
+    int modifyState(Integer bloggerId, Integer articleId, String state);
+
+    ArticleState queryByIds(Integer bloggerId, Integer articleId);
 }
