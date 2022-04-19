@@ -13,11 +13,11 @@ import java.util.List;
  */
 @Mapper
 public interface CategoryDao {
-    @Results(id = "CategoryResultMap", value = {
-            @Result(property = "id", column = "id"),
-            @Result(property = "bloggerId", column = "blogger_id"),
-            @Result(property = "typeName", column = "type_name")
-    })
+    // @Results(id = "CategoryResultMap", value = {
+    //         @Result(property = "id", column = "id"),
+    //         @Result(property = "bloggerId", column = "blogger_id"),
+    //         @Result(property = "typeName", column = "type_name")
+    // })
 
     @Select("select * from category where id=#{id}")
     Category queryById(Integer id);
@@ -27,9 +27,15 @@ public interface CategoryDao {
 
     @Insert("insert into category(blogger_id, type_name) " +
             "values(#{bloggerId}, #{typeName})")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(Category category);
 
     @Delete("delete from category where id=#{id}")
     int deleteById(Integer id);
 
+    @Select("select * from category where blogger_id=#{bloggerId}")
+    List<Category> queryByBloggerId(@Param("bloggerId") Integer bloggerId);
+
+    @Select("select * from category where blogger_id=#{bloggerId} and type_name=#{typeName}")
+    Category queryByIdAndType(@Param("bloggerId") Integer bloggerId, @Param("typeName") String typeName);
 }

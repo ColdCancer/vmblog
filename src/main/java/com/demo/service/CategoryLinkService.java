@@ -14,5 +14,5 @@ public interface CategoryLinkService {
     List<CategoryLink> queryAllByLimit(int offset, int limit);
     CategoryLink insert(CategoryLink categoryLink);
     boolean deleteById(Integer id);
-
+    Integer queryCountById(Integer categoryId);
 }

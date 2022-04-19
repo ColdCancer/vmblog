@@ -23,4 +23,5 @@ public class Category implements Serializable {
     private Integer id;
     private Integer bloggerId;
     private String typeName;
+    private Integer parentId;
 }

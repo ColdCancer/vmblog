@@ -39,4 +39,9 @@ public class CategoryLinkServiceImpl implements CategoryLinkService {
     public boolean deleteById(Integer id) {
         return this.categoryLinkDao.deleteById(id) > 0;
     }
+
+    @Override
+    public Integer queryCountById(Integer categoryId) {
+        return this.categoryLinkDao.queryCountById(categoryId);
+    }
 }

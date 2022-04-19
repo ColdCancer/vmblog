@@ -13,11 +13,11 @@ import java.util.List;
  */
 @Mapper
 public interface CategoryLinkDao {
-    @Results(id = "CategoryLinkResultMap", value = {
-            @Result(property = "id", column = "id"),
-            @Result(property = "articleId", column = "article_id"),
-            @Result(property = "categoryId", column = "category_id")
-    })
+    // @Results(id = "CategoryLinkResultMap", value = {
+    //         @Result(property = "id", column = "id"),
+    //         @Result(property = "articleId", column = "article_id"),
+    //         @Result(property = "categoryId", column = "category_id")
+    // })
 
     @Select("select * from category where id=#{id}")
     CategoryLink queryById(Integer id);
@@ -27,9 +27,12 @@ public interface CategoryLinkDao {
 
     @Insert("insert into category_link(article_id, category_id) " +
             "values(#{articleId}, #{categoryId}")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(CategoryLink categoryLink);
 
-    @Delete("delete from category where id=#{id}")
+    @Delete("delete from category_link where id=#{id}")
     int deleteById(Integer id);
 
+    @Select("select count(*) from category_link where category_id=#{categoryId}")
+    Integer queryCountById(Integer categoryId);
 }

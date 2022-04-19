@@ -39,4 +39,14 @@ public class CategoryServiceImpl implements CategoryService {
     public boolean deleteById(Integer id) {
         return this.categoryDao.deleteById(id) > 0;
     }
+
+    @Override
+    public Category queryByIdAndType(Integer bloggerId, String classify) {
+        return this.categoryDao.queryByIdAndType(bloggerId, classify);
+    }
+
+    @Override
+    public List<Category> queryByBloggerId(Integer bloggerId) {
+        return this.categoryDao.queryByBloggerId(bloggerId);
+    }
 }

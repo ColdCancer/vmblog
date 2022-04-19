@@ -14,4 +14,6 @@ public interface CategoryService {
     List<Category> queryAllByLimit(int offset, int limit);
     Category insert(Category category);
     boolean deleteById(Integer id);
+    List<Category> queryByBloggerId(Integer bloggerId);
+    Category queryByIdAndType(Integer bloggerId, String classify);
 }

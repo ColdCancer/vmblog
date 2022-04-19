@@ -30,10 +30,10 @@ public class MediaeController {
     @Resource
     private BloggerService bloggerService;
 
-    @GetMapping("selectOne")
-    public Mediae selectOne(Integer id) {
-        return this.mediaeService.queryById(id);
-    }
+    // @GetMapping("selectOne")
+    // public Mediae selectOne(Integer id) {
+    //     return this.mediaeService.queryById(id);
+    // }
 
     @PostMapping("/api/mediae/images/upload")
     public ResponseData uploadImage(MultipartFile image, HttpSession session) {
