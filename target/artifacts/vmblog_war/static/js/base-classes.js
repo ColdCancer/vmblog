@@ -75,3 +75,24 @@ class SelectCategory {
         return $(this.pattern);
     }
 }
+
+class CategoryItem {
+    constructor(id, name, count, son) {
+        this.pattern = "<tr class=\"category-manager-item\">\n" +
+            "             <td class=\"text-center\" id=\"cagegory-id\">{0}</td>\n" +
+            "             <td class=\"text-center\" id=\"cagegory-name\">" +
+            (son === 1 ? "<i class='bi bi-arrow-bar-right'></i>" : "<i class='bi bi-back'></i>") + " {1}" +
+            "             </td>\n" +
+            "             <td class=\"text-center\" id=\"cagegory-count\">{2}</td>\n" +
+            "             <td class=\"text-center\" id=\"cagegory-opt\">\n" +
+            "               <button type=\"button\" class=\"btn-category btn btn-s btn-dark py-0\" value=\"{3}\">Delete</button>\n" +
+            "             </td>\n" +
+            "           </tr>";
+
+        this.pattern = String.format(this.pattern, id, name, count, name);
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}
