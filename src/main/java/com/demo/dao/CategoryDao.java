@@ -38,4 +38,19 @@ public interface CategoryDao {
 
     @Select("select * from category where blogger_id=#{bloggerId} and type_name=#{typeName}")
     Category queryByIdAndType(@Param("bloggerId") Integer bloggerId, @Param("typeName") String typeName);
+
+    @Update("update category set type_name=#{typeName} where id=#{id}")
+    int updateTypeNameById(@Param("id") Integer id, @Param("typeName") String typeName);
+
+    @Select("select * from category where blogger_id=#{bloggerId} and type_name=#{typeName}")
+    Category queryByBloggerIdAndTypeName(@Param("bloggerId") Integer bloggerId, @Param("typeName") String typeName);
+
+    @Select("select count(*) from category where blogger_id=#{bloggerId} and parent_id=#{parentId}")
+    int querySonCountByIds(@Param("bloggerId") Integer bloggerId, @Param("parentId") Integer parentId);
+
+    @Update("update category set parent_id=#{parentId} where id=#{id}")
+    int updateParentByIds(@Param("id") Integer id, @Param("parentId") Integer parentId);
+
+    @Select("select * from category where blogger_id=#{bloggerId} and parent_id=#{parentId}")
+    List<Category> queryByIds(@Param("bloggerId") Integer bloggerId, @Param("parentId") Integer parentId);
 }

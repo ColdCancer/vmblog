@@ -36,8 +36,33 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
-        return this.categoryDao.deleteById(id) > 0;
+    public int deleteById(Integer id) {
+        return this.categoryDao.deleteById(id);
+    }
+
+    @Override
+    public List<Category> queryByIds(Integer bloggerId, Integer parentId) {
+        return this.categoryDao.queryByIds(bloggerId, parentId);
+    }
+
+    @Override
+    public int updateParentByIds(Integer id, Integer parentId) {
+        return this.categoryDao.updateParentByIds(id, parentId);
+    }
+
+    @Override
+    public int querySonCountByIds(Integer bloggerId, Integer parentId) {
+        return this.categoryDao.querySonCountByIds(bloggerId, parentId);
+    }
+
+    @Override
+    public Category queryByBloggerIdAndTypeName(Integer bloggerId, String typeName) {
+        return this.categoryDao.queryByBloggerIdAndTypeName(bloggerId, typeName);
+    }
+
+    @Override
+    public int updateTypeNameById(Integer id, String typeName) {
+        return this.categoryDao.updateTypeNameById(id, typeName);
     }
 
     @Override

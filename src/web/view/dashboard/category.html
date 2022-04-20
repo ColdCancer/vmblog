@@ -84,6 +84,9 @@
                     <div class="col-12 col-lg-6 text-center">
                         <div class="row">
                             <div class="col">
+                                <div id="category-total" class="h6 text-center mb-3">
+                                    Total: xx&nbsp;Parent: xx&nbsp;Son: xx
+                                </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">New Category</span>
@@ -92,21 +95,27 @@
                                     <button id="new-config" type="button" class="btn btn-outline-info mr-2">Config</button>
                                     <button id="new-cancel" type="button" class="btn btn-outline-info">Cancel</button>
                                 </div>
+                                <hr/>
+                                <div id="category-info" class="h6 text-center mb-3">
+                                    Select A Category Item, Please.
+                                    <button type="button" class="mb-2 mr-3 close d-none" aria-label="category-lose">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Modify &nbsp;Name</span>
                                     </div>
-                                    <input id="modify-text" type="text" class="form-control mr-2" placeholder="Input Modify Name" aria-label="Sizing example input">
-                                    <button id="modify-config" type="button" class="btn btn-outline-info mr-2">Config</button>
-                                    <button id="modify-cancel" type="button" class="btn btn-outline-info">Cancel</button>
+                                    <input id="modify-text" type="text" class="form-control mr-2" disabled placeholder="Input Modify Name" aria-label="Sizing example input">
+                                    <button id="modify-config" type="button" class="btn btn-outline-info disabled">Config</button>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Inherit &nbsp;Parent</span>
                                     </div>
-                                    <input id="parent-text" type="text" class="form-control mr-2" placeholder="Inpute Parent Name" aria-label="Sizing example input">
-                                    <button id="parent-config" type="button" class="btn btn-outline-info mr-2">Config</button>
-                                    <button id="parent-cancel" type="button" class="btn btn-outline-info">Cancel</button>
+                                    <input id="parent-text" type="text" class="form-control mr-2" disabled placeholder="Inpute Parent Name" aria-label="Sizing example input">
+                                    <button id="parent-config" type="button" class="btn btn-outline-info mr-2 disabled">Config</button>
+                                    <button id="parent-isolate" type="button" class="btn btn-outline-info disabled">Isolate</button>
                                 </div>
                             </div>
                         </div>
