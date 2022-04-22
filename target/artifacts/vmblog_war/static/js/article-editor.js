@@ -68,6 +68,8 @@ $(function () {
         label_elem.text(img_elem[0].files[0].name);
     });
 
+    requestCategoryList();
+
     var path_items = window.location.pathname.split("/");
     // console.log(path_items);
     if (path_items[4] === "edit" && path_items.length > 5) {
@@ -75,16 +77,42 @@ $(function () {
     }
 });
 
+function requestCategoryList() {
+    $.ajax({
+        url: '/web/api/category/list',
+        type: 'get',
+        dataType: 'json',
+        async: false,
+        success: function (content) {
+            console.log(content);
+            if (content['code'] !== 0) return;
+            var data = content['data'];
+            var len = Object.keys(data).length;
+            var category_elem = $('#article-category');
+            for (let i = 0; i < len; i++) {
+                let item = data[i];
+                category_elem.append(
+                    $("<option value='" + item.name + "'>" + item.name + "</option>"));
+            }
+        }
+    });
+}
+
 function requestUpdateBackupArticle() {
     var article = editor.getMarkdown();
     var blob_ojb = new Blob([article], {"type" : "text/html;charset=utf-8"});
     var formData = new FormData();
     var nowData = getDefaultTime();
+    var category = $('#article-category').val();
+    category = (category === 'Choose...' ? null : category);
+
     formData.append("article", blob_ojb);
     formData.append("title", $('#article-title').val());
     // formData.append("account", update_account);
     formData.append("link", update_link);
     formData.append("postDate", nowData);
+    formData.append("category", category);
+    formData.append("top", $('#article-rank').val());
     $.ajax({
         url: '/web/api/article/updateBackupArticle',
         data: formData,
@@ -110,9 +138,14 @@ function requestAddBackupArticle() {
     var blob_ojb = new Blob([article], {"type" : "text/html;charset=utf-8"});
     var formData = new FormData();
     var nowData = getDefaultTime();
+    var category = $('#article-category').val();
+    category = (category === 'Choose...' ? null : category);
+
     formData.append("article", blob_ojb);
     formData.append("title", $('#article-title').val());
     formData.append("postDate", nowData);
+    formData.append("category", category);
+    formData.append("top", $('#article-rank').val());
     $.ajax({
         url: '/web/api/article/addBackupArticle',
         data: formData,
@@ -160,7 +193,8 @@ function requestEditArticle(link) {
             account = data['account'];
             updateStatus(data);
             loadEditState(data);
-            loadCategory(data['categories']);
+            // console.log(data['category']);
+            // loadCategory(data['category']);
         }
     });
 
@@ -183,6 +217,8 @@ function requestEditArticle(link) {
 
 function loadEditState(data) {
     $('#article-title').val(data['title']);
+    $('#article-rank').attr('value', data['top-rank']);
+    $('#article-category').val(data['category']);
 }
 
 function requestUpdateArticle() {
@@ -190,11 +226,16 @@ function requestUpdateArticle() {
     var blob_ojb = new Blob([article], {"type" : "text/html;charset=utf-8"});
     var formData = new FormData();
     var nowData = getDefaultTime();
+    var category = $('#article-category').val();
+    category = (category === 'Choose...' ? null : category);
+
     formData.append("article", blob_ojb);
     formData.append("title", $('#article-title').val());
     // formData.append("account", update_account);
     formData.append("link", update_link);
     formData.append("postDate", nowData);
+    formData.append('category', category);
+    formData.append("top", $('#article-rank').val());
     $.ajax({
         url: '/web/api/article/updateArticle',
         data: formData,
@@ -219,10 +260,14 @@ function requestAddArticle() {
     var article = editor.getMarkdown();
     var blob_ojb = new Blob([article], {"type" : "text/html;charset=utf-8"});
     var formData = new FormData();
+    var category = $('#article-category').val();
+    category = (category === 'Choose...' ? null : category);
     var nowData = getDefaultTime();
     formData.append("article", blob_ojb);
     formData.append("title", $('#article-title').val());
     formData.append("postDate", nowData);
+    formData.append("category", category);
+    formData.append("top", $('#article-rank').val());
     $.ajax({
         url: '/web/api/article/addArticle',
         data: formData,
@@ -294,6 +339,7 @@ function changeToNotEdit() {
     $('#article-title').attr('disabled', true);
     $('#article-cover').attr('disabled', true);
     $('#article-category').attr('disabled', true);
+    $('#article-rank').attr('disabled', true);
     editor.unwatch();
     editor.previewing();
     $('.editormd-preview-close-btn').addClass('d-none');
@@ -308,6 +354,7 @@ function changeToEdit() {
     $('#article-title').attr('disabled', false);
     $('#article-cover').attr('disabled', false);
     $('#article-category').attr('disabled', false);
+    $('#article-rank').attr('disabled', false);
     update_img = false;
     // editor.config({ readOnly : false });
     $('.editormd-preview-close-btn').click();

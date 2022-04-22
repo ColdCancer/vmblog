@@ -26,7 +26,7 @@ public interface CategoryLinkDao {
     List<CategoryLink> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
     @Insert("insert into category_link(article_id, category_id) " +
-            "values(#{articleId}, #{categoryId}")
+            "values(#{articleId}, #{categoryId})")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(CategoryLink categoryLink);
 
@@ -35,4 +35,10 @@ public interface CategoryLinkDao {
 
     @Select("select count(*) from category_link where category_id=#{categoryId}")
     Integer queryCountById(Integer categoryId);
+
+    @Select("select * from category_link where article_id=#{articleId}")
+    CategoryLink queryByArticleId(@Param("articleId") Integer articleId);
+
+    @Update("update category_link set category_id=#{categoryId} where article_id=#{articleId}")
+    int update(CategoryLink categoryLink);
 }

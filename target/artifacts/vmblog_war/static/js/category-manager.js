@@ -136,7 +136,7 @@ function requestCategoryList() {
             var data = content['data'];
             var manager_body = $('#category-manager-body');
             manager_body.html('');
-            var len = Object.keys(data).length;
+            var len = Object.keys(data).length, son_count = 0;
             var items = [];
             for (let i = 0; i < len; i++) items[i] = [];
             for (let i = 0; i < len; i++) {
@@ -144,6 +144,7 @@ function requestCategoryList() {
                 if (item.parentId !== null) {
                     items[item.parentId].push(i);
                     items[i] = -1;
+                    son_count += 1;
                 }
             }
             var id_count = 0;
@@ -161,6 +162,9 @@ function requestCategoryList() {
                 }
             }
             noSelectState();
+
+            $('#category-total').text('Total: ' + len + ' Parent: ' +
+                    (len - son_count) + ' Son: ' + son_count);
 
             $('.btn-category').click(function () {
                 // console.log($(this).attr('value'));

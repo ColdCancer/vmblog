@@ -3,6 +3,10 @@
 // .editormd .CodeMirror pre
 // .editormd-html-preview,.editormd-preview-container
 // .editormd-html-preview code,.editormd-preview-container code
+
+// \vmblog\target\artifacts\vmblog_war\
+        System.out.println(System.getProperty("rootPath"));
+        
 ### 发布文章
 ``` flow 
 start=>start: 开始

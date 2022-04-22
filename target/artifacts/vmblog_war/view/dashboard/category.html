@@ -38,7 +38,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+        <nav id="sidebarMenu" class="col-2 d-lg-block bg-light sidebar collapse">
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -76,14 +76,17 @@
             </div>
         </nav>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <main role="main" class="col-12 ml-sm-auto col-lg-10 px-md-4">
             <div id="information-box" class="d-block justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Category Manager</h1> <hr/>
                 <!--<hr/>-->
-                <div class="row mb-3 px-0 px-lg-5">
-                    <div class="col-12 col-lg-6 text-center">
+                <div class="row mb-3 px-0 px-lg-5" style="height: 500px">
+                    <div class="col-12 col-lg-6 text-center my-auto">
                         <div class="row">
                             <div class="col">
+                                <div id="category-total" class="h6 text-center mb-3">
+                                    Total: xx&nbsp;Parent: xx&nbsp;Son: xx
+                                </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">New Category</span>
@@ -92,27 +95,33 @@
                                     <button id="new-config" type="button" class="btn btn-outline-info mr-2">Config</button>
                                     <button id="new-cancel" type="button" class="btn btn-outline-info">Cancel</button>
                                 </div>
+                                <hr/>
+                                <div id="category-info" class="h6 text-center mb-3">
+                                    Select A Category Item, Please.
+                                    <button type="button" class="mb-2 mr-3 close d-none" aria-label="category-lose">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Modify &nbsp;Name</span>
                                     </div>
-                                    <input id="modify-text" type="text" class="form-control mr-2" placeholder="Input Modify Name" aria-label="Sizing example input">
-                                    <button id="modify-config" type="button" class="btn btn-outline-info mr-2">Config</button>
-                                    <button id="modify-cancel" type="button" class="btn btn-outline-info">Cancel</button>
+                                    <input id="modify-text" type="text" class="form-control mr-2" disabled placeholder="Input Modify Name" aria-label="Sizing example input">
+                                    <button id="modify-config" type="button" class="btn btn-outline-info disabled">Config</button>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Inherit &nbsp;Parent</span>
                                     </div>
-                                    <input id="parent-text" type="text" class="form-control mr-2" placeholder="Inpute Parent Name" aria-label="Sizing example input">
-                                    <button id="parent-config" type="button" class="btn btn-outline-info mr-2">Config</button>
-                                    <button id="parent-cancel" type="button" class="btn btn-outline-info">Cancel</button>
+                                    <input id="parent-text" type="text" class="form-control mr-2" disabled placeholder="Inpute Parent Name" aria-label="Sizing example input">
+                                    <button id="parent-config" type="button" class="btn btn-outline-info mr-2 disabled">Config</button>
+                                    <button id="parent-isolate" type="button" class="btn btn-outline-info disabled">Isolate</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-6 text-center">
-                        <div class="d-block pre-scrollable" style="height: 800px">
+                    <div class="col-12 col-lg-6 text-center my-auto">
+                        <div class="d-block pre-scrollable border-dark border rounded" style="min-height: 500px">
                             <table id="category-table" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -123,15 +132,15 @@
                                     </tr>
                                 </thead>
                                 <tbody id="category-manager-body">
-                                    <tr class="category-manager-item">
-                                        <td class="text-center" id="cagegory-id">{0}</td>
-                                        <td class="text-center" id="cagegory-name">{1}</td>
-                                        <td class="text-center" id="cagegory-count">{2}</td>
-                                        <td class="text-center" id="cagegory-opt">
-                                            <!--<a class="btn btn-sm btn-dark py-0" href="{3}">Delete</a>-->
-                                            <button type="button" class="btn-category btn btn-s btn-dark py-0" value="{3}">Delete</button>
-                                        </td>
-                                    </tr>
+                                    <!--<tr class="category-manager-item">-->
+                                    <!--    <td class="text-center" id="cagegory-id">{0}</td>-->
+                                    <!--    <td class="text-center" id="cagegory-name">{1}</td>-->
+                                    <!--    <td class="text-center" id="cagegory-count">{2}</td>-->
+                                    <!--    <td class="text-center" id="cagegory-opt">-->
+                                    <!--        &lt;!&ndash;<a class="btn btn-sm btn-dark py-0" href="{3}">Delete</a>&ndash;&gt;-->
+                                    <!--        <button type="button" class="btn-category btn btn-s btn-dark py-0" value="{3}">Delete</button>-->
+                                    <!--    </td>-->
+                                    <!--</tr>-->
                                 </tbody>
                             </table>
                         </div>

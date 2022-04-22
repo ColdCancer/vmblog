@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -39,63 +40,58 @@ public class BloggerController {
     @Resource
     private BloggerService bloggerService;
 
-    @SneakyThrows
     @PostMapping("web/passport/signup")
     public ResponseData signup(HttpSession session,
                                @Param("account")String account,
                                @Param("password")String password) {
         Blogger blogger = new Blogger();
-        blogger.setErName("blogger");
+        blogger.setErName(account);
         blogger.setErAccount(account);
         blogger.setSaSalt(BaseTools.UUID());
-        String real_password = password + "&" + blogger.getSaSalt();
-        blogger.setErPassword(DigestUtils.shaHex(real_password));
+        // String real_password = password + "&" + blogger.getSaSalt();
+        blogger.setErPassword(BaseTools.digest(password, blogger.getSaSalt()));
 
-        int flag = bloggerService.insert(blogger);
-        String message = "Sign Up " + (flag == 1 ? "Success." : "Failure.");
+        blogger = bloggerService.insert(blogger);
+        // String message = "Sign Up " + (blogger.getId() != null ? "Success." : "Failure.");
 
-        if (flag == 1) {
-            String src = BaseTools.getResourcesPath(session, "blogger", "../");
-            String dec = BaseTools.getResourcesPath(session, account, "../");
+        if (blogger.getId() != null) {
+            String src = BaseTools.getResourcesPath("blogger", "../");
+            String dec = BaseTools.getResourcesPath(account, "../");
             BaseTools.folderCopy(src, dec);
+            return new ResponseData(ResponseState.SUCCESS, null);
+        } else {
+            return new ResponseData(ResponseState.FAILURE, null);
         }
 
-        return new ResponseData(flag, message, null);
     }
 
-    @SneakyThrows
     @GetMapping("api/passport/status")
     public ResponseData loginStatus(HttpSession session) {
-        Map<String, Object> data = new HashMap<String, Object>();
-        ResponseData responseData = null;
 //        System.out.println(session.getAttribute("account"));
-        if (session.getAttribute("account") != null) {
-            data.put("account", session.getAttribute("account"));
-            responseData = new ResponseData(0, "Sign In Success.", data);
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
+        if (blogger != null) {
+            Map<String, Object> data = new HashMap<String, Object>();
+            data.put("account", blogger.getErAccount());
+            return new ResponseData(ResponseState.SUCCESS, data);
         } else {
-            responseData = new ResponseData(-1, "Sign In Failure.", null);
+            return new ResponseData(ResponseState.FAILURE, null);
         }
-        return responseData;
     }
 
-    @SneakyThrows
     @PostMapping("web/passport/signin")
-    public ResponseData signin(HttpServletRequest request,
-                               HttpServletResponse response,
-                               @Param("account")String account,
-                               @Param("password")String password,
-                               @Param("remember")boolean remember) {
-
-        ResponseData responseData = null;
+    public ResponseData signin(HttpSession session,
+                       @Param("account")String account,
+                       @Param("password")String password,
+                       @Param("remember")boolean remember) {
         if(bloggerService.checkAccountValid(account, password, remember)) {
-            responseData = new ResponseData(0, "Sign In Success.", null);
-            HttpSession session = request.getSession();
-            session.setAttribute("account", account);
+            Blogger blogger = bloggerService.queryByAccount(account);
+            session.setAttribute("blogger", blogger);
+            session.setAttribute("last-login-date", blogger.getLastLoginDate());
+            int flag = bloggerService.updateLastDate(blogger.getId(), new Date());
+            return new ResponseData(0, "Sign In Success.", null);
         } else {
-            responseData = new ResponseData(-1, "Sign In Failure.", null);
+            return new ResponseData(-1, "Sign In Failure.", null);
         }
-
-        return responseData;
     }
 
     @GetMapping("/api/resources/{account}/profile-photo")

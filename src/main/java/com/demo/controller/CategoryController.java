@@ -37,8 +37,8 @@ public class CategoryController {
 
     @GetMapping("/web/api/category/list")
     public ResponseData getCategorList(HttpSession session) {
-        String account = (String) session.getAttribute("account");
-        Blogger blogger = bloggerService.queryByAccount(account);
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
+        // Blogger blogger = bloggerService.queryByAccount(account);
         List<Category> categories = categoryService.queryByBloggerId(blogger.getId());
         if (categories.size() == 0) return new ResponseData(ResponseState.EMPTY, null);
         Map<String, Object> data = new HashMap<String, Object>();
@@ -67,8 +67,9 @@ public class CategoryController {
     @PostMapping("/web/api/category/addClassify")
     public ResponseData addClaasify(HttpSession session,
                         @RequestParam("classify") String classify) {
-        String account = (String) session.getAttribute("account");
-        Blogger blogger = bloggerService.queryByAccount(account);
+        // String account = (String) session.getAttribute("account");
+        // Blogger blogger = bloggerService.queryByAccount(account);
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
         Category category = categoryService.queryByIdAndType(blogger.getId(), classify);
         if (category != null) return new ResponseData(ResponseState.EMPTY, null);
         category = new Category(null, blogger.getId(), classify, null);
@@ -78,13 +79,13 @@ public class CategoryController {
         return new ResponseData(ResponseState.SUCCESS, data);
     }
 
-
     @PostMapping("/web/api/category/renameClassify")
     public ResponseData renameClaasify(HttpSession session,
                                        @RequestParam("srcClassify") String srcClassify,
                                        @RequestParam("desClassify") String desClassify) {
-        String account = (String) session.getAttribute("account");
-        Blogger blogger = bloggerService.queryByAccount(account);
+        // String account = (String) session.getAttribute("account");
+        // Blogger blogger = bloggerService.queryByAccount(account);
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
         Category category = categoryService.queryByIdAndType(blogger.getId(), desClassify);
         if (category != null) return new ResponseData(ResponseState.EMPTY, null);
         category = categoryService.queryByIdAndType(blogger.getId(), srcClassify);
@@ -101,8 +102,9 @@ public class CategoryController {
     public ResponseData modifyParent(HttpSession session,
                          @RequestParam("sonType") String sonType,
                          @RequestParam("parentType") String parentType) {
-        String account = (String) session.getAttribute("account");
-        Blogger blogger = bloggerService.queryByAccount(account);
+        // String account = (String) session.getAttribute("account");
+        // Blogger blogger = bloggerService.queryByAccount(account);
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
         Category sonCategory = categoryService.queryByBloggerIdAndTypeName(blogger.getId(), sonType);
         if (sonCategory == null) return new ResponseData(ResponseState.EMPTY, null);
         Category parentCategory = categoryService.queryByBloggerIdAndTypeName(blogger.getId(), parentType);
@@ -120,8 +122,9 @@ public class CategoryController {
     @PostMapping("/web/api/category/isolateParent")
     public ResponseData isolateParent(HttpSession session,
                           @RequestParam("classify") String classify) {
-        String account = (String) session.getAttribute("account");
-        Blogger blogger = bloggerService.queryByAccount(account);
+        // String account = (String) session.getAttribute("account");
+        // Blogger blogger = bloggerService.queryByAccount(account);
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
         Category category = categoryService.queryByBloggerIdAndTypeName(blogger.getId(), classify);
         if (category == null) return new ResponseData(ResponseState.EMPTY, null);
         if (category.getParentId() == null) {
@@ -136,8 +139,9 @@ public class CategoryController {
     @PostMapping("/web/api/category/removeClassify")
     public ResponseData removeClaasify(HttpSession session,
                        @RequestParam("classify") String classify) {
-        String account = (String) session.getAttribute("account");
-        Blogger blogger = bloggerService.queryByAccount(account);
+        // String account = (String) session.getAttribute("account");
+        // Blogger blogger = bloggerService.queryByAccount(account);
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
         Category category = categoryService.queryByIdAndType(blogger.getId(), classify);
         if (category == null) return new ResponseData(ResponseState.EMPTY, null);
         List<Category> categories = categoryService.queryByIds(blogger.getId(), category.getId());
@@ -154,5 +158,18 @@ public class CategoryController {
         data.put("delete", flag);
         return new ResponseData(ResponseState.SUCCESS, data);
     }
+
+    // @GetMapping("/web/api/category/list")
+    // public ResponseData getCategoryList(HttpSession session) {
+    //     String account = (String) session.getAttribute("account");
+    //     Blogger blogger = bloggerService.queryByAccount(account);
+    //     List<Category> categories = categoryService.queryByBloggerId(blogger.getId());
+    //     if (categories.size() == 0) return new ResponseData(ResponseState.EMPTY, null);
+    //     Map<String, Object> data = new HashMap<String, Object>();
+    //     for (int i = 0; i < categories.size(); i++) {
+    //         data.put("" + i, categories.get(i).getTypeName());
+    //     }
+    //     return new ResponseData(ResponseState.SUCCESS, data);
+    // }
 
 }

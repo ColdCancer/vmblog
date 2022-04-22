@@ -6,6 +6,7 @@ import com.demo.service.ArticleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,6 +33,16 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article queryByAccoutAndLink(Integer account, String link) {
         return this.articleDao.queryByBloggerIdAndLinkName(account, link);
+    }
+
+    @Override
+    public int updateDatesById(Integer id, Date date) {
+        return this.articleDao.updateDatesById(id, date);
+    }
+
+    @Override
+    public int updatePostDateById(Integer id, Date postDate) {
+        return this.articleDao.updatePostDateById(id, postDate);
     }
 
     @Override

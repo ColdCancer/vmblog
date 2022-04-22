@@ -7,6 +7,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,14 +32,13 @@ public class BloggerServiceImpl implements BloggerService {
     }
 
     @Override
-    public int insert(Blogger blogger) {
+    public Blogger insert(Blogger blogger) {
         try {
             this.bloggerDao.insert(blogger);
-            return 1;
         } catch (Exception e) {
 //            System.out.println(e.toString());
         }
-        return -1;
+        return blogger;
     }
 
     @Override
@@ -49,9 +49,15 @@ public class BloggerServiceImpl implements BloggerService {
     @Override
     public boolean checkAccountValid(String account, String password, boolean remember) {
         Blogger blogger = this.bloggerDao.queryByAccount(account);
+        if (blogger == null) return false;
         String real_password = password + "&" + blogger.getSaSalt();
         real_password = DigestUtils.shaHex(real_password);
         return real_password.equals(blogger.getErPassword());
+    }
+
+    @Override
+    public int updateLastDate(Integer id, Date date) {
+        return this.bloggerDao.updateLastDate(id, date);
     }
 
     @Override

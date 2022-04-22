@@ -43,7 +43,7 @@ $(function () {
             alert_info(content_['message']);
             if (content_['code'] === 0) {
                 successAction(account);
-                location.reload();
+                // location.reload();
             }
         }
     });
@@ -61,6 +61,7 @@ function successAction(account) {
     $('#SignInBox').addClass("d-none");
     $('#SignUpBox').addClass("d-none");
     $('#AccountBox').removeClass("d-none");
+    $('#index-account').text(' ' + account + ' ');
     var photo_url = '/api/resources/' + account + '/profile-photo';
     $('#profile-photo').attr('src', photo_url);
 }

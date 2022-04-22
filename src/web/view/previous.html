@@ -177,11 +177,50 @@
     </div>
     <hr/>
     <div class="row mt-3">
+        <ul class="list-group w-100 mx-auto">
+            <li class="list-group-item text-center text-info">There is not a comment.</li>
+            <!--<li id="comment-item" class="list-group-item">-->
+            <!--    <div class="row">-->
+            <!--        <div class="col-2 border-right">-->
+            <!--            <div class="text-center my-auto">-->
+            <!--                <img id="comment-photo" class="image-responsive rounded-circle d-block mx-auto" src="/api/resources/blogger/profile-photo" height="40" width="40" alt="...">-->
+            <!--                <div id="comment-from" class="text-center">Blogger</div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--        <div class="col">-->
+            <!--            <div class="row">-->
+            <!--                <div class="col-12">-->
+            <!--                    <span id="comment-date" class="text-secondary">2000.01.01 12:12:12</span>-->
+            <!--                    <span id="comment-to" class="text-dark">@Svipvm :</span>-->
+            <!--                </div>-->
+            <!--            <div class="row">-->
+            <!--                <div class="col-12">-->
+            <!--                    <span id="comment-content" class="text-primary pl-3">-->
+            <!--                        This is a specif comment.This is a specif comment.-->
+            <!--                    </span>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--    </div>-->
+            <!--</li>-->
+        </ul>
+    </div>
+    <div class="row mt-3">
         <div class="col">
             <div class="jumbotron py-3">
-                <div class="mb-3">
+                <div id="comment-info" class="text-center text-dark">
+                    You can only comment after logging in to your account.
+                </div>
+                <div id="comment-edit" class="mb-3 d-none">
                     <label for="validationTextarea">Comment</label>
-                    <textarea class="form-control" id="validationTextarea" placeholder="Required example textarea" required></textarea>
+                    <div class="row">
+                        <div class="col-9 col-sm-10 col-lg-11">
+                            <textarea class="form-control" id="validationTextarea" placeholder="Required example textarea" required style="height: 100px; max-height: 100px; resize: none"></textarea>
+                        </div>
+                        <div class="col-1 col-sm-1 col-lg-1">
+                        <button type="button" class="btn btn-primary my-4">Send</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

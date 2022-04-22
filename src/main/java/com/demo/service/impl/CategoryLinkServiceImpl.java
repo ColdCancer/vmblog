@@ -41,6 +41,16 @@ public class CategoryLinkServiceImpl implements CategoryLinkService {
     }
 
     @Override
+    public int update(CategoryLink categoryLink) {
+        return this.categoryLinkDao.update(categoryLink);
+    }
+
+    @Override
+    public CategoryLink queryByArticleId(Integer articleId) {
+        return this.categoryLinkDao.queryByArticleId(articleId);
+    }
+
+    @Override
     public Integer queryCountById(Integer categoryId) {
         return this.categoryLinkDao.queryCountById(categoryId);
     }

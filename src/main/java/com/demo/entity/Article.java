@@ -28,7 +28,7 @@ public class Article implements Serializable {
     private String title;
     private String linkName;
     private String fileName;
-    private String flagType;
+    private String segment;
     private Date postDate;
     private Date updateDate;
     private Integer topRank;

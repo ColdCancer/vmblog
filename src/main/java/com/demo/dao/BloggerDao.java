@@ -4,6 +4,7 @@ import com.demo.entity.Blogger;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,17 +15,17 @@ import java.util.List;
  */
 @Mapper
 public interface BloggerDao {
-    @Results(id = "BloggerResultMap", value = {
-            @Result(property = "id", column = "id"),
-            @Result(property = "erName", column = "er_name", jdbcType = JdbcType.VARCHAR),
-            @Result(property = "erSex", column = "er_sex", jdbcType = JdbcType.VARCHAR),
-            @Result(property = "erMotto", column = "er_motto", jdbcType = JdbcType.VARCHAR),
-            @Result(property = "erAccount", column = "er_account", jdbcType = JdbcType.VARCHAR),
-            @Result(property = "erPassword", column = "er_password", jdbcType = JdbcType.VARCHAR),
-            @Result(property = "saSalt", column = "sa_salt", jdbcType = JdbcType.VARCHAR),
-            @Result(property = "registerDate", column = "register_date"),
-            @Result(property = "lastLoginDate", column = "last_login_date")
-    })
+    // @Results(id = "BloggerResultMap", value = {
+    //         @Result(property = "id", column = "id"),
+    //         @Result(property = "erName", column = "er_name", jdbcType = JdbcType.VARCHAR),
+    //         @Result(property = "erSex", column = "er_sex", jdbcType = JdbcType.VARCHAR),
+    //         @Result(property = "erMotto", column = "er_motto", jdbcType = JdbcType.VARCHAR),
+    //         @Result(property = "erAccount", column = "er_account", jdbcType = JdbcType.VARCHAR),
+    //         @Result(property = "erPassword", column = "er_password", jdbcType = JdbcType.VARCHAR),
+    //         @Result(property = "saSalt", column = "sa_salt", jdbcType = JdbcType.VARCHAR),
+    //         @Result(property = "registerDate", column = "register_date"),
+    //         @Result(property = "lastLoginDate", column = "last_login_date")
+    // })
 
     @Select("select * from blogger where id=#{id}")
     Blogger queryById(Integer id);
@@ -34,12 +35,15 @@ public interface BloggerDao {
 
     @Insert("insert into blogger(er_name, er_account, er_password, sa_salt) " +
             "values(#{erName}, #{erAccount}, #{erPassword}, #{saSalt})")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(Blogger blogger);
 
     @Delete("delete from blogger where id=#{id}")
     int deleteById(Integer id);
 
     @Select("select * from blogger where er_account=#{account}")
-    @ResultMap(value = {"BloggerResultMap"})
     Blogger queryByAccount(String account);
+
+    @Update("update blogger set last_login_date=#{date} where id=#{id}")
+    int updateLastDate(@Param("id") Integer id, @Param("date") Date date);
 }

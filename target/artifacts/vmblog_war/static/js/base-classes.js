@@ -87,6 +87,7 @@ class CategoryItem {
             "             <td class=\"text-center\" id=\"cagegory-opt\">\n" +
             "               <button type=\"button\" class=\"btn-category btn btn-s btn-dark py-0\" value=\"{3}\">Delete</button>\n" +
             "             </td>\n" +
+            "             <input type='hidden' value='{1}'> " +
             "           </tr>";
 
         this.pattern = String.format(this.pattern, id, name, count, name);

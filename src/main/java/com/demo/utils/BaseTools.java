@@ -18,9 +18,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BaseTools {
-    private static final String web_name = "/WEB-INF/";
-    private static final String blogger_name = web_name + "blogger/";
-    private static final String mediae_name = web_name + "mediae/";
+    private static final String web_name = "WEB-INF" + File.separator;
+    private static final String blogger_name = web_name + "blogger" + File.separator;
+    private static final String mediae_name = web_name + "mediae" + File.separator;
     private static final long SECOND = 1000;
     private static final long MINUTES = 60 * SECOND;
     private static final long HOUR = 60 * MINUTES;
@@ -28,8 +28,9 @@ public class BaseTools {
     private static final long MONTH = 30 * DAY;
     private static final long YEAR = 12 * MONTH;
 
-    public static String getMDPath(HttpSession session, String account, String file_name) {
-        String base_path = session.getServletContext().getRealPath(blogger_name);
+    public static String getMDPath(String account, String file_name) {
+        // String base_path = session.getServletContext().getRealPath(blogger_name);
+        String base_path = System.getProperty("rootPath") + blogger_name;
         String file_path = base_path + account + File.separator + "article" + File.separator;
         File dir = new File(file_path);
         if (!dir.exists()) {
@@ -41,7 +42,7 @@ public class BaseTools {
     public static boolean deleteMarkdown(String file_path) {
         File sfile = new File(file_path + ".save");
         if (sfile.exists()) { boolean flag = sfile.delete(); }
-        File file = new File(file_path + ",md");
+        File file = new File(file_path + ".md");
         if (file.exists()) { boolean flag = file.delete(); }
         return true;
     }
@@ -64,8 +65,9 @@ public class BaseTools {
         return result;
     }
 
-    public static String getResourcesPath(HttpSession session, String account, String file_name) {
-        String base_path = session.getServletContext().getRealPath(blogger_name);
+    public static String getResourcesPath(String account, String file_name) {
+        // String base_path = session.getServletContext().getRealPath(blogger_name);
+        String base_path = System.getProperty("rootPath") + blogger_name;
         if ("../".equals(file_name)) return base_path + account + File.separator;
 
         String file_path = base_path + account + File.separator + "resources" + File.separator;
@@ -76,8 +78,9 @@ public class BaseTools {
         return file_path + file_name;
     }
 
-    public static String getImagePath(HttpSession session, String file_name) {
-        String base_path = session.getServletContext().getRealPath(mediae_name);
+    public static String getImagePath(String file_name) {
+        // String base_path = session.getServletContext().getRealPath(mediae_name);
+        String base_path = System.getProperty("rootPath") + mediae_name;
         String file_path = base_path + "images" + File.separator;
         File dir = new File(file_path);
         if (!dir.exists()) {

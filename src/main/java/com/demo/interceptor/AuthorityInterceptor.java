@@ -12,7 +12,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         HttpSession session = httpServletRequest.getSession();
-        if (session.getAttribute("account") != null) {
+        if (session.getAttribute("blogger") != null) {
             return true;
         } else {
 //            httpServletRequest.setAttribute("deliver", true);

@@ -2,6 +2,7 @@ package com.demo.service;
 
 import com.demo.entity.Article;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,4 +24,8 @@ public interface ArticleService {
     int addVisCount(Integer id);
 
     List<Article> queryAllByBloggerIdAndLimit(Integer bloggerId, int offset, int limit);
+
+    int updatePostDateById(Integer id, Date postDate);
+
+    int updateDatesById(Integer id, Date date);
 }

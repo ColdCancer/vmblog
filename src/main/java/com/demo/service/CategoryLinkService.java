@@ -15,4 +15,8 @@ public interface CategoryLinkService {
     CategoryLink insert(CategoryLink categoryLink);
     boolean deleteById(Integer id);
     Integer queryCountById(Integer categoryId);
+
+    CategoryLink queryByArticleId(Integer articleId);
+
+    int update(CategoryLink categoryLink);
 }

@@ -4,6 +4,7 @@ import com.demo.entity.Article;
 import com.demo.entity.Blogger;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,8 +36,8 @@ public interface ArticleDao {
     @Select("select * from article order by id desc limit #{limit}, #{offset}")
     List<Article> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
-    @Insert("insert into article(blogger_id, title, link_name, file_name, flag_type, post_date) " +
-            "values(#{bloggerId}, #{title}, #{linkName}, #{fileName}, #{flagType}, #{postDate})")
+    @Insert("insert into article(blogger_id, title, link_name, file_name, segment, post_date, top_rank) " +
+            "values(#{bloggerId}, #{title}, #{linkName}, #{fileName}, #{segment}, #{postDate}, #{topRank})")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(Article article);
 
@@ -59,7 +60,7 @@ public interface ArticleDao {
     Article queryByBloggerIdAndLinkName(@Param("id") Integer account, @Param("name") String linkName);
 
     @Update("update article set cover_id=#{coverId}, title=#{title}, link_name=#{linkName}, " +
-            "flag_type=#{flagType}, update_date=#{updateDate} where id=#{id}")
+            "segment=#{segment}, update_date=#{updateDate}, top_rank=#{topRank} where id=#{id}")
     int update(Article article);
 
     @Delete("delete from article where blogger_id=#{id} and link_name=#{link}")
@@ -67,4 +68,10 @@ public interface ArticleDao {
 
     @Select("select * from article where blogger_id=#{bloggerId} order by id desc limit #{limit}, #{offset}")
     List<Article> queryAllByBloggerIdAndLimit(@Param("bloggerId") Integer bloggerId, @Param("offset") int offset, @Param("limit") int limit);
+
+    @Update("update article set post_date=#{postDate} where id=#{id}")
+    int updatePostDateById(@Param("id") Integer id, @Param("postDate") Date postDate);
+
+    @Update("update article set post_date=#{date}, update_date=#{date} where id=#{id}")
+    int updateDatesById(@Param("id") Integer id, @Param("date") Date date);
 }
