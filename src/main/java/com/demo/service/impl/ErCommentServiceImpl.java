@@ -12,7 +12,7 @@ import java.util.List;
  * (ErComment)表服务实现类
  *
  * @author vmice
- * @since 2022-04-04 18:59:53
+ * @since 2022-04-23 14:39:55
  */
 @Service("erCommentService")
 public class ErCommentServiceImpl implements ErCommentService {
@@ -25,6 +25,11 @@ public class ErCommentServiceImpl implements ErCommentService {
     }
 
     @Override
+    public List<ErComment> queryByArticleId(Integer articleId) {
+        return this.erCommentDao.queryByArticleId(articleId);
+    }
+
+    @Override
     public List<ErComment> queryAllByLimit(int offset, int limit) {
         return this.erCommentDao.queryAllByLimit(offset, limit);
     }
@@ -33,6 +38,12 @@ public class ErCommentServiceImpl implements ErCommentService {
     public ErComment insert(ErComment erComment) {
         this.erCommentDao.insert(erComment);
         return erComment;
+    }
+
+    @Override
+    public ErComment update(ErComment erComment) {
+        this.erCommentDao.update(erComment);
+        return this.queryById(erComment.getId());
     }
 
     @Override

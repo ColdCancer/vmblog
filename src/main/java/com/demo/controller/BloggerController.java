@@ -116,7 +116,7 @@ public class BloggerController {
 
     @PostMapping("/web/passport/signout")
     public ResponseData signout(HttpSession session) {
-        if (session.getAttribute("account") != null) {
+        if (session.getAttribute("blogger") != null) {
             session.invalidate();
             return new ResponseData(ResponseState.SUCCESS, null);
         } else {

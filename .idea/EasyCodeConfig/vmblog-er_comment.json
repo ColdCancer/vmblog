@@ -50,22 +50,6 @@
     "ktShortType" : "Date",
     "custom" : false,
     "ext" : { }
-  }, {
-    "name" : "likeCount",
-    "comment" : null,
-    "type" : null,
-    "shortType" : null,
-    "ktShortType" : "Int",
-    "custom" : false,
-    "ext" : { }
-  }, {
-    "name" : "dislikeCount",
-    "comment" : null,
-    "type" : null,
-    "shortType" : null,
-    "ktShortType" : "Int",
-    "custom" : false,
-    "ext" : { }
   } ],
   "pkColumn" : null,
   "otherColumn" : null,

@@ -177,7 +177,7 @@
     </div>
     <hr/>
     <div class="row mt-3">
-        <ul class="list-group w-100 mx-auto">
+        <ul id="comment-list" class="list-group w-100 mx-auto">
             <li class="list-group-item text-center text-info">There is not a comment.</li>
             <!--<li id="comment-item" class="list-group-item">-->
             <!--    <div class="row">-->
@@ -189,13 +189,46 @@
             <!--        </div>-->
             <!--        <div class="col">-->
             <!--            <div class="row">-->
-            <!--                <div class="col-12">-->
+            <!--                <div class="col-8">-->
             <!--                    <span id="comment-date" class="text-secondary">2000.01.01 12:12:12</span>-->
             <!--                    <span id="comment-to" class="text-dark">@Svipvm :</span>-->
             <!--                </div>-->
+            <!--                <div class="col-4 text-right">-->
+            <!--                    <span class="text-dark"><button type="button" class="btn btn-sm btn-outline-primary" value="12:svipvm">回复</button></span>-->
+            <!--                </div>-->
+            <!--            </div>-->
             <!--            <div class="row">-->
             <!--                <div class="col-12">-->
             <!--                    <span id="comment-content" class="text-primary pl-3">-->
+            <!--                        This is a specif comment.This is a specif comment.-->
+            <!--                    </span>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--    </div>-->
+            <!--</li>-->
+            <!--<li id="son_comment-item" class="list-group-item">-->
+            <!--    <div class="row">-->
+            <!--        <div class="col-1 border-right"></div>-->
+            <!--        <div class="col-2 border-right">-->
+            <!--            <div class="text-center my-auto">-->
+            <!--                <img id="son-comment-photo" class="image-responsive rounded-circle d-block mx-auto" src="/api/resources/blogger/profile-photo" height="40" width="40" alt="...">-->
+            <!--                <div id="son-comment-from" class="text-center">Svipvm</div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--        <div class="col">-->
+            <!--            <div class="row">-->
+            <!--                <div class="col-9">-->
+            <!--                    <span id="son-comment-date" class="text-secondary">2000.01.01 12:12:12</span>-->
+            <!--                    <span id="son-comment-to" class="text-dark">@Blogger :</span>-->
+            <!--                </div>-->
+            <!--                <div class="col-3 text-right">-->
+            <!--                    <span class="text-dark"><button type="button" class="btn btn-sm btn-outline-primary" value="12:svipvm">回复</button></span>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--            <div class="row">-->
+            <!--                <div class="col-12">-->
+            <!--                    <span id="son-comment-content" class="text-primary pl-3">-->
             <!--                        This is a specif comment.This is a specif comment.-->
             <!--                    </span>-->
             <!--                </div>-->
@@ -212,16 +245,70 @@
                     You can only comment after logging in to your account.
                 </div>
                 <div id="comment-edit" class="mb-3 d-none">
-                    <label for="validationTextarea">Comment</label>
+                    <label for="comment-main">Comment</label>
                     <div class="row">
                         <div class="col-9 col-sm-10 col-lg-11">
-                            <textarea class="form-control" id="validationTextarea" placeholder="Required example textarea" required style="height: 100px; max-height: 100px; resize: none"></textarea>
+                            <textarea class="form-control" id="comment-main" placeholder="Required example textarea" required style="height: 100px; max-height: 100px; resize: none"></textarea>
                         </div>
                         <div class="col-1 col-sm-1 col-lg-1">
-                        <button type="button" class="btn btn-primary my-4">Send</button>
+                        <button id="comment-send" type="button" value="" class="btn btn-primary my-4">Send</button>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-reply" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="replyModalLabel">Reply Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-3 border-right">
+                        <div class="text-center my-auto">
+                            <img id="reply-photo" class="image-responsive rounded-circle d-block mx-auto" src="" height="40" width="40" alt="Photo">
+                            <div id="reply-from" class="text-center"></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-9">
+                                <span id="reply-date" class="text-secondary"></span>
+                                <span id="reply-to" class="text-dark"></span>
+                            </div>
+                            <!--<div class="col-3 text-right">-->
+                            <!--    <span class="text-dark"><button type="button" class="btn btn-sm btn-outline-primary" value="12:svipvm">回复</button></span>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <span id="reply-content" class="text-primary pl-3"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="reply-info" class="row mt-2">
+                    <div class="col text-center text-info">
+                        You can only comment after logging in to your account.
+                    </div>
+                </div>
+                <div id="reply-edit" class="row d-none">
+                    <div class="col">
+                        <label for="reply-main"></label><textarea class="form-control" id="reply-main" placeholder="Required Reply Commnet" required style="height: 75px; max-height: 75px; resize: none"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="reply-send" type="button" class="btn btn-primary">Send</button>
             </div>
         </div>
     </div>

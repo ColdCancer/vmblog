@@ -97,3 +97,84 @@ class CategoryItem {
         return $(this.pattern);
     }
 }
+
+class ParentComment {
+    constructor(from_blogger, date, to_blogger, id_to, comment) {
+        var img = '/api/resources/' + from_blogger + '/profile-photo';
+        id_to = id_to + ":" + from_blogger;
+        this.pattern = "<li id='comment-item' class='list-group-item'>\n" +
+            "    <div class='row'>\n" +
+            "        <div class='col-2 border-right'>\n" +
+            "            <div class='text-center my-auto'>\n" +
+            "                <img id='comment-photo' class='image-responsive rounded-circle d-block mx-auto' src='{0}' height='40' width='40' alt='...'>\n" +
+            "                <div id='comment-from' class='text-center'>{1}</div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "        <div class='col'>\n" +
+            "            <div class='row'>\n" +
+            "                <div class='col-8'>\n" +
+            "                    <span id='comment-date' class='text-secondary'>{2}</span>\n" +
+            "                    <span id='comment-to' class='text-dark'>@{3} :</span>\n" +
+            "                </div>\n" +
+            "                <div class='col-4 text-right'>\n" +
+            "                    <button type='button' class='comment-reply btn btn-sm btn-outline-primary' " +
+            "                        data-toggle='modal' data-target='#modal-reply' value='{4}'>回复</button>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "            <div class='row'>\n" +
+            "                <div class='col-12'>\n" +
+            "                    <span id='comment-content' class='text-primary pl-3'>{5}</span>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "    </div>\n" +
+            "</li>";
+        this.pattern = String.format(this.pattern, img, from_blogger, date,
+            to_blogger, id_to, comment);
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}
+
+class SonComment {
+    constructor(from_blogger, date, to_blogger, id_to, comment) {
+        var img = '/api/resources/' + from_blogger + '/profile-photo';
+        id_to = id_to + ":" + from_blogger;
+        this.pattern = "<li id='son_comment-item' class='list-group-item'>\n" +
+            "    <div class='row'>\n" +
+            "        <div class='col-1 border-right'></div>\n" +
+            "        <div class='col-2 border-right'>\n" +
+            "            <div class='text-center my-auto'>\n" +
+            "                <img id='son-comment-photo' class='image-responsive rounded-circle d-block mx-auto' src='{0}' height='40' width='40' alt='...'>\n" +
+            "                <div id='son-comment-from' class='text-center'>{1}</div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "        <div class='col'>\n" +
+            "            <div class='row'>\n" +
+            "                <div class='col-9'>\n" +
+            "                    <span id='son-comment-date' class='text-secondary'>{2}</span>\n" +
+            "                    <span id='son-comment-to' class='text-dark'>@{3} :</span>\n" +
+            "                </div>\n" +
+            "                <div class='col-3 text-right'>\n" +
+            "                    <button type='button' class='comment-reply btn btn-sm btn-outline-primary' " +
+            "                        data-toggle='modal' data-target='#modal-reply' value='{4}'>回复</button>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "            <div class='row'>\n" +
+            "                <div class='col-12'>\n" +
+            "                    <span id='son-comment-content' class='text-primary pl-3'>{5}</span>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "    </div>\n" +
+            "</li>";
+        this.pattern = String.format(this.pattern, img, from_blogger, date,
+            to_blogger, id_to, comment);
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}

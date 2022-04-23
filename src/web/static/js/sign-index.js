@@ -1,8 +1,13 @@
+var login_flag = false;
+
 $(function () {
     var content = requestStateOfLogin();
     if (content !== null && content['code'] === 0) {
         var account = content['data']['account'];
         successAction(account);
+        login_flag = true;
+    } else {
+        login_flag = false;
     }
 
     $('#btn-sign-up').click(function () {
@@ -52,6 +57,7 @@ $(function () {
         content = requestLoginOut();
         alert_info(content);
         if (content['code'] === 0) {
+            login_flag = false;
             location.reload();
         }
     });
@@ -64,4 +70,5 @@ function successAction(account) {
     $('#index-account').text(' ' + account + ' ');
     var photo_url = '/api/resources/' + account + '/profile-photo';
     $('#profile-photo').attr('src', photo_url);
+    login_flag = true;
 }

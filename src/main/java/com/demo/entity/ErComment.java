@@ -12,14 +12,14 @@ import java.io.Serializable;
  * (ErComment)实体类
  *
  * @author vmice
- * @since 2022-04-04 18:59:53
+ * @since 2022-04-23 14:39:46
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class ErComment implements Serializable {
-    private static final long serialVersionUID = 791782029157152510L;
+    private static final long serialVersionUID = 183353563674798493L;
     
     private Integer id;
     private Integer fromBloggerId;
@@ -27,6 +27,6 @@ public class ErComment implements Serializable {
     private Integer articleId;
     private String topicContent;
     private Date postDate;
-    private Integer likeCount;
-    private Integer dislikeCount;
+    private Integer parentId;
+
 }
