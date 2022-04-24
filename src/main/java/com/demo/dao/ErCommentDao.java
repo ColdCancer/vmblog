@@ -1,10 +1,7 @@
 package com.demo.dao;
 
 import com.demo.entity.ErComment;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -33,4 +30,11 @@ public interface ErCommentDao {
 
     @Select("select * from er_comment where article_id=#{articleId}")
     List<ErComment> queryByArticleId(Integer articleId);
+
+    @Select("select * from er_comment where from_blogger_id=#{bloggerId} " +
+            "and delete_flag=0 order by id desc limit #{limit}, #{offset}")
+    List<ErComment> queryAllByBloggerAndLimit(@Param("bloggerId") Integer bloggerId, @Param("offset") int offset, @Param("limit") int limit);
+
+    @Update("update er_comment set delete_flag=1 where id=#{id}")
+    int logicDelete(Integer id);
 }

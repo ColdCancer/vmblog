@@ -70,5 +70,6 @@ function successAction(account) {
     $('#index-account').text(' ' + account + ' ');
     var photo_url = '/api/resources/' + account + '/profile-photo';
     $('#profile-photo').attr('src', photo_url);
+    $('#blogger-profile').attr('href', '/blogger/' + account + '/profile');
     login_flag = true;
 }

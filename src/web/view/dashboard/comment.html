@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <!--  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
     <title>Dashboard</title>
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/bootstrap/font/bootstrap-icons.css">
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -25,13 +26,16 @@
 </head>
 <body>
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">VMBLOG Dashboard</a>
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/">VMBLOG HOME</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <nav class="nav px-3 ">
-        <a class="nav-link text-light" href="#">Profile</a>
-        <a class="nav-link text-light" href="#">Sign Out</a>
+        <span id="blogger-name" class="nav-link text-light">
+            <!--<i class="bi bi-activity"></i> Blogger-->
+        </span>
+        <a id="blogger-profile" class="nav-link text-light" href="javascript:void(0)">Profile</a>
+        <a id="blogger-out" class="nav-link text-light" href="javascript:void(0)">Sign Out</a>
     </nav>
 </nav>
 
@@ -76,8 +80,40 @@
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div id="information-box" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Comment</h1>
+            <div id="information-box" class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Comment Manager</h1> <hr/>
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">Index</th>
+                            <th class="text-center" scope="col">Article</th>
+                            <th class="text-center" scope="col">To</th>
+                            <th class="text-center" scope="col">Comment</th>
+                            <th class="text-center" scope="col">Post</th>
+                            <th class="edit-item text-center" scope="col">Opt</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comment-manager-body">
+                        <!--<tr class="comment-manager-item">-->
+                        <!--    <td class="text-center" id="comment-id">{0}</td>-->
+                        <!--    <td class="text-center" id="comment-article">{1}</td>-->
+                        <!--    <td class="text-center" id="comment-to">{2}</td>-->
+                        <!--    <td class="text-center text-truncate" id="comment-main" style="max-width: 270px;">{3}</td>-->
+                        <!--    <td class="text-center" id="comment-date">{3}</td>-->
+                        <!--    <td class="text-center" id="comment-opt">-->
+                        <!--        <a class="btn btn-sm btn-dark py-0" href="{4}">Delete</a>-->
+                        <!--    </td>-->
+                        <!--</tr>-->
+                    </tbody>
+                </table>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="btn-group d-block text-center" role="group" aria-label="Basic example">
+                        <button type="button" id="comment-page-previous" class="btn btn-outline-secondary">Previous</button>
+                        <button type="button" id="comment-page-next" class="btn btn-outline-secondary">Next</button>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -87,6 +123,10 @@
 <script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
 <!--<script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>-->
+<script type="text/javascript" src="/js/base-functions.js"></script>
+<script type="text/javascript" src="/js/base-classes.js"></script>
+<script type="text/javascript" src="/js/sign-functions.js"></script>
 <script type="text/javascript" src="/js/dashboard.js"></script>
+<script type="text/javascript" src="/js/comment-manager.js"></script>
 </body>
 </html>

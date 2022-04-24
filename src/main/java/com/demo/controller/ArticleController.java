@@ -125,6 +125,13 @@ public class ArticleController {
             //     // e.printStackTrace();
             //     segment = "no content";
             // }
+            CategoryLink categoryLink = categoryLinkService.queryByArticleId(article.getId());
+            if (categoryLink == null) {
+                mapper.put("category", null);
+            } else {
+                Category category = categoryService.queryById(categoryLink.getCategoryId());
+                mapper.put("category", category.getTypeName());
+            }
 
             Date date = article.getPostDate();
             if (article.getUpdateDate() != null) {
@@ -442,6 +449,7 @@ public class ArticleController {
             articleSave.setCategoryId(null);
         } else {
             Category category_ojb = categoryService.queryByBloggerIdAndTypeName(blogger.getId(), category);
+            System.out.println(category_ojb);
             if (category_ojb != null) {
                 categoryLinkService.update(new CategoryLink(null, article_ojb.getId(), category_ojb.getId()));
                 articleSave.setCategoryId(category_ojb.getId());

@@ -34,7 +34,7 @@ $(function () {
 
     $('#article-delete').click(function () {
         var opt_list = $('.opt-items');
-        console.log(opt_list);
+        // console.log(opt_list);
         var opt_links = [];
         for (var i = 0; i < opt_list.length; i++) {
             var opt = opt_list[i];

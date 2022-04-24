@@ -4,7 +4,8 @@
   <meta charset="utf-8">
 <!--  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
   <title>Dashboard</title>
-  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link type="text/css" rel="stylesheet" href="/bootstrap/font/bootstrap-icons.css">
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -25,13 +26,16 @@
 </head>
 <body>
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">VMBLOG Dashboard</a>
+  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/">VMBLOG HOME</a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <nav class="nav px-3 ">
-    <a class="nav-link text-light" href="#">Profile</a>
-    <a class="nav-link text-light" href="#">Sign Out</a>
+  <nav class="nav px-3">
+      <span id="blogger-name" class="nav-link text-light">
+            <!--<i class="bi bi-activity"></i> Blogger-->
+        </span>
+    <a id="blogger-profile" class="nav-link text-light" href="javascript:void(0)">Profile</a>
+    <a id="blogger-out" class="nav-link text-light" href="javascript:void(0)">Sign Out</a>
   </nav>
 </nav>
 
@@ -87,6 +91,7 @@
 <script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
 <!--<script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>-->
+<script type="text/javascript" src="/js/sign-functions.js"></script>
 <script type="text/javascript" src="/js/dashboard.js"></script>
 </body>
 </html>

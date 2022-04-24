@@ -25,6 +25,16 @@ public class ErCommentServiceImpl implements ErCommentService {
     }
 
     @Override
+    public int logicDelete(Integer id) {
+        return this.erCommentDao.logicDelete(id);
+    }
+
+    @Override
+    public List<ErComment> queryAllByBloggerAndLimit(Integer bloggerId, int offset, int limit) {
+        return this.erCommentDao.queryAllByBloggerAndLimit(bloggerId, offset, limit);
+    }
+
+    @Override
     public List<ErComment> queryByArticleId(Integer articleId) {
         return this.erCommentDao.queryByArticleId(articleId);
     }

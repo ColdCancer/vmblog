@@ -16,4 +16,8 @@ public interface ErCommentService {
     ErComment update(ErComment erComment);
     boolean deleteById(Integer id);
     List<ErComment> queryByArticleId(Integer articleId);
+
+    List<ErComment> queryAllByBloggerAndLimit(Integer bloggerId, int offset, int limit);
+
+    int logicDelete(Integer id);
 }

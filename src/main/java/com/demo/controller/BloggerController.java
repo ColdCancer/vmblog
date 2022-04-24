@@ -123,4 +123,14 @@ public class BloggerController {
             return new ResponseData(ResponseState.EMPTY, null);
         }
     }
+
+    @GetMapping("/web/api/blogger/baseInfo")
+    public ResponseData getBaseInfo(HttpSession session) {
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
+        if (blogger == null) return new ResponseData(ResponseState.FAILURE, null);
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("account", blogger.getErAccount());
+        data.put("name", blogger.getErName());
+        return new ResponseData(ResponseState.SUCCESS, data);
+    }
 }

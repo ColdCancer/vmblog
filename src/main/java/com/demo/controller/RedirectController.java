@@ -47,6 +47,11 @@ public class RedirectController {
         return "index";
     }
 
+    @GetMapping("/article")
+    public String article() {
+        return "article";
+    }
+
     @GetMapping("/home")
     public String home() {
         return "index";

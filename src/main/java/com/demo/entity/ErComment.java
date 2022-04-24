@@ -27,6 +27,7 @@ public class ErComment implements Serializable {
     private Integer articleId;
     private String topicContent;
     private Date postDate;
+    private Integer deleteFlag;
     private Integer parentId;
 
 }

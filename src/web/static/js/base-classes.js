@@ -1,6 +1,6 @@
 class ArticleCart {
     constructor(title, segmental, cover, post, blogger,
-                views, like, dislike, link) {
+                views, like, dislike, link, category) {
         var url = "/article/" + blogger + "/" + link;
         // segmental = "<span style='white-space: pre;'>" + segmental + "</span>";
         this.pattern = "      <div class=\"card\">\n" +
@@ -9,18 +9,22 @@ class ArticleCart {
             "          <h5 class=\"card-title text-center\"><a href=\"{8}\">{0}</a></h5>\n" +
             "          <p class=\"card-text\">{1}</p>\n" +
             "        </div>\n" +
-            "        <div class=\"card-footer\">\n" +
+            "        <div class=\"card-footer text-center\">\n" +
             "          <span class=\"d-block\">\n" +
             "            <small class=\"font-italic\">post:</small>\n" +
             "            <small class=\"text-muted\">{3}</small>\n" +
             "          </span>\n" +
+            "          <span id='category-elem' class='d-block text-center'>" +
+            "            <small class=\"font-italic\">category:</small>\n" +
+            "            <small class=\"text-muted font-weight-bold\">{9}</small>\n" +
+            "          </span>" +
             "          <span class='d-block text-center'>" +
             "            <small class=\"font-italic\">by:</small>\n" +
             "            <small class=\"text-muted font-weight-bold\">\n" +
             "              <a class=\"text-dark\" href=\"/blogger/{4}\">{4}</a>\n" +
             "            </small>\n" +
             "          </span>" +
-            "          <span class=\"d-block text-right\">\n" +
+            "          <span class=\"d-block text-center mt-1\">\n" +
             "            <small class=\"font-italic\">views:</small>\n" +
             "            <span class=\"badge badge-info\">{5}</span>\n" +
             "            <small class=\"font-italic\">, like:</small>\n" +
@@ -32,7 +36,7 @@ class ArticleCart {
             "      </div>\n";
         // console.log(segmental);
         this.pattern = String.format(this.pattern, title, segmental, cover,
-            post, blogger, views, like, dislike, url);
+            post, blogger, views, like, dislike, url, category);
     };
 
     convert() {
@@ -172,6 +176,27 @@ class SonComment {
             "</li>";
         this.pattern = String.format(this.pattern, img, from_blogger, date,
             to_blogger, id_to, comment);
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}
+
+class CommentItem {
+    constructor(index, article, to, main, date, id) {
+        // var url = '/web/api/comment/deleteComment/' + id;
+        this.pattern = "<tr class='comment-manager-item'>\n" +
+            "    <td class='text-center' id='comment-id'>{0}</td>\n" +
+            "    <td class='text-center' id='comment-article'>{1}</td>\n" +
+            "    <td class='text-center' id='comment-to'>{2}</td>\n" +
+            "    <td class='text-center text-truncate' id='comment-main' style='max-width: 270px;'>{3}</td>\n" +
+            "    <td class='text-center' id='comment-date'>{4}</td>\n" +
+            "    <td class='text-center'>\n" +
+            "        <button type='button' class='comment-delete btn btn-sm btn-dark py-0' value='{5}'>Delete</button>\n" +
+            "    </td>\n" +
+            "</tr>";
+        this.pattern = String.format(this.pattern, index, article, to, main, date, id);
     }
 
     convert() {
