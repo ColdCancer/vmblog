@@ -587,4 +587,23 @@ public class ArticleController {
         data.put("like", flag);
         return new ResponseData(ResponseState.SUCCESS, data);
     }
+
+    @GetMapping("/api/article/rank")
+    public ResponseData getArticleRank() {
+        int number = 5;
+        List<Article> articles = articleService.queryByCount(number);
+        if (articles.size() == 0) return new ResponseData(ResponseState.EMPTY, null);
+        Map<String, Object> data = new HashMap<String, Object>();
+        for (int i = 0; i < articles.size(); i++) {
+            Article article = articles.get(i);
+            Map<String, Object> mapper = new HashMap<String, Object>();
+            Blogger blogger = bloggerService.queryById(article.getBloggerId());
+            String url = "/article/" + blogger.getErAccount() + "/" + article.getLinkName();
+            mapper.put("url", url);
+            mapper.put("count", article.getVisCount());
+            mapper.put("article", article.getTitle());
+            data.put("" + i, mapper);
+        }
+        return new ResponseData(ResponseState.SUCCESS, data);
+    }
 }

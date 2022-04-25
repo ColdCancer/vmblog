@@ -28,4 +28,6 @@ public interface ArticleService {
     int updatePostDateById(Integer id, Date postDate);
 
     int updateDatesById(Integer id, Date date);
+
+    List<Article> queryByCount(int number);
 }

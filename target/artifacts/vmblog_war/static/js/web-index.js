@@ -10,7 +10,29 @@ $(function () {
         getArticleByPageNum(currentPage + 1);
         currentPage += 1;
     });
+
+    requestArticleRank();
 });
+
+function requestArticleRank() {
+    $.ajax({
+        url: '/api/article/rank',
+        type: 'get',
+        dataType: 'json',
+        success: function (content) {
+            if (content['code'] !== 0) return;
+            var data = content['data'];
+            var len = Object.keys(data).length;
+            var articleRank = $('#article-rank');
+            articleRank.html('');
+            for (let index = 0; index < len; index++) {
+                let item = data[index];
+                articleRank.append(new ArticleRankItem(item['count'],
+                    item['url'], item['article']).convert());
+            }
+        }
+    });
+}
 
 function getArticleByPageNum(pageNum) {
     $.ajax({
@@ -27,7 +49,14 @@ function getArticleByPageNum(pageNum) {
                 var article_elem = new ArticleCart(article.title,
                     article.segmental, article.cover, article.post,
                     article.blogger, article.views, article.like,
-                    article.dislike, article.link).convert();
+                    article.dislike, article.link, article.category).convert();
+                // console.log(article.category);
+                if (article.category === null) {
+                    var cate_elem = $(article_elem).find('#category-elem');
+                    // console.log(cate_elem);
+                    cate_elem.remove();
+                    // article_elem = article_elem.removeChild(cate_elem);
+                }
                 if (article.cover === '#') {
                     $(article_elem).find("img")[0].remove();
                 }

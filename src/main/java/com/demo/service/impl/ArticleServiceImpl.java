@@ -36,6 +36,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<Article> queryByCount(int number) {
+        return this.articleDao.queryByCount(number);
+    }
+
+    @Override
     public int updateDatesById(Integer id, Date date) {
         return this.articleDao.updateDatesById(id, date);
     }

@@ -33,7 +33,7 @@ public interface ArticleDao {
     Article queryById(Integer id);
 
 //    @ResultMap(value = {"ArticleResultMap"})
-    @Select("select * from article order by id desc limit #{limit}, #{offset}")
+    @Select("select * from article where isnull(post_date)=0 order by id desc limit #{limit}, #{offset}")
     List<Article> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
     @Insert("insert into article(blogger_id, title, link_name, file_name, segment, post_date, top_rank) " +
@@ -74,4 +74,7 @@ public interface ArticleDao {
 
     @Update("update article set post_date=#{date}, update_date=#{date} where id=#{id}")
     int updateDatesById(@Param("id") Integer id, @Param("date") Date date);
+
+    @Select("select * from article where isnull(post_date)=0 order by vis_count desc limit #{number}")
+    List<Article> queryByCount(int number);
 }

@@ -10,7 +10,29 @@ $(function () {
         getArticleByPageNum(currentPage + 1);
         currentPage += 1;
     });
+
+    requestArticleRank();
 });
+
+function requestArticleRank() {
+    $.ajax({
+        url: '/api/article/rank',
+        type: 'get',
+        dataType: 'json',
+        success: function (content) {
+            if (content['code'] !== 0) return;
+            var data = content['data'];
+            var len = Object.keys(data).length;
+            var articleRank = $('#article-rank');
+            articleRank.html('');
+            for (let index = 0; index < len; index++) {
+                let item = data[index];
+                articleRank.append(new ArticleRankItem(item['count'],
+                    item['url'], item['article']).convert());
+            }
+        }
+    });
+}
 
 function getArticleByPageNum(pageNum) {
     $.ajax({
