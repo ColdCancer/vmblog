@@ -247,3 +247,19 @@ class CommentCurrentItem {
         return $(this.pattern);
     }
 }
+
+class CategoryListItem {
+    constructor(blogger, typename, count) {
+        this.pattern = "<li class=\"list-group-item list-group-item-action text-center\">\n" +
+        "                    <input type=\"hidden\" value=\"/article/so/category/{0}/{1}\">\n" +
+        "                    <span id=\"category-builder\" class=\"text-primary\">Builder: {0}</span> &nbsp;\n" +
+        "                    <span id=\"category-kind\" class=\"text-dark\">Category: {1}</span> &nbsp;\n" +
+        "                    <span class=\"text-info\">Link Count:</span>\n" +
+        "                    <span id=\"category-count\" class=\"badge badge-primary badge-pill\">{2}</span>\n" +
+        "                </li>";
+        this.pattern = String.format(this.pattern, blogger, typename, count);
+    }
+    convert() {
+        return $(this.pattern);
+    }
+}

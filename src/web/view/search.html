@@ -35,7 +35,7 @@
                         <i class="bi bi-house"></i>Home<span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item mx-1 active">
+                <li class="nav-item mx-1">
                     <a class="nav-link" href="/article">
                         <i class="bi bi-card-list"></i> Article
                     </a>
@@ -135,34 +135,13 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div id="article-list" class="card-columns">
-                <!--            one article description-->
-                <!--        <div class="card">-->
-                <!--          <img src="{2}" class="card-img-top img-thumbnail" alt="...">-->
-                <!--          <div class="card-body">-->
-                <!--            <h5 class="card-title text-center"><a href="{8}">{0}</a></h5>-->
-                <!--            <p class="card-text">{1}</p>-->
-                <!--          </div>-->
-                <!--          <div class="card-footer">-->
-                <!--            <span class="d-block">-->
-                <!--              <small class="font-italic">post:</small>-->
-                <!--              <small class="text-muted">{3}</small>-->
-                <!--              <small class="font-italic">, by:</small>-->
-                <!--              <small class="text-muted font-weight-bold">-->
-                <!--                <a class="text-dark" href="#">{4}</a>-->
-                <!--              </small>-->
-                <!--            </span>-->
-                <!--            <span class="d-block text-right">-->
-                <!--              <small class="font-italic">views:</small>-->
-                <!--              <span class="badge badge-info">{5}</span>-->
-                <!--              <small class="font-italic">, like:</small>-->
-                <!--              <span class="badge badge-success">{6}</span>-->
-                <!--              <small class="font-italic">, dislike:</small>-->
-                <!--              <span class="badge badge-warning">{7}</span>-->
-                <!--            </span>-->
-                <!--          </div>-->
-                <!--        </div>-->
-            </div>
+            <div id="search-title" class="h3 text-center">Search: Result</div>
+            <hr/>
+        </div>
+    </div>
+    <div class="row" style="min-height: 500px">
+        <div class="col">
+            <div id="article-list" class="card-columns"></div>
         </div>
     </div>
     <div class="row mb-2">
@@ -195,6 +174,6 @@
 <script type="text/javascript" src="/js/base-classes.js"></script>
 <script type="text/javascript" src="/js/sign-functions.js"></script>
 <script type="text/javascript" src="/js/sign-index.js"></script>
-<script type="text/javascript" src="/js/web-article.js"></script>
+<script type="text/javascript" src="/js/web-search.js"></script>
 </body>
 </html>

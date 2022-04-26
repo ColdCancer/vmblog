@@ -1,38 +1,43 @@
-var currentPage = 1, update_flag = 0;
+var current_page = 1, update_flag = 0;
 
 $(function () {
-    getArticleByPageNum();
-    $('#article-page-previous').click(function () {
-        currentPage -= 1;
-        getArticleByPageNum();
-        if (update_flag === 0) currentPage += 1;
-    });
-    $('#article-page-next').click(function () {
-        currentPage += 1;
-        getArticleByPageNum();
-        if (update_flag === 0) currentPage -= 1;
-    });
-});
+    var seg_url = window.location.href.split('/');
+    var len = 0;
+    while (seg_url[len] !== 'so') len++;
+    len++;
+    if (seg_url[len] === 'category') {
+        var account  = seg_url[len + 1];
+        var typename = seg_url[len + 2];
+        $('#search-title').text("Search: Category");
+        requestArticleByCategory(account, typename);
+    } else {
+        console.log("search");
+    }
+})
 
-function getArticleByPageNum() {
+function requestArticleByCategory(account, typename) {
     update_flag = 0;
     $.ajax({
-        url: '/api/article/page/' + currentPage,
+        url: '/api/article/byCategory',
+        data: {
+            'account': account,
+            'typename': typename,
+            'pageNum': current_page
+        },
         type: 'get',
-        async: false,
         dataType: 'json',
         success: function (content) {
             if (content['code'] !== 0) return;
-            var article_json = content['data'];
+            // console.log(content);
+            var data = content['data'];
             $article_list_elem = $('#article-list');
             $article_list_elem.html('');
-            for (var article_index in article_json) {
-                var article = article_json[article_index];
+            for (var index in data) {
+                var article = data[index];
                 var article_elem = new ArticleCart(article.title,
                     article.segmental, article.cover, article.post,
                     article.blogger, article.views, article.like,
                     article.dislike, article.link, article.category).convert();
-                // console.log(article.category);
                 if (article.category === null) {
                     var cate_elem = $(article_elem).find('#category-elem');
                     // console.log(cate_elem);
@@ -45,8 +50,9 @@ function getArticleByPageNum() {
                 $article_list_elem.append(article_elem);
             }
             window.scrollTo(0, 0);
-            $('#page-num').text('page: ' + currentPage);
+            $('#page-num').text('page: ' + current_page);
             update_flag = 1;
         }
     });
+
 }

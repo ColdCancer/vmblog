@@ -8,6 +8,7 @@ import com.demo.utils.ResponseState;
 import netscape.security.UserTarget;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -541,15 +542,24 @@ public class ArticleController {
         if (blogger == null) return new ResponseData(ResponseState.EMPTY, null);
         Article article = articleService.queryByAccoutAndLink(blogger.getId(), link);
         if (article == null) return new ResponseData(ResponseState.EMPTY, null);
+        CategoryLink categoryLink = categoryLinkService.queryByArticleId(article.getId());
+
+        Map<String, Object> data = new HashMap<String, Object>();
+        if (categoryLink == null) {
+            data.put("category", null);
+        } else {
+            Category category = categoryService.queryById(categoryLink.getCategoryId());
+            data.put("category", category.getTypeName());
+        }
 
         int like_count = articleStateService.queryCountByArticleId(article.getId(), "like");
         int dislike_count = articleStateService.queryCountByArticleId(article.getId(), "dislike");
 
-        Map<String, Object> data = new HashMap<String, Object>();
         data.put("title", article.getTitle());
         data.put("postDate", BaseTools.toString(article.getPostDate()));
         data.put("likeCount", like_count);
         data.put("dislikeCount", dislike_count);
+        data.put("by", blogger.getErName());
 
         int flag = articleService.addVisCount(article.getId());
         data.put("vistor", flag);
@@ -606,4 +616,61 @@ public class ArticleController {
         }
         return new ResponseData(ResponseState.SUCCESS, data);
     }
+
+    @GetMapping("/api/article/byCategory")
+    public ResponseData getArticlesByCategory(
+                        @RequestParam("account") String account,
+                        @RequestParam("typename") String typename,
+                        @RequestParam("pageNum") String page_num) {
+        if (Integer.parseInt(page_num) <= 0) return new ResponseData(ResponseState.FAILURE, null);
+        int page_size = 12, page_index = (Integer.parseInt(page_num) - 1) * page_size;
+        Blogger blogger = bloggerService.queryByAccount(account);
+        if (blogger == null) return new ResponseData(ResponseState.FAILURE, null);
+        Category category = categoryService.queryByBloggerIdAndTypeName(blogger.getId(), typename);
+        if (category == null) return new ResponseData(ResponseState.FAILURE, null);
+        List<CategoryLink> categoryLinks = categoryLinkService.queryByCategoryId(category.getId(), page_size, page_index);
+
+        Map<String, Object> data = new HashMap<String, Object>();
+        for (int i = 0; i < categoryLinks.size(); i++) {
+            CategoryLink categoryLink = categoryLinks.get(i);
+            Article article = articleService.queryById(categoryLink.getArticleId());
+            if (article.getPostDate() == null) continue;
+            Map<String, Object> mapper = new HashMap<String, Object>();
+
+            // Blogger aBlogger = bloggerService.queryById(article.getBloggerId());
+            // String account = blogger.getErAccount();
+            if (article.getCoverId() != null) {
+                Mediae mediae = mediaeService.queryById(article.getCoverId());
+                String file_name = BaseTools.digest(account, mediae.getMdDigest());
+                //  url: /api/resource/images/xxx.type
+                String cover_path = "/api/resource/images/" + file_name + mediae.getFlagType();
+                mapper.put("cover", cover_path);
+            } else {
+                mapper.put("cover", "#");
+            }
+
+            mapper.put("category", category.getTypeName());
+
+            Date date = article.getPostDate();
+            if (article.getUpdateDate() != null) {
+                date = article.getUpdateDate();
+            }
+
+            int like_count = articleStateService.queryCountByArticleId(article.getId(), "like");
+            int dislike_count = articleStateService.queryCountByArticleId(article.getId(), "dislike");
+
+            mapper.put("title", article.getTitle());
+            mapper.put("segmental", article.getSegment());
+            mapper.put("post", BaseTools.subDate(date, new Date()));
+            mapper.put("blogger", blogger.getErName());
+            mapper.put("views", article.getVisCount());
+            mapper.put("like", like_count);
+            mapper.put("dislike", dislike_count);
+            mapper.put("link", article.getLinkName());
+            data.put("" + (i + 1), mapper);
+        }
+
+        return new ResponseData(ResponseState.SUCCESS, data);
+    }
+
 }

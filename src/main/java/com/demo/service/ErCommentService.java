@@ -20,4 +20,6 @@ public interface ErCommentService {
     List<ErComment> queryAllByBloggerAndLimit(Integer bloggerId, int offset, int limit);
 
     int logicDelete(Integer id);
+
+    List<ErComment> queryByCurrent(int number);
 }

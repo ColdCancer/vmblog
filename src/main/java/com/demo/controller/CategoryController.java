@@ -1,7 +1,9 @@
 package com.demo.controller;
 
+import com.demo.entity.Article;
 import com.demo.entity.Blogger;
 import com.demo.entity.Category;
+import com.demo.service.ArticleService;
 import com.demo.service.BloggerService;
 import com.demo.service.CategoryLinkService;
 import com.demo.service.CategoryService;
@@ -29,6 +31,8 @@ public class CategoryController {
     private CategoryService categoryService;
     @Resource
     private CategoryLinkService categoryLinkService;
+    @Resource
+    private ArticleService articleService;
 
     // @GetMapping("selectOne")
     // public Category selectOne(Integer id) {
@@ -76,6 +80,29 @@ public class CategoryController {
         category = categoryService.insert(category);
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("add", category.getId() != null);
+        return new ResponseData(ResponseState.SUCCESS, data);
+    }
+
+    @GetMapping("/api/category/card/list/{number}")
+    public ResponseData getCategorCardList(@PathVariable("number") String number) {
+        // List<Category> categories = categoryService.queryByBloggerId(blogger.getId());
+        if (Integer.parseInt(number) <= 0) return new ResponseData(ResponseState.FAILURE, null);
+        int offset = 12, page_index = (Integer.parseInt(number) - 1) * offset;
+        List<Category> categories = categoryService.queryAllByLimit(offset, page_index);
+        if (categories.size() == 0) return new ResponseData(ResponseState.EMPTY, null);
+        Map<String, Object> data = new HashMap<String, Object>();
+
+        for (int i = 0; i < categories.size(); i++) {
+            Category category = categories.get(i);
+            Map<String, Object> item = new HashMap<String, Object>();
+            int count = categoryLinkService.queryCountByCategoryId(category.getId());
+            item.put("count", count);
+            // Article article = articleService.queryById(ca)
+            Blogger blogger = bloggerService.queryById(category.getBloggerId());
+            item.put("blogger", blogger.getErName());
+            item.put("typename", category.getTypeName());
+            data.put("" + i, item);
+        }
         return new ResponseData(ResponseState.SUCCESS, data);
     }
 

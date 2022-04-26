@@ -61,6 +61,16 @@ $(function () {
             location.reload();
         }
     });
+
+    $('#search-btn').click(function () {
+        alert_info("hello world");
+        var text = $('#search-text').val();
+        if (text === '') {
+            alert_info("Input Search Context, Please.");
+            return;
+        }
+        window.location.href = '/article/so/search/' + text;
+    })
 });
 
 function successAction(account) {
@@ -73,3 +83,4 @@ function successAction(account) {
     $('#blogger-profile').attr('href', '/blogger/' + account + '/profile');
     login_flag = true;
 }
+

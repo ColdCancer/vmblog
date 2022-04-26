@@ -35,12 +35,12 @@
                         <i class="bi bi-house"></i>Home<span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item mx-1 active">
+                <li class="nav-item mx-1">
                     <a class="nav-link" href="/article">
                         <i class="bi bi-card-list"></i> Article
                     </a>
                 </li>
-                <li class="nav-item mx-1">
+                <li class="nav-item mx-1 active">
                     <a class="nav-link" href="/category">
                         <i class="bi bi-archive"></i> Category
                     </a>
@@ -103,11 +103,6 @@
                         <button id="btn-sign-in" type="submit" class="btn btn-primary btn-block">Sign in</button>
                     </div>
                 </div>
-                <!--    Sign In End-->
-                <!--    Account Begin -->
-                <!--      <figure style="width: 150px;height: 150px;">-->
-                <!--          <img class="img-responsive " src="img.jpg" alt="头像"/>-->
-                <!--      </figure>-->
                 <div id="AccountBox" class="dropdown my-2 my-xl-0 ml-xl-2 d-none">
                     <img id="profile-photo" class="image-responsive rounded-circle" src="#" height="35" width="35" alt="..."/>
                     <a class="dropdown-toggle rounded-pill" href="#" id="index-account" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -134,35 +129,16 @@
 <!--main-content-->
 <div class="container">
     <div class="row">
-        <div class="col">
-            <div id="article-list" class="card-columns">
-                <!--            one article description-->
-                <!--        <div class="card">-->
-                <!--          <img src="{2}" class="card-img-top img-thumbnail" alt="...">-->
-                <!--          <div class="card-body">-->
-                <!--            <h5 class="card-title text-center"><a href="{8}">{0}</a></h5>-->
-                <!--            <p class="card-text">{1}</p>-->
-                <!--          </div>-->
-                <!--          <div class="card-footer">-->
-                <!--            <span class="d-block">-->
-                <!--              <small class="font-italic">post:</small>-->
-                <!--              <small class="text-muted">{3}</small>-->
-                <!--              <small class="font-italic">, by:</small>-->
-                <!--              <small class="text-muted font-weight-bold">-->
-                <!--                <a class="text-dark" href="#">{4}</a>-->
-                <!--              </small>-->
-                <!--            </span>-->
-                <!--            <span class="d-block text-right">-->
-                <!--              <small class="font-italic">views:</small>-->
-                <!--              <span class="badge badge-info">{5}</span>-->
-                <!--              <small class="font-italic">, like:</small>-->
-                <!--              <span class="badge badge-success">{6}</span>-->
-                <!--              <small class="font-italic">, dislike:</small>-->
-                <!--              <span class="badge badge-warning">{7}</span>-->
-                <!--            </span>-->
-                <!--          </div>-->
-                <!--        </div>-->
-            </div>
+        <div class="col-12">
+            <ul id="category-list" class="list-group w-75 mb-2 mx-auto">
+                <!--<li class="list-group-item list-group-item-action text-center">-->
+                <!--    <input type="hidden" value="/article/so/category/{0}/{1}">-->
+                <!--    <span id="category-builder" class="text-primary">Builder: {0}</span> &nbsp;-->
+                <!--    <span id="category-kind" class="text-dark">Category: {1}</span> &nbsp;-->
+                <!--    <span class="text-info">Link Count:</span>-->
+                <!--    <span id="category-count" class="badge badge-primary badge-pill">{2}</span>-->
+                <!--</li>-->
+            </ul>
         </div>
     </div>
     <div class="row mb-2">
@@ -195,6 +171,6 @@
 <script type="text/javascript" src="/js/base-classes.js"></script>
 <script type="text/javascript" src="/js/sign-functions.js"></script>
 <script type="text/javascript" src="/js/sign-index.js"></script>
-<script type="text/javascript" src="/js/web-article.js"></script>
+<script type="text/javascript" src="/js/web-category.js"></script>
 </body>
 </html>

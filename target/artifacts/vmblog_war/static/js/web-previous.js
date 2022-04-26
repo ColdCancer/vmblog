@@ -22,6 +22,10 @@ $(function () {
             $('#article-like').text(data['likeCount']);
             $('#article-dislike').text(data['dislikeCount']);
             $('#article-date').text(data['postDate']);
+            $('#article-by').text('By: ' + data['by']);
+            if (data['category']) {
+                $('#category-text').text('Category: ' + data['category'])
+            }
             info_flag = true;
             if (data['state'] === 'like') {
                 setArticleState(1, 0);

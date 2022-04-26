@@ -203,3 +203,63 @@ class CommentItem {
         return $(this.pattern);
     }
 }
+
+class ArticleRankItem {
+    constructor(count, link, article) {
+        this.pattern = "<p class='article-rank-item card-text text-truncate'>\n" +
+                        "    <span class='badge badge-info' style='min-width: 35px'>{0}</span>\n" +
+                        "    <a href='{1}' class='ml-1'>{2}</a>\n" +
+                        "</p>";
+        this.pattern = String.format(this.pattern, count, link, article);
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}
+
+class CommentCurrentItem {
+    constructor(url, title, from, to, comment) {
+        this.pattern = "<li class='comment-current-item list-group-item'>\n" +
+            "    <a class='text-info' href='{0}'>\n" +
+            "        <div class='d-block text-truncate'>\n" +
+            "            Article: {1}\n" +
+            "        </div>\n" +
+            "    </a>\n" +
+            "    <div class='d-block text-truncate'>\n" +
+            "        <small class='text-muted'>\n" +
+            "        <span class='text-dark'>{2}</span>\n" +
+            "        </small>\n" +
+            "        <small class='font-italic'>@</small>\n" +
+            "        <small class='text-muted'>\n" +
+            "        <span class='text-dark'>{3}</span>\n" +
+            "        </small>\n" +
+            "        <small class='font-italic'>:</small>\n" +
+            "        <small class='text-muted font-weight-bold'>\n" +
+            "        <span class='text-dark'>{4}</span>\n" +
+            "        </small>\n" +
+            "    </div>\n" +
+            "</li>";
+        this.pattern = String.format(this.pattern, url, title, from, to, comment);
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}
+
+class CategoryListItem {
+    constructor(blogger, typename, count) {
+        this.pattern = "<li class=\"list-group-item list-group-item-action text-center\">\n" +
+        "                    <input type=\"hidden\" value=\"/article/so/category/{0}/{1}\">\n" +
+        "                    <span id=\"category-builder\" class=\"text-primary\">Builder: {0}</span> &nbsp;\n" +
+        "                    <span id=\"category-kind\" class=\"text-dark\">Category: {1}</span> &nbsp;\n" +
+        "                    <span class=\"text-info\">Link Count:</span>\n" +
+        "                    <span id=\"category-count\" class=\"badge badge-primary badge-pill\">{2}</span>\n" +
+        "                </li>";
+        this.pattern = String.format(this.pattern, blogger, typename, count);
+    }
+    convert() {
+        return $(this.pattern);
+    }
+}

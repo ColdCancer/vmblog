@@ -72,4 +72,23 @@ public class RedirectController {
                                   @PathVariable("link") String like) {
         return "previous";
     }
+
+    @GetMapping("/article/so/{kind}/{tag}")
+    public String toArticleSearch(
+                    @PathVariable("kind") String kind,
+                    @PathVariable("tag") String tag) {
+        return "search";
+    }
+
+    @GetMapping("/article/so/category/{blogger}/{typename}")
+    public String toArticleSearchByCategory(
+                    @PathVariable("blogger") String blogger,
+                    @PathVariable("typename") String typename) {
+        return "search";
+    }
+
+    @GetMapping("/category")
+    public String toIndexCategory() {
+        return "category";
+    }
 }

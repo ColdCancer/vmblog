@@ -25,6 +25,11 @@ public class ErCommentServiceImpl implements ErCommentService {
     }
 
     @Override
+    public List<ErComment> queryByCurrent(int number) {
+        return this.erCommentDao.queryByCurrent(number);
+    }
+
+    @Override
     public int logicDelete(Integer id) {
         return this.erCommentDao.logicDelete(id);
     }

@@ -51,10 +51,10 @@
                     </a>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <span class="d-flex">
+              <input id="search-text" class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+              <button id="search-btn" class="btn btn-outline-success">Search</button>
+            </span>
             <div class="d-flex justify-content-xl-end justify-content-center">
                 <!--    Sign Up Begin-->
                 <div id="SignUpBox" class="dropdown my-2 my-xl-0 ml-2 ml-xl-4">
@@ -169,6 +169,7 @@
         <div class="col">
             <div class="btn-group d-block text-center" role="group" aria-label="Basic example">
                 <button type="button" id="article-page-previous" class="btn btn-outline-secondary">Previous</button>
+                <span class="text-muted" id="page-num"></span>
                 <button type="button" id="article-page-next" class="btn btn-outline-secondary">Next</button>
             </div>
         </div>

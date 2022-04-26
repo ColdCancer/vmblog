@@ -1,21 +1,25 @@
-var currentPage = 1;
+var currentPage = 1, update_flag = 0;
 
 $(function () {
-    getArticleByPageNum(currentPage);
+    getArticleByPageNum();
     $('#article-page-previous').click(function () {
-        getArticleByPageNum(currentPage - 1);
         currentPage -= 1;
+        getArticleByPageNum();
+        if (update_flag === 0) currentPage += 1;
     });
     $('#article-page-next').click(function () {
-        getArticleByPageNum(currentPage + 1);
         currentPage += 1;
+        getArticleByPageNum();
+        if (update_flag === 0) currentPage -= 1;
     });
 });
 
-function getArticleByPageNum(pageNum) {
+function getArticleByPageNum() {
+    update_flag = 0;
     $.ajax({
-        url: '/api/article/page/' + pageNum,
+        url: '/api/article/page/' + currentPage,
         type: 'get',
+        async: false,
         dataType: 'json',
         success: function (content) {
             if (content['code'] !== 0) return;
@@ -41,6 +45,8 @@ function getArticleByPageNum(pageNum) {
                 $article_list_elem.append(article_elem);
             }
             window.scrollTo(0, 0);
+            $('#page-num').text('page: ' + currentPage);
+            update_flag = 1;
         }
     });
 }

@@ -19,4 +19,8 @@ public interface CategoryLinkService {
     CategoryLink queryByArticleId(Integer articleId);
 
     int update(CategoryLink categoryLink);
+
+    int queryCountByCategoryId(Integer categoryId);
+
+    List<CategoryLink> queryByCategoryId(Integer categoryId, int offset, int limit);
 }

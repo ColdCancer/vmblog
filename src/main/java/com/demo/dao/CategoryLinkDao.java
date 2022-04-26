@@ -19,10 +19,10 @@ public interface CategoryLinkDao {
     //         @Result(property = "categoryId", column = "category_id")
     // })
 
-    @Select("select * from category where id=#{id}")
+    @Select("select * from category_link where id=#{id}")
     CategoryLink queryById(Integer id);
 
-    @Select("select * from category limit #{limit}, #{offset}")
+    @Select("select * from category_link limit #{limit}, #{offset}")
     List<CategoryLink> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
     @Insert("insert into category_link(article_id, category_id) " +
@@ -41,4 +41,10 @@ public interface CategoryLinkDao {
 
     @Update("update category_link set category_id=#{categoryId} where article_id=#{articleId}")
     int update(CategoryLink categoryLink);
+
+    @Select("select count(*) from category_link where category_id=#{categoryId}")
+    Integer queryCountByCategoryId(Integer categoryId);
+
+    @Select("select * from category_link where category_id=#{categoryId} limit #{limit}, #{offset}")
+    List<CategoryLink> queryByCategoryId(@Param("categoryId") Integer categoryId, @Param("offset") int offset, @Param("limit") int limit);
 }

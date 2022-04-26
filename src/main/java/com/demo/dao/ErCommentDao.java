@@ -37,4 +37,7 @@ public interface ErCommentDao {
 
     @Update("update er_comment set delete_flag=1 where id=#{id}")
     int logicDelete(Integer id);
+
+    @Select("select * from er_comment where delete_flag=0 order by post_date desc limit #{number}")
+    List<ErComment> queryByCurrent(int number);
 }
