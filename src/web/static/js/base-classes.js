@@ -263,3 +263,71 @@ class CategoryListItem {
         return $(this.pattern);
     }
 }
+
+class ChatItemLeft {
+    constructor(blogger, photo, date, topic) {
+        this.pattern = "<li class='list-group-item bg-light'>\n" +
+            "    <div class='row'>\n" +
+            "        <div class='col-2 border-right'>\n" +
+            "            <div class='text-center my-auto'>\n" +
+            "                <img class='chat-photo image-responsive rounded-circle d-block mx-auto'\n" +
+            "                        src='{1}' height='40' width='40' alt='...'>\n" +
+            "                <div class='chat-from text-center'>{0}</div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "        <div class='col-10'>\n" +
+            "            <div class='row'>\n" +
+            "                <div class='col'>\n" +
+            "                    <span class='chat-date text-secondary'>{2}</span>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "            <div class='row'>\n" +
+            "                <div class='col-12'>\n" +
+            "                    <span class='chat-content text-primary pl-3'>{3}</span>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "    </div>\n" +
+            "</li>\n";
+        this.pattern = String.format(this.pattern, blogger, photo, date, topic);
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}
+
+
+class ChatItemRight {
+    constructor(blogger, photo, date, topic) {
+        this.pattern = "<li class='list-group-item bg-light'>\n" +
+            "    <div class='row'>\n" +
+            "        <div class='col-10 text-right'>\n" +
+            "            <div class='row'>\n" +
+            "                <div class='col'>\n" +
+            "                    <span class='chat-date text-secondary'>{2}</span>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "            <div class='row'>\n" +
+            "                <div class='col-12'>\n" +
+            "                    <span class='chat-content text-primary pr-3'>{3}</span>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "        <div class='col-2 border-left'>\n" +
+            "            <div class='text-center my-auto'>\n" +
+            "                <img class='chat-photo image-responsive rounded-circle d-block mx-auto'\n" +
+            "                        src='{1}' height='40' width='40' alt='...'>\n" +
+            "                <div class='chat-from text-center'>{0}</div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "    </div>\n" +
+            "</li>\n";
+        this.pattern = String.format(this.pattern, blogger, photo, date, topic);
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}
+

@@ -14,5 +14,5 @@ public interface GlobalChatService {
     List<GlobalChat> queryAllByLimit(int offset, int limit);
     GlobalChat insert(GlobalChat globalChat);
     boolean deleteById(Integer id);
-
+    List<GlobalChat> queryByCount(int total);
 }

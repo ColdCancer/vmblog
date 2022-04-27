@@ -39,4 +39,9 @@ public class GlobalChatServiceImpl implements GlobalChatService {
     public boolean deleteById(Integer id) {
         return this.globalChatDao.deleteById(id) > 0;
     }
+
+    @Override
+    public List<GlobalChat> queryByCount(int total) {
+        return this.globalChatDao.queryByCount(total);
+    }
 }

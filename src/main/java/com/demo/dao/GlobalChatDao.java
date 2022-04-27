@@ -14,12 +14,12 @@ import java.util.List;
  */
 @Mapper
 public interface GlobalChatDao {
-    @Results(id = "GlobalChatResultMap", value = {
-            @Result(property = "id", column = "id"),
-            @Result(property = "bloggerId", column = "blogger_id"),
-            @Result(property = "postDate", column = "post_date"),
-            @Result(property = "topicContent", column = "topic_content")
-    })
+    // @Results(id = "GlobalChatResultMap", value = {
+    //         @Result(property = "id", column = "id"),
+    //         @Result(property = "bloggerId", column = "blogger_id"),
+    //         @Result(property = "postDate", column = "post_date"),
+    //         @Result(property = "topicContent", column = "topic_content")
+    // })
 
     @Select("select * from global_chat where id=#{id}")
     GlobalChat queryById(Integer id);
@@ -29,9 +29,12 @@ public interface GlobalChatDao {
 
     @Insert("insert into global_chat(blogger_id, topic_content) " +
             "values (#{bloggerId}, #{topicContent})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int insert(GlobalChat globalChat);
 
     @Delete("delete from global_chat where id=#{id}")
     int deleteById(Integer id);
 
+    @Select("select * from global_chat order by post_date limit #{total}")
+    List<GlobalChat> queryByCount(int total);
 }

@@ -6,6 +6,7 @@
         <welcome-file>view/index.html</welcome-file>
     </welcome-file-list>
 
+
     <context-param>
         <param-name>webAppRootKey</param-name>
         <param-value>rootPath</param-value>

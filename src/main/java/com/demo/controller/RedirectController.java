@@ -91,4 +91,9 @@ public class RedirectController {
     public String toIndexCategory() {
         return "category";
     }
+
+    @GetMapping("/chat")
+    public String toChatIndex() {
+        return "chat";
+    }
 }
