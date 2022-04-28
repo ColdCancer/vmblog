@@ -36,4 +36,7 @@ public interface ArticleSaveDao {
 
     @Delete("delete from article_save where article_id=#{articleId}")
     int deleteByArticleId(@Param("articleId") Integer articleId);
+
+    @Select("select * from article_save where blogger_id=#{bloggerId} order by update_date desc limit #{limit}")
+    List<ArticleSave> queryByBloggerIdLimit(@Param("bloggerId") Integer bloggerId, @Param("limit") int limit);
 }

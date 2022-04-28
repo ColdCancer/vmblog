@@ -32,7 +32,7 @@ function requestCategoryByPage() {
             for (var index in data) {
                 var item = data[index];
                 category_elem.append(new CategoryListItem(item['blogger'],
-                    item['typename'], item['count']).convert());
+                    item['typename'], item['count'], item['account']).convert());
             }
             window.scrollTo(0, 0);
             $('#page-num').text('page: ' + current_page);

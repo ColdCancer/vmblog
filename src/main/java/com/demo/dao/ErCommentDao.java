@@ -40,4 +40,7 @@ public interface ErCommentDao {
 
     @Select("select * from er_comment where delete_flag=0 order by post_date desc limit #{number}")
     List<ErComment> queryByCurrent(int number);
+
+    @Select("select * from er_comment where from_blogger_id=#{bloggerId} order by post_date desc limit #{limit}")
+    List<ErComment> queryByBloggerIdLimit(@Param("bloggerId") Integer bloggerId, @Param("limit") int limit);
 }

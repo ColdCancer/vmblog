@@ -41,7 +41,7 @@ $(function () {
             if (opt.checked === false) continue;
             opt_links.push(opt.getAttribute('value'));
         }
-        console.log(opt_links);
+        // console.log(opt_links);
         if (opt_list.length === 0) return;
         $.ajax({
             url: '/web/api/article/delete/list',

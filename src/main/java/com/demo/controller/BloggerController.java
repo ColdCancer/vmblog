@@ -1,13 +1,20 @@
 package com.demo.controller;
 
 import com.demo.dao.BloggerDao;
+import com.demo.entity.Article;
+import com.demo.entity.ArticleSave;
 import com.demo.entity.Blogger;
+import com.demo.entity.ErComment;
+import com.demo.service.ArticleSaveService;
+import com.demo.service.ArticleService;
 import com.demo.service.BloggerService;
+import com.demo.service.ErCommentService;
 import com.demo.utils.BaseTools;
 import com.demo.utils.ResponseData;
 import com.demo.utils.ResponseState;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.deploy.net.HttpResponse;
+import lombok.Data;
 import lombok.SneakyThrows;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
@@ -24,10 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * (Blogger)表控制层
@@ -39,6 +43,12 @@ import java.util.UUID;
 public class BloggerController {
     @Resource
     private BloggerService bloggerService;
+    @Resource
+    private ArticleSaveService articleSaveService;
+    @Resource
+    private ArticleService articleService;
+    @Resource
+    private ErCommentService erCommentService;
 
     @PostMapping("web/passport/signup")
     public ResponseData signup(HttpSession session,
@@ -131,6 +141,60 @@ public class BloggerController {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("account", blogger.getErAccount());
         data.put("name", blogger.getErName());
+        return new ResponseData(ResponseState.SUCCESS, data);
+    }
+
+    @GetMapping("/web/api/information")
+    public ResponseData getBloggerInformation(HttpSession session) {
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
+        Map<String, Object> data = new HashMap<String, Object>();
+        // data: {
+        //     'name', 'account', 'register', 'current',
+        //     'article':{}, 'comment':{}
+        // }
+        data.put("name", blogger.getErName());
+        data.put("account", blogger.getErAccount());
+        data.put("register", BaseTools.toString(blogger.getRegisterDate()));
+        data.put("current", BaseTools.toString(blogger.getLastLoginDate()));
+        Map<String, Object> article_json = new HashMap<String, Object>();
+        Map<String, Object> comment_json = new HashMap<String, Object>();
+        int article_total = 5, comment_total = 5;
+        List<ArticleSave> articleSaveList = articleSaveService.queryByBloggerIdLimit(blogger.getId(), article_total);
+        if (articleSaveList.size() != 0) {
+            for (int i = 0; i < articleSaveList.size(); i++) {
+                Map<String, Object> mapper = new HashMap<String, Object>();
+                ArticleSave articleSave = articleSaveList.get(i);
+                Article article = articleService.queryById(articleSave.getArticleId());
+                mapper.put("title", article.getTitle());
+                mapper.put("segment", article.getSegment());
+                Date date = articleSave.getUpdateDate();
+                mapper.put("updateDate", BaseTools.toString(date));
+                mapper.put("type", article.getPostDate() == null ?
+                        "Saved" : "Posted");
+                mapper.put("topRank", article.getTopRank());
+                article_json.put("" + i, mapper);
+            }
+            data.put("article", article_json);
+            List<ErComment> commentList = erCommentService.queryByBloggerIdLimit(blogger.getId(), comment_total);
+            if (commentList.size() != 0) {
+                for (int i = 0; i < commentList.size(); i++) {
+                    Map<String, Object> mapper = new HashMap<String, Object>();
+                    ErComment comment = commentList.get(i);
+                    Blogger from = bloggerService.queryById(comment.getFromBloggerId());
+                    Blogger to = bloggerService.queryById(comment.getToBloggerId());
+                    Article article = articleService.queryById(comment.getArticleId());
+                    String topic = comment.getTopicContent();
+                    String date = BaseTools.toString(comment.getPostDate());
+                    mapper.put("from", from.getErName());
+                    mapper.put("to", to.getErName());
+                    mapper.put("article", article.getTitle());
+                    mapper.put("comment", topic);
+                    mapper.put("postDate", date);
+                    comment_json.put("" + i, mapper);
+                }
+            }
+            data.put("comment", comment_json);
+        }
         return new ResponseData(ResponseState.SUCCESS, data);
     }
 }

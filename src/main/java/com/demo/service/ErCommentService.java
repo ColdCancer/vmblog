@@ -22,4 +22,6 @@ public interface ErCommentService {
     int logicDelete(Integer id);
 
     List<ErComment> queryByCurrent(int number);
+
+    List<ErComment> queryByBloggerIdLimit(Integer bloggerId, int limit);
 }

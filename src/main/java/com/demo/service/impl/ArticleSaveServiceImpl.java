@@ -38,6 +38,11 @@ public class ArticleSaveServiceImpl implements ArticleSaveService {
     }
 
     @Override
+    public List<ArticleSave> queryByBloggerIdLimit(Integer bloggerId, int limit) {
+        return this.articleSaveDao.queryByBloggerIdLimit(bloggerId, limit);
+    }
+
+    @Override
     public int deleteByArticleId(Integer articleId) {
         return this.articleSaveDao.deleteByArticleId(articleId);
     }

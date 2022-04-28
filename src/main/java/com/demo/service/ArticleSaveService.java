@@ -24,4 +24,6 @@ public interface ArticleSaveService {
     ArticleSave queryByArticleId(Integer articleId);
 
     int deleteByArticleId(Integer articleId);
+
+    List<ArticleSave> queryByBloggerIdLimit(Integer bloggerId, int limit);
 }

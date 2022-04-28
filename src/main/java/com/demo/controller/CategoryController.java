@@ -101,6 +101,7 @@ public class CategoryController {
             Blogger blogger = bloggerService.queryById(category.getBloggerId());
             item.put("blogger", blogger.getErName());
             item.put("typename", category.getTypeName());
+            item.put("account", blogger.getErAccount());
             data.put("" + i, item);
         }
         return new ResponseData(ResponseState.SUCCESS, data);

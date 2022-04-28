@@ -31,7 +31,8 @@ function getArticleByPageNum() {
                 var article_elem = new ArticleCart(article.title,
                     article.segmental, article.cover, article.post,
                     article.blogger, article.views, article.like,
-                    article.dislike, article.link, article.category).convert();
+                    article.dislike, article.link, article.category,
+                    article.account).convert();
                 // console.log(article.category);
                 if (article.category === null) {
                     var cate_elem = $(article_elem).find('#category-elem');

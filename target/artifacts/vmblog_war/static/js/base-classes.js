@@ -1,7 +1,7 @@
 class ArticleCart {
     constructor(title, segmental, cover, post, blogger,
-                views, like, dislike, link, category) {
-        var url = "/article/" + blogger + "/" + link;
+                views, like, dislike, link, category, account) {
+        var url = "/article/" + account + "/" + link;
         // segmental = "<span style='white-space: pre;'>" + segmental + "</span>";
         this.pattern = "      <div class=\"card\">\n" +
             "        <img src=\"{2}\" class=\"card-img-top img-thumbnail\" alt=\"...\">\n" +
@@ -21,7 +21,7 @@ class ArticleCart {
             "          <span class='d-block text-center'>" +
             "            <small class=\"font-italic\">by:</small>\n" +
             "            <small class=\"text-muted font-weight-bold\">\n" +
-            "              <a class=\"text-dark\" href=\"/blogger/{4}\">{4}</a>\n" +
+            "              <a class=\"text-dark\" href=\"/blogger/{10}/profile\">{4}</a>\n" +
             "            </small>\n" +
             "          </span>" +
             "          <span class=\"d-block text-center mt-1\">\n" +
@@ -36,7 +36,7 @@ class ArticleCart {
             "      </div>\n";
         // console.log(segmental);
         this.pattern = String.format(this.pattern, title, segmental, cover,
-            post, blogger, views, like, dislike, url, category);
+            post, blogger, views, like, dislike, url, category, account);
     };
 
     convert() {
@@ -249,16 +249,118 @@ class CommentCurrentItem {
 }
 
 class CategoryListItem {
-    constructor(blogger, typename, count) {
+    constructor(blogger, typename, count, account) {
         this.pattern = "<li class=\"list-group-item list-group-item-action text-center\">\n" +
-        "                    <input type=\"hidden\" value=\"/article/so/category/{0}/{1}\">\n" +
+        "                    <input type=\"hidden\" value=\"/article/so/category/{3}/{1}\">\n" +
         "                    <span id=\"category-builder\" class=\"text-primary\">Builder: {0}</span> &nbsp;\n" +
         "                    <span id=\"category-kind\" class=\"text-dark\">Category: {1}</span> &nbsp;\n" +
         "                    <span class=\"text-info\">Link Count:</span>\n" +
         "                    <span id=\"category-count\" class=\"badge badge-primary badge-pill\">{2}</span>\n" +
         "                </li>";
-        this.pattern = String.format(this.pattern, blogger, typename, count);
+        this.pattern = String.format(this.pattern, blogger, typename, count, account);
     }
+    convert() {
+        return $(this.pattern);
+    }
+}
+
+class ChatItemLeft {
+    constructor(blogger, photo, date, topic) {
+        this.pattern = "<li class='list-group-item bg-light'>\n" +
+            "    <div class='row'>\n" +
+            "        <div class='col-2 border-right'>\n" +
+            "            <div class='text-center my-auto'>\n" +
+            "                <img class='chat-photo image-responsive rounded-circle d-block mx-auto'\n" +
+            "                        src='{1}' height='40' width='40' alt='...'>\n" +
+            "                <div class='chat-from text-center'>{0}</div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "        <div class='col-10'>\n" +
+            "            <div class='row'>\n" +
+            "                <div class='col'>\n" +
+            "                    <span class='chat-date text-secondary'>{2}</span>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "            <div class='row'>\n" +
+            "                <div class='col-12'>\n" +
+            "                    <span class='chat-content text-primary pl-3'>{3}</span>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "    </div>\n" +
+            "</li>\n";
+        this.pattern = String.format(this.pattern, blogger, photo, date, topic);
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}
+
+
+class ChatItemRight {
+    constructor(blogger, photo, date, topic) {
+        this.pattern = "<li class='list-group-item bg-light'>\n" +
+            "    <div class='row'>\n" +
+            "        <div class='col-10 text-right'>\n" +
+            "            <div class='row'>\n" +
+            "                <div class='col'>\n" +
+            "                    <span class='chat-date text-secondary'>{2}</span>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "            <div class='row'>\n" +
+            "                <div class='col-12'>\n" +
+            "                    <span class='chat-content text-primary pr-3'>{3}</span>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "        <div class='col-2 border-left'>\n" +
+            "            <div class='text-center my-auto'>\n" +
+            "                <img class='chat-photo image-responsive rounded-circle d-block mx-auto'\n" +
+            "                        src='{1}' height='40' width='40' alt='...'>\n" +
+            "                <div class='chat-from text-center'>{0}</div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "    </div>\n" +
+            "</li>\n";
+        this.pattern = String.format(this.pattern, blogger, photo, date, topic);
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}
+
+class InfoArticleItem {
+    constructor(title, segment, updateDate, type, topRank) {
+        this.pattern = "<tr>\n" +
+                       "    <td>{0}</td>\n" +
+                       "    <td>{1}</td>\n" +
+                       "    <td>{2}</td>\n" +
+                       "    <td>{3}</td>\n" +
+                       "    <td>{4}</td>\n" +
+                       "</tr>";
+        this.pattern = String.format(this.pattern, title, segment, updateDate, type, topRank);
+    }
+
+    convert() {
+        return $(this.pattern);
+    }
+}
+
+class InfoCommnetItem {
+    constructor(from, to, article, comment, postDate) {
+        this.pattern = "<tr>\n" +
+                       "    <td>{0}</td>\n" +
+                       "    <td>{1}</td>\n" +
+                       "    <td>{2}</td>\n" +
+                       "    <td>{3}</td>\n" +
+                       "    <td>{4}</td>\n" +
+                       "</tr>";
+        this.pattern = String.format(this.pattern, from, to, article,
+            comment, postDate);
+    }
+
     convert() {
         return $(this.pattern);
     }

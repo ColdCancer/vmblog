@@ -6,6 +6,11 @@
         <welcome-file>view/index.html</welcome-file>
     </welcome-file-list>
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/view/404.html</location>
+    </error-page>
+
     <context-param>
         <param-name>webAppRootKey</param-name>
         <param-value>rootPath</param-value>

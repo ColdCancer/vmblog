@@ -146,6 +146,7 @@ public class ArticleController {
             mapper.put("segmental", article.getSegment());
             mapper.put("post", BaseTools.subDate(date, new Date()));
             mapper.put("blogger", blogger.getErName());
+            mapper.put("account", blogger.getErAccount());
             mapper.put("views", article.getVisCount());
             mapper.put("like", like_count);
             mapper.put("dislike", dislike_count);
