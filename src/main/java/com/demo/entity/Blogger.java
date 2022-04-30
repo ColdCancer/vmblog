@@ -25,6 +25,10 @@ public class Blogger implements Serializable {
     private String erName;
     private String erSex;
     private String erMotto;
+    private Date erBirthplace;
+    private String erEmail;
+    private String erEducation;
+    private String erCompany;
     private String erAccount;
     private String erPassword;
     private String saSalt;

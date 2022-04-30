@@ -20,6 +20,8 @@ $(function () {
             $('#blogger-name').html(active_elem + data['name']);
             account = data['account'];
             blogger_name = data['name'];
+            let url = '/blogger/' + account + '/profile';
+            $('#blogger-profile').attr('href', url);
         }
     });
 

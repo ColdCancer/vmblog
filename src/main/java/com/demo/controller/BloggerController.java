@@ -109,7 +109,7 @@ public class BloggerController {
                             @PathVariable("account") String account) {
         String base_path = session.getServletContext().getRealPath("/WEB-INF/blogger") +
                 File.separator + account + File.separator + "resources" + File.separator;
-        File file = new File(base_path + "blogger-head-image.jpg");
+        File file = new File(base_path + "blogger-head-image.png");
 //        System.out.println(base_path + "blogger-head-image.jpg");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
@@ -156,6 +156,10 @@ public class BloggerController {
         data.put("account", blogger.getErAccount());
         data.put("register", BaseTools.toString(blogger.getRegisterDate()));
         data.put("current", BaseTools.toString(blogger.getLastLoginDate()));
+        data.put("birthplace", BaseTools.toString(blogger.getErBirthplace()));
+        data.put("education", blogger.getErEducation());
+        data.put("email", blogger.getErEmail());
+        data.put("company", blogger.getErCompany());
         Map<String, Object> article_json = new HashMap<String, Object>();
         Map<String, Object> comment_json = new HashMap<String, Object>();
         int article_total = 5, comment_total = 5;
@@ -196,5 +200,95 @@ public class BloggerController {
             data.put("comment", comment_json);
         }
         return new ResponseData(ResponseState.SUCCESS, data);
+    }
+
+    @GetMapping("/api/blogger/information")
+    public ResponseData getBloggerInformation(@RequestParam("account") String account) {
+        Blogger blogger = bloggerService.queryByAccount(account);
+        if (blogger == null) return new ResponseData(ResponseState.FAILURE, null);
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("name", blogger.getErName());
+        data.put("motto", blogger.getErMotto());
+        data.put("sex", blogger.getErSex());
+        if (blogger.getErBirthplace() != null) {
+            String birth = BaseTools.toString(blogger.getErBirthplace());
+            data.put("birthplace", birth.substring(0, 10));
+        }
+        data.put("education", blogger.getErEducation());
+        data.put("email", blogger.getErEmail());
+        data.put("company", blogger.getErCompany());
+        String liveTime = BaseTools.subDate(blogger.getRegisterDate(), new Date());
+        int index = liveTime.lastIndexOf("hour");
+        if (0 < index) liveTime = liveTime.substring(0, index) + "hour";
+        data.put("liveTime", liveTime);
+        int articleTotal = articleService.queryCountByBloggerId(blogger.getId());
+        int commentTotal = erCommentService.queryCountByBloggerId(blogger.getId());
+        Article currentArticle = articleService.queryCurrentPost(blogger.getId());
+        data.put("articleTotal", articleTotal);
+        if (currentArticle == null) {
+            data.put("currentPost", null);
+        } else {
+            data.put("currentPost", BaseTools.toString(currentArticle.getPostDate()));
+        }
+        data.put("commentTotal", commentTotal);
+
+        return new ResponseData(ResponseState.SUCCESS, data);
+    }
+
+    @GetMapping("/web/api/blogger/previous")
+    public ResponseData getBloggerPrevious(HttpSession session) {
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
+        if (blogger == null) return new ResponseData(ResponseState.FAILURE, null);
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("photo", "/api/resources/" + blogger.getErAccount() + "/profile-photo");
+        data.put("motto", blogger.getErMotto());
+        data.put("sex", blogger.getErSex());
+        data.put("email", blogger.getErEmail());
+        data.put("company", blogger.getErCompany());
+        if (blogger.getErBirthplace() != null) {
+            String birth = BaseTools.toString(blogger.getErBirthplace());
+            data.put("birthplace", birth.substring(0, 10));
+        }
+        data.put("education", blogger.getErEducation());
+        return new ResponseData(ResponseState.SUCCESS, data);
+    }
+
+    @PostMapping("/web/api/blogger/changePassword")
+    public ResponseData changePassword(HttpSession session,
+                    @RequestParam("old_pwd") String old_password,
+                    @RequestParam("new_pwd") String new_password) {
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
+        if (blogger == null) return new ResponseData(ResponseState.FAILURE, null);
+        String old_sha = BaseTools.digest(old_password, blogger.getSaSalt());
+        if (!old_sha.equals(blogger.getErPassword())) {
+            return new ResponseData(ResponseState.FAILURE, null);
+        }
+        String new_sha = BaseTools.digest(new_password, blogger.getSaSalt());
+        blogger.setErPassword(new_sha);
+        bloggerService.update(blogger);
+        // session.setAttribute("blogger", blogger);
+        session.invalidate();
+        return new ResponseData(ResponseState.SUCCESS, null);
+    }
+
+    @PostMapping("/web/api/blogger/changeInformation")
+    public ResponseData changeInformation(HttpSession session,
+                  @RequestParam("sex") String sex,
+                  @RequestParam("email") String email,
+                  @RequestParam("company") String company,
+                  @RequestParam("birthplace") String birthplace,
+                  @RequestParam("education") String education,
+                  @RequestParam("motto") String motto) {
+        Blogger blogger = (Blogger) session.getAttribute("blogger");
+        if (blogger == null) return new ResponseData(ResponseState.FAILURE, null);
+        blogger.setErSex(sex);
+        blogger.setErEmail(email);
+        blogger.setErCompany(company);
+        blogger.setErBirthplace(BaseTools.toDate(birthplace));
+        blogger.setErEducation(education);
+        blogger.setErMotto(motto);
+        bloggerService.update(blogger);
+        session.setAttribute("blogger", blogger);
+        return new ResponseData(ResponseState.SUCCESS, null);
     }
 }

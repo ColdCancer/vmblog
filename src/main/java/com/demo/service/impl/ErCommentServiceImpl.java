@@ -25,6 +25,16 @@ public class ErCommentServiceImpl implements ErCommentService {
     }
 
     @Override
+    public List<ErComment> queryCurrentByBloggerId(Integer bloggerId, int number) {
+        return this.erCommentDao.queryCurrentByBloggerId(bloggerId, number);
+    }
+
+    @Override
+    public int queryCountByBloggerId(Integer bloggerId) {
+        return this.erCommentDao.queryCountByBloggerId(bloggerId);
+    }
+
+    @Override
     public List<ErComment> queryByBloggerIdLimit(Integer bloggerId, int limit) {
         return this.erCommentDao.queryByBloggerIdLimit(bloggerId, limit);
     }

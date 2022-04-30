@@ -12,6 +12,7 @@
                 column-count: 2;
             }
         }
+
         @media (max-width: 768px) {
             .card-columns {
                 column-count: 1;
@@ -25,7 +26,8 @@
 <div class="container-fluid shadow rounded fixed-top bg-light">
     <nav class="navbar navbar-expand-xl navbar-light">
         <a class="navbar-brand" href="/">VMBLOG</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse bg-light rounded" id="navbarScroll">
@@ -35,7 +37,7 @@
                         <i class="bi bi-house"></i>Home<span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item mx-1 active">
+                <li class="nav-item mx-1">
                     <a class="nav-link" href="/article">
                         <i class="bi bi-card-list"></i> Article
                     </a>
@@ -58,7 +60,8 @@
             <div class="d-flex justify-content-xl-end justify-content-center">
                 <!--    Sign Up Begin-->
                 <div id="SignUpBox" class="dropdown my-2 my-xl-0 ml-2 ml-xl-4">
-                    <a class="btn btn-dark rounded-pill" href="#" id="navbarScrollingSignUpDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                    <a class="btn btn-dark rounded-pill" href="#" id="navbarScrollingSignUpDropdown" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
                         Sign Up
                     </a>
                     <div class="dropdown-menu dropdown-menu-right p-2">
@@ -68,11 +71,13 @@
                         </div>
                         <div class="form-group">
                             <label for="SignUpPassword">Password</label>
-                            <input type="password" class="form-control" id="SignUpPassword" placeholder="Input Password">
+                            <input type="password" class="form-control" id="SignUpPassword"
+                                   placeholder="Input Password">
                         </div>
                         <div class="form-group">
                             <label for="SignUpRePassword">Repeat Password</label>
-                            <input type="password" class="form-control" id="SignUpRePassword" placeholder="Input Password">
+                            <input type="password" class="form-control" id="SignUpRePassword"
+                                   placeholder="Input Password">
                         </div>
                         <button id="btn-sign-up" class="btn btn-primary btn-block">Sign Up</button>
                     </div>
@@ -80,7 +85,8 @@
                 <!--    Sign Up End-->
                 <!--    Sign In Begin-->
                 <div id="SignInBox" class="dropdown my-2 my-xl-0 ml-2">
-                    <a class="btn btn-success rounded-pill" href="#" id="navbarScrollingSignInDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                    <a class="btn btn-success rounded-pill" href="#" id="navbarScrollingSignInDropdown" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
                         Sign In
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right p-2">
@@ -90,7 +96,8 @@
                         </div>
                         <div class="form-group">
                             <label for="SignInPassword">Password</label>
-                            <input type="password" class="form-control" id="SignInPassword" placeholder="Input Password">
+                            <input type="password" class="form-control" id="SignInPassword"
+                                   placeholder="Input Password">
                         </div>
                         <div class="form-group">
                             <div class="form-check">
@@ -103,14 +110,11 @@
                         <button id="btn-sign-in" type="submit" class="btn btn-primary btn-block">Sign in</button>
                     </div>
                 </div>
-                <!--    Sign In End-->
-                <!--    Account Begin -->
-                <!--      <figure style="width: 150px;height: 150px;">-->
-                <!--          <img class="img-responsive " src="img.jpg" alt="头像"/>-->
-                <!--      </figure>-->
                 <div id="AccountBox" class="dropdown my-2 my-xl-0 ml-xl-2 d-none">
-                    <img id="profile-photo" class="image-responsive rounded-circle" src="#" height="35" width="35" alt="..."/>
-                    <a class="dropdown-toggle rounded-pill" href="#" id="index-account" role="button" data-toggle="dropdown" aria-expanded="false">
+                    <img id="profile-photo" class="image-responsive rounded-circle" src="#" height="35" width="35"
+                         alt="..."/>
+                    <a class="dropdown-toggle rounded-pill" href="#" id="index-account" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
                         Account
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="index-account">
@@ -120,7 +124,9 @@
                         <li><a id="blogger-profile" class="dropdown-item" href="#">
                             <i class="bi bi-person-bounding-box mr-2"></i>Profile
                         </a></li>
-                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li><a id="out-link" class="dropdown-item" href="javascript:void(0);">
                             <i class="bi bi-x-square mr-2"></i>Sign Out
                         </a></li>
@@ -134,43 +140,90 @@
 <!--main-content-->
 <div class="container">
     <div class="row">
-        <div class="col">
-            <div id="article-list" class="card-columns">
-                <!--            one article description-->
-                <!--        <div class="card">-->
-                <!--          <img src="{2}" class="card-img-top img-thumbnail" alt="...">-->
-                <!--          <div class="card-body">-->
-                <!--            <h5 class="card-title text-center"><a href="{8}">{0}</a></h5>-->
-                <!--            <p class="card-text">{1}</p>-->
-                <!--          </div>-->
-                <!--          <div class="card-footer">-->
-                <!--            <span class="d-block">-->
-                <!--              <small class="font-italic">post:</small>-->
-                <!--              <small class="text-muted">{3}</small>-->
-                <!--              <small class="font-italic">, by:</small>-->
-                <!--              <small class="text-muted font-weight-bold">-->
-                <!--                <a class="text-dark" href="#">{4}</a>-->
-                <!--              </small>-->
-                <!--            </span>-->
-                <!--            <span class="d-block text-right">-->
-                <!--              <small class="font-italic">views:</small>-->
-                <!--              <span class="badge badge-info">{5}</span>-->
-                <!--              <small class="font-italic">, like:</small>-->
-                <!--              <span class="badge badge-success">{6}</span>-->
-                <!--              <small class="font-italic">, dislike:</small>-->
-                <!--              <span class="badge badge-warning">{7}</span>-->
-                <!--            </span>-->
-                <!--          </div>-->
-                <!--        </div>-->
+        <div class="col-md-8">
+            <!--self information-->
+            <div class="card bg-light mb-4">
+                <div class="card-header bg-info">Self Information</div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- 1th col information -->
+                        <div class="col-md-6 mb-3 mb-lg-0">
+                            <ul class="list-group list-group-horizontal mb-3">
+                                <li class="list-group-item text-center" style="min-width: 146px">Name：</li>
+                                <li class="list-group-item" id="home-name"></li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal mb-3">
+                                <li class="list-group-item text-center" style="min-width: 146px">Birthplace：</li>
+                                <li class="list-group-item" id="home-birthplace"></li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item text-center" style="min-width: 146px">E-mail：</li>
+                                <li class="list-group-item" id="home-email"></li>
+                            </ul>
+                        </div>
+                        <!-- 2th col information -->
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-horizontal mb-3">
+                                <li class="list-group-item text-center" style="min-width: 146px">Sex：</li>
+                                <li class="list-group-item" id="home-sex"></li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal mb-3">
+                                <li class="list-group-item text-center" style="min-width: 146px">Education：</li>
+                                <li class="list-group-item" id="home-education"></li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item text-center" style="min-width: 146px">Company：</li>
+                                <li class="list-group-item" id="home-company"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- self talk about ... -->
+            <div class="card bg-light mb-4">
+                <div class="card-header bg-info">What About Talk</div>
+                <div class="card-body" id="home-talk">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <!-- about self web -->
+            <div class="card bg-light mb-4">
+                <div class="card-header bg-info">About Self Web</div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- 1th col web information -->
+                        <div class="col-md-5 mb-3 mb-lg-0">
+                            <ul class="list-group list-group-horizontal mb-3">
+                                <li class="list-group-item text-center" style="min-width: 173px">Article Count：</li>
+                                <li class="list-group-item" id="blog-total"></li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item text-center" style="min-width: 173px">Comment Count：</li>
+                                <li class="list-group-item" id="blog-comment"></li>
+                            </ul>
+                        </div>
+                        <!-- 2th col web information -->
+                        <div class="col-md-7">
+                            <ul class="list-group list-group-horizontal mb-3">
+                                <li class="list-group-item text-center" style="min-width: 153px">Current Post：</li>
+                                <li class="list-group-item" id="blog-time"></li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item text-center" style="min-width: 153px">Sign Days：</li>
+                                <li class="list-group-item" id="blog-alive"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row mb-2">
-        <div class="col">
-            <div class="btn-group d-block text-center" role="group" aria-label="Basic example">
-                <button type="button" id="article-page-previous" class="btn btn-outline-secondary">Previous</button>
-                <span class="text-muted" id="page-num"></span>
-                <button type="button" id="article-page-next" class="btn btn-outline-secondary">Next</button>
+        <!-- blog comment -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-warning">Current Comment</div>
+                <ul id="comment-current" class="card-body list-group list-group-flush"></ul>
             </div>
         </div>
     </div>
@@ -195,6 +248,6 @@
 <script type="text/javascript" src="/js/base-classes.js"></script>
 <script type="text/javascript" src="/js/sign-functions.js"></script>
 <script type="text/javascript" src="/js/sign-index.js"></script>
-<script type="text/javascript" src="/js/web-article.js"></script>
+<script type="text/javascript" src="/js/web-profile.js"></script>
 </body>
 </html>

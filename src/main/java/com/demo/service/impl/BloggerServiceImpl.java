@@ -61,6 +61,11 @@ public class BloggerServiceImpl implements BloggerService {
     }
 
     @Override
+    public int update(Blogger blogger) {
+        return this.bloggerDao.update(blogger);
+    }
+
+    @Override
     public Blogger queryByAccount(String account) {
         return this.bloggerDao.queryByAccount(account);
     }

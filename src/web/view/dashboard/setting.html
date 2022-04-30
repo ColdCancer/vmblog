@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+    <title>Dashboard</title>
+    <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/bootstrap/font/bootstrap-icons.css">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link href="/css/dashboard.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/">VMBLOG HOME</a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <nav class="nav px-3 ">
+        <span id="blogger-name" class="nav-link text-light">
+            <!--<i class="bi bi-activity"></i> Blogger-->
+        </span>
+        <a id="blogger-profile" class="nav-link text-light" href="javascript:void(0)">Profile</a>
+        <a id="blogger-out" class="nav-link text-light" href="javascript:void(0)">Sign Out</a>
+    </nav>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav id="sidebarMenu" class="col-2 d-lg-block bg-light sidebar collapse">
+            <div class="sidebar-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a id="information-link" class="nav-link" onclick="selectItem(this)" href="information">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="article-link" class="nav-link" onclick="selectItem(this)" href="article">
+                            Article
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="category-link" class="nav-link" onclick="selectItem(this)" href="category">
+                            Category
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="comment-link" class="nav-link" onclick="selectItem(this)" href="comment">
+                            Comment
+                        </a>
+                    </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Saved functions</span>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="setting">
+                            Setting
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-12 ml-sm-auto col-lg-10 px-md-4">
+            <div class="d-block justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Account Setting</h1> <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <img id="blogger-photo" class="img-thumbnail d-block mx-auto" src="#" alt="..." style="height: 200px; width: 200px"/>
+                        <div class="input-group px-5 mt-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text border-primary bg-light">Photo</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" accept="image/png" disabled id="profile-photo" enctype="multipart/form-data">
+                                <label class="custom-file-label" for="profile-photo">Choose</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 border-right">
+                        <div class="btn-group-vertical mt-5" role="group">
+                            <button id="photo-modify" type="button" class="btn btn-secondary mb-2">Modify</button>
+                            <button id="photo-commit" type="button" class="btn btn-secondary mb-2 disabled">Commit</button>
+                            <button id="photo-cancel" type="button" class="btn btn-secondary disabled">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="col-6 px-5">
+                        <div class="d-block text-center mt-4">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text border-primary bg-light">Old Password</span>
+                                </div>
+                                <input id="blogger-old-pwd" type="password" class="form-control border-primary" placeholder="Old Password" aria-label="blogger-old-pwd">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text border-primary bg-light">New Password</span>
+                                </div>
+                                <input id="blogger-new-pwd" type="password" class="form-control border-primary" placeholder="New Password" aria-label="blogger-new-pwd">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text border-primary bg-light">Repeat Password</span>
+                                </div>
+                                <input id="blogger-re-pwd" type="password" class="form-control border-primary" placeholder="Repeat Password" aria-label="blogger-re-pwd">
+                            </div>
+                            <button id="pwd-modify" type="button" class="btn btn-secondary ">Confirm</button>
+                        </div>
+                    </div>
+                </div> <hr/>
+                <div class="row">
+                    <div class="col">
+                        <label for="blogger-motto"></label>
+                        <textarea class="form-control mx-auto" id="blogger-motto" disabled placeholder="Input Motto Content."
+                                  required style="height: 100px; max-height: 100px;
+                                                  max-width: 800px; resize: none"></textarea>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-1"></div>
+                    <div class="col-5">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text border-primary bg-light justify-content-center" style="width: 100px">Sex</span>
+                            </div>
+                            <input id="blogger-sex" disabled type="text" class="form-control border-primary" placeholder="Sex" aria-label="blogger-sex">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text border-primary bg-light justify-content-center" style="width: 100px">E-mail</span>
+                            </div>
+                            <input id="blogger-email" disabled type="text" class="form-control border-primary" placeholder="E-amil" aria-label="blogger-email">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text border-primary bg-light justify-content-center" style="width: 100px">Company</span>
+                            </div>
+                            <input id="blogger-company" disabled type="text" class="form-control border-primary" placeholder="company" aria-label="blogger-company">
+                        </div>
+                    </div>
+                    <div class="col-5 mr-4">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text border-primary bg-light">Birthplace</span>
+                            </div>
+                            <input id="blogger-birthplace" disabled type="date" class="form-control border-primary" placeholder="Birthplace" aria-label="blogger-birthplace">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text border-primary bg-light">Education</span>
+                            </div>
+                            <input id="blogger-education" disabled type="text" class="form-control border-primary" placeholder="Education" aria-label="blogger-education">
+                        </div>
+                        <div class="text-center w-100">
+                            <div class="btn-group d-block" role="group">
+                                <button id="info-modify" type="button" class="btn btn-secondary">Modify</button>
+                                <button id="info-commit" type="button" class="btn btn-secondary disabled">Commit</button>
+                                <button id="info-cancel" type="button" class="btn btn-secondary disabled">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!--page-foot-->
+<div class="position-fixed mr-5 mb-3" style="z-index: 5; right: 0; bottom: 0;">
+    <div id="alert-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-header">
+            <strong class="mr-auto">Notice</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="alert-content" class="toast-body bg-warning"></div>
+    </div>
+</div>
+<script type="text/javascript" src="/jquery/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/jquery/js/jquery.md5.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+<!--<script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>-->
+<script type="text/javascript" src="/js/base-functions.js"></script>
+<script type="text/javascript" src="/js/base-classes.js"></script>
+<script type="text/javascript" src="/js/sign-functions.js"></script>
+<script type="text/javascript" src="/js/dashboard.js"></script>
+<script type="text/javascript" src="/js/manager-setting.js"></script>
+</body>
+</html>

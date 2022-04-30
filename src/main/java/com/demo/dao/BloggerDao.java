@@ -46,4 +46,9 @@ public interface BloggerDao {
 
     @Update("update blogger set last_login_date=#{date} where id=#{id}")
     int updateLastDate(@Param("id") Integer id, @Param("date") Date date);
+
+    @Update("update blogger set er_name=#{erName}, er_sex=#{erSex}, er_motto=#{erMotto}, " +
+            "er_birthplace=#{erBirthplace}, er_email=#{erEmail}, er_education=#{erEducation}, " +
+            "er_company=#{erCompany}, er_password=#{erPassword} where id=#{id}")
+    int update(Blogger blogger);
 }

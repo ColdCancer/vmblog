@@ -77,4 +77,11 @@ public interface ArticleDao {
 
     @Select("select * from article where isnull(post_date)=0 order by vis_count desc limit #{number}")
     List<Article> queryByCount(int number);
+
+    @Select("select count(*) from article where blogger_id=#{bloggerId} and isnull(post_date)=0")
+    int queryCountByBloggerId(Integer bloggerId);
+
+    @Select("select * from article where blogger_id=#{bloggerId} and isnull(post_date)=0 " +
+            "order by post_date desc limit 1")
+    Article queryCurrentPost(Integer bloggerId);
 }

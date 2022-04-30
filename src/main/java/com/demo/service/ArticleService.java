@@ -30,4 +30,8 @@ public interface ArticleService {
     int updateDatesById(Integer id, Date date);
 
     List<Article> queryByCount(int number);
+
+    int queryCountByBloggerId(Integer bloggerId);
+
+    Article queryCurrentPost(Integer bloggerId);
 }

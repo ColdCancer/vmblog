@@ -41,6 +41,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public Article queryCurrentPost(Integer bloggerId) {
+        return this.articleDao.queryCurrentPost(bloggerId);
+    }
+
+    @Override
+    public int queryCountByBloggerId(Integer bloggerId) {
+        return this.articleDao.queryCountByBloggerId(bloggerId);
+    }
+
+    @Override
     public int updateDatesById(Integer id, Date date) {
         return this.articleDao.updateDatesById(id, date);
     }

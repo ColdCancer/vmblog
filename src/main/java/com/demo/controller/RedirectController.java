@@ -96,4 +96,14 @@ public class RedirectController {
     public String toChatIndex() {
         return "chat";
     }
+
+    @GetMapping("/web/dashboard/setting")
+    public String toSetting() {
+        return "dashboard/setting";
+    }
+
+    @GetMapping("/blogger/{account}/profile")
+    public String toProfile() {
+        return "profile";
+    }
 }

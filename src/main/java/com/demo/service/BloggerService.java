@@ -20,4 +20,6 @@ public interface BloggerService {
     boolean checkAccountValid(String account, String password, boolean remember);
 
     int updateLastDate(Integer id, Date date);
+
+    int update(Blogger blogger);
 }

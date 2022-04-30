@@ -24,4 +24,8 @@ public interface ErCommentService {
     List<ErComment> queryByCurrent(int number);
 
     List<ErComment> queryByBloggerIdLimit(Integer bloggerId, int limit);
+
+    int queryCountByBloggerId(Integer bloggerId);
+
+    List<ErComment> queryCurrentByBloggerId(Integer bloggerId, int number);
 }

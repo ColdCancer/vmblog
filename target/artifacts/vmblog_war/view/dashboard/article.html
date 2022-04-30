@@ -34,7 +34,7 @@
         <span id="blogger-name" class="nav-link text-light">
             <!--<i class="bi bi-activity"></i> Blogger-->
         </span>
-        <a id="blogger-profile" class="nav-link text-light" href="javascript:void(0)">Profile</a>
+        <a id="blogger-profile" class="nav-link text-light" href="#">Profile</a>
         <a id="blogger-out" class="nav-link text-light" href="javascript:void(0)">Sign Out</a>
     </nav>
 </nav>
@@ -71,7 +71,7 @@
                 </h6>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="setting">
                             Setting
                         </a>
                     </li>
@@ -84,24 +84,19 @@
             <div id="information-box" class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Article Manager</h1> <hr>
                 <div class="row mb-4">
-                    <div class="col-6 col-lg-3 mb-3 mb-lg-0 text-center">
+                    <div class="col-4 text-center">
                         <a class="btn btn-outline-primary" href="/web/editor/article/add">
                             <i class="bi bi-plus-circle"></i> Add Article
                         </a>
                     </div>
-                    <div class="col-6 col-lg-3 mb-3 mb-lg-0 text-center">
+                    <div class="col-4 mb-3 text-center">
                         <button id="article-operation" type="button" class="btn btn-outline-primary">
                             <i class="bi bi-justify"></i> Operation
                         </button>
                     </div>
-                    <div class="col-6 col-lg-3 text-center">
+                    <div class="col-4 text-center">
                         <button id="article-delete" type="button" class="btn btn-outline-primary disabled">
-                            <i class="bi bi-trash"></i> Delete Article
-                        </button>
-                    </div>
-                    <div class="col-6 col-lg-3 text-center">
-                        <button id="article-classify" type="button" class="btn btn-outline-primary disabled">
-                            <i class="bi bi-view-stacked"></i> Classify Article
+                            <i class="bi bi-trash"></i> Delete
                         </button>
                     </div>
                 </div>
@@ -167,6 +162,6 @@
 <script type="text/javascript" src="/js/base-classes.js"></script>
 <script type="text/javascript" src="/js/sign-functions.js"></script>
 <script type="text/javascript" src="/js/dashboard.js"></script>
-<script type="text/javascript" src="/js/article-manager.js"></script>
+<script type="text/javascript" src="/js/manager-article.js"></script>
 </body>
 </html>

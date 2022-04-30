@@ -166,4 +166,30 @@ public class ErCommentController {
         return new ResponseData(ResponseState.SUCCESS, data);
     }
 
+    @GetMapping("/api/comment/blogger/current")
+    public ResponseData getBloggerCurrentComment(@RequestParam("account") String account) {
+        Blogger blogger = bloggerService.queryByAccount(account);
+        if (blogger == null) return new ResponseData(ResponseState.FAILURE, null);
+        int number = 6;
+        List<ErComment> comments = erCommentService.queryCurrentByBloggerId(blogger.getId(), number);
+        if (comments.size() == 0) return new ResponseData(ResponseState.EMPTY, null);
+        Map<String, Object> data = new HashMap<String, Object>();
+        for (int i = 0; i < comments.size(); i++) {
+            ErComment comment = comments.get(i);
+            Map<String, Object> mapper = new HashMap<String, Object>();
+            Blogger from_blogger = bloggerService.queryById(comment.getFromBloggerId());
+            Blogger to_blogger = bloggerService.queryById(comment.getToBloggerId());
+            Article article = articleService.queryById(comment.getArticleId());
+            Blogger by_blogger = bloggerService.queryById(article.getBloggerId());
+            String url = "/article/" + by_blogger.getErAccount() + "/" + article.getLinkName();
+            mapper.put("url", url);
+            mapper.put("title", article.getTitle());
+            mapper.put("from", from_blogger.getErName());
+            mapper.put("to", to_blogger.getErName());
+            mapper.put("comment", comment.getTopicContent());
+            data.put("" + i, mapper);
+        }
+        return new ResponseData(ResponseState.SUCCESS, data);
+    }
+
 }

@@ -113,6 +113,12 @@ public class BaseTools {
             return dateFormat.parse(date_str);
         } catch (ParseException e) {
 //            e.printStackTrace();
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                return dateFormat.parse(date_str);
+            } catch (ParseException parseException) {
+                // e.printStackTrace();
+            }
         }
         return null;
     }
